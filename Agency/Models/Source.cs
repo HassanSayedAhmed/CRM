@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace Agency.Models
+{
+    public class Source
+    {
+        [Key]
+        public int id { get; set; }
+        public string name { get; set; }//facebook, linkedin
+        public string description { get; set; }
+        public string link { get; set; }
+        public int? active { get; set; }
+        public int? created_by { get; set; }
+        public int? updated_by { get; set; }
+        public int? deleted_by { get; set; }
+        public DateTime? created_at { get; set; }
+        public DateTime? updated_at { get; set; }
+        public DateTime? deleted_at { get; set; }
+    }
+}
