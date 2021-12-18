@@ -173,9 +173,14 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\DeveloperController.cs" />
+    <Compile Include="Controllers\EmploymentTypeController.cs" />
+    <Compile Include="Controllers\LeadCategoryController.cs" />
     <Compile Include="Controllers\LeadStageController.cs" />
+    <Compile Include="Controllers\PropertyTypeController.cs" />
+    <Compile Include="Controllers\RequirementController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
+    <Compile Include="Controllers\TypeOfVisitorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enums\StaticLists.cs" />
     <Compile Include="Global.asax.cs">
@@ -3768,6 +3773,11 @@
     <Content Include="Views\LeadStage\Index.cshtml" />
     <Content Include="Views\Timeline\Index.cshtml" />
     <Content Include="Views\Developer\Index.cshtml" />
+    <Content Include="Views\TypeOfVisitor\Index.cshtml" />
+    <Content Include="Views\LeadCategory\Index.cshtml" />
+    <Content Include="Views\PropertyType\Index.cshtml" />
+    <Content Include="Views\Requirement\Index.cshtml" />
+    <Content Include="Views\EmploymentType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

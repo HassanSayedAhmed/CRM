@@ -27,6 +27,11 @@ namespace CRM
             Mapper.CreateMap<TimelineViewModel, Timeline>();
             Mapper.CreateMap<ChatViewModel, Chat>();
             Mapper.CreateMap<DeveloperViewModel, Developer>();
+            Mapper.CreateMap<TypeOfVisitorViewModel, TypeOfVisitor>();
+            Mapper.CreateMap<LeadCategoryViewModel, LeadCategory>();
+            Mapper.CreateMap<PropertyTypeViewModel, PropertyType>();
+            Mapper.CreateMap<RequirementViewModel, Requirement>();
+            Mapper.CreateMap<EmploymentTypeViewModel, EmploymentType>();
             
 
         }
