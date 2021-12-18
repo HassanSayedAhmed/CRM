@@ -176,6 +176,7 @@
     <Compile Include="Controllers\EmploymentTypeController.cs" />
     <Compile Include="Controllers\LeadCategoryController.cs" />
     <Compile Include="Controllers\LeadStageController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\PropertyTypeController.cs" />
     <Compile Include="Controllers\RequirementController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
@@ -3778,6 +3779,7 @@
     <Content Include="Views\PropertyType\Index.cshtml" />
     <Content Include="Views\Requirement\Index.cshtml" />
     <Content Include="Views\EmploymentType\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

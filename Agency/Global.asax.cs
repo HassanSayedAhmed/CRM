@@ -32,6 +32,7 @@ namespace CRM
             Mapper.CreateMap<PropertyTypeViewModel, PropertyType>();
             Mapper.CreateMap<RequirementViewModel, Requirement>();
             Mapper.CreateMap<EmploymentTypeViewModel, EmploymentType>();
+            Mapper.CreateMap<ProjectViewModel, Project> ();
             
 
         }
