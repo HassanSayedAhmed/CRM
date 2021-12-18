@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace CRM.Models
 {
-    public class Activity
+    public class LeadUnitType
     {
         [Key]
         public int id { get; set; }
-        public string name { get; set; } //call,metting,zoom metting
-        public string description { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -19,7 +18,11 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public virtual ICollection<LeadActivity> leadActivities { get; set; }
-
+        [ForeignKey("Lead")]
+        public int? lead_id { get; set; }
+        public Lead Lead { get; set; }
+        [ForeignKey("UnitType")]
+        public int? unit_type_id { get; set; }
+        public UnitType UnitType { get; set; }
     }
 }

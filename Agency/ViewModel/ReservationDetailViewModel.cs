@@ -31,9 +31,7 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? client_id { get; set; }
-        public Client Client { get; set; }
         public int? reservation_id { get; set; }
-        public Reservation Reservation { get; set; }
         public string client_first_name { get; set; }
         public string client_last_name { get; set; }
         public int? currency  { get; set; }

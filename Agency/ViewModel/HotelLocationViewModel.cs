@@ -19,9 +19,7 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? location_id { get; set; }
-        public Location Location { get; set; }
         public int? hotel_id { get; set; }
-        public Hotel Hotel { get; set; }
         public List<HotelLocationViewModel> HotelLocations { get; set; }
         public string hotel_name { get; set; }
         public int hotel_city_id { get; set; }

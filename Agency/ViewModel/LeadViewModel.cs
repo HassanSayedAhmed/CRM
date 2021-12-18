@@ -1,19 +1,17 @@
-﻿using System;
+﻿using CRM.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 
-namespace CRM.Models
+namespace CRM.ViewModel
 {
-    public class User
+    public class LeadViewModel
     {
-        [Key]
         public int id { get; set; }
         public string code { get; set; }
         public string user_name { get; set; }
-        public string full_name { get; set; }
         public string first_name { get; set; }
         public string middle_name { get; set; }
         public string last_name { get; set; }
@@ -31,8 +29,8 @@ namespace CRM.Models
         public string currency { get; set; }
         public DateTime? birthDate { get; set; }
         public string image { get; set; }
-        public int? type { get; set; }
-        public int? status { get; set; }
+        public DateTime? follow_up { get; set; }
+        public string notes { get; set; }
         public int? lead_owner { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
@@ -41,8 +39,12 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        [ForeignKey("Company")]
-        public int? company_id { get; set; }
-        public Company Company { get; set; }
+        public int? assigned_to { get; set; }
+        public User User { get; set; }
+        public int? activity_id { get; set; }
+        public int? source_id { get; set; }
+        public Source Source { get; set; }
+        public int? status_id { get; set; }
+        public int? type_id { get; set; }
     }
 }

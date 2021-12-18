@@ -7,14 +7,16 @@ using System.Web;
 
 namespace CRM.Models
 {
-    public class Client
+    public class LeadActivity
     {
         [Key]
         public int id { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        public string email { get; set; }
-        public string phone { get; set; }
+        [ForeignKey("Activity")]
+        public int? activity_id { get; set; }
+        public Activity Activity { get; set; }
+        public DateTime? activity_date_time { get; set; }
+        public float? activity_duration { get; set; }
+        public string note { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -22,8 +24,8 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        [ForeignKey("Company")]
-        public int? company_id { get; set; }
-        public Company Company { get; set; }
+        [ForeignKey("Lead")]
+        public int? lead_id { get; set; }
+        public Lead Lead { get; set; }
     }
 }

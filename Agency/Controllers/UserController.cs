@@ -87,12 +87,15 @@ namespace CRM.Controllers
                 user.updated_at = DateTime.Now;
                 //user.created_by = Session["id"].ToString().ToInt();
                 //user.type = (int)UserTypes.Staff;
+                if (userVM.image != null)
+                {
+                    Guid guid = Guid.NewGuid();
+                    var InputFileName = Path.GetFileName(userVM.image.FileName);
+                    var ServerSavePath = Path.Combine(Server.MapPath("~/images/profile/") + guid.ToString() + "_Profile" + Path.GetExtension(userVM.image.FileName));
+                    userVM.image.SaveAs(ServerSavePath);
+                    user.image = "/images/profile/" + guid.ToString() + "_Profile" + Path.GetExtension(userVM.image.FileName);
 
-                Guid guid = Guid.NewGuid();
-                var InputFileName = Path.GetFileName(userVM.image.FileName);
-                var ServerSavePath = Path.Combine(Server.MapPath("~/images/profile/") + guid.ToString() + "_Profile" + Path.GetExtension(userVM.image.FileName));
-                userVM.image.SaveAs(ServerSavePath);
-                user.image = "/images/profile/" + guid.ToString() + "_Profile" + Path.GetExtension(userVM.image.FileName);
+                }
 
                 db.Users.Add(user);
                 db.SaveChanges();

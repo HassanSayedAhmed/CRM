@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Agency.Models
+namespace CRM.ViewModel
 {
-    public class Status
+    public class LeadTypeViewModel
     {
-        [Key]
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
@@ -19,5 +17,6 @@ namespace Agency.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
+        public string created_at_string { get; set; }
     }
 }

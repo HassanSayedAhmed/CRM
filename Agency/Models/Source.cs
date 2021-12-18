@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Agency.Models
+namespace CRM.Models
 {
     public class Source
     {

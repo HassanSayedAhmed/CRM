@@ -20,19 +20,13 @@ namespace CRM
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Mapper.CreateMap<UserViewModel, User>();
-            Mapper.CreateMap<CityViewModel, City>();
-            Mapper.CreateMap<HotelViewModel, Hotel>();
-            Mapper.CreateMap<EventViewModel, Event>();
-            Mapper.CreateMap<EventHotelViewModel, EventHotel>();
-            Mapper.CreateMap<ReservationDetailViewModel, ReservationDetail>();
-            Mapper.CreateMap<LocationViewModel, Location>(); 
-            Mapper.CreateMap<HotelLocationViewModel, HotelLocation>();
-            Mapper.CreateMap<ReservationViewModel, Reservation>();
-            Mapper.CreateMap<VendorViewModel, Vendor>();
-            Mapper.CreateMap<ReservationCommentViewModel, ReservationComment>();
-            Mapper.CreateMap<ReservationTaskViewModel, ReservationTask>();
+            Mapper.CreateMap<ActivityViewModel, Activity>();
+            Mapper.CreateMap<SourceViewModel, Source>();
+            Mapper.CreateMap<LeadTypeViewModel, TypeOfVisitor>();
+            Mapper.CreateMap<StatusViewModel, LeadStage>();
+            Mapper.CreateMap<LeadTypeViewModel, Lead>();
             Mapper.CreateMap<ChatViewModel, Chat>();
-
+            
 
         }
     }

@@ -7,11 +7,12 @@ using System.Web;
 
 namespace CRM.Models
 {
-    public class HotelImage
+    public class LeadSubType
     {
         [Key]
         public int id { get; set; }
-        public string path { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -19,8 +20,8 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        [ForeignKey("Hotel")]
-        public int? hotel_id { get; set; }
-        public Hotel Hotel { get; set; }
+        [ForeignKey("Lead")]
+        public int? lead_id { get; set; }
+        public Lead Lead { get; set; }
     }
 }

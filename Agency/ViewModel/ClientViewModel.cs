@@ -23,6 +23,5 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? company_id { get; set; }
-        public Company Company { get; set; }
     }
 }

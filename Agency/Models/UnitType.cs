@@ -6,7 +6,7 @@ using System.Web;
 
 namespace CRM.Models
 {
-    public class City
+    public class UnitType
     {
         [Key]
         public int id { get; set; }
@@ -19,6 +19,5 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public virtual ICollection<Hotel> Hotels { get; set; }
     }
 }

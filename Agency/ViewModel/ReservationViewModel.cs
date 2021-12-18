@@ -42,7 +42,6 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? company_id { get; set; }
-        public Company Company { get; set; }
         public int? event_hotel_id { get; set; }
         public double? hotel_rate { get; set; }
         public string company_name { get; set; }
@@ -65,7 +64,6 @@ namespace CRM.ViewModel
         public DateTime? check_out { get; set; }
         public string string_check_in { get; set; }
         public string string_check_out { get; set; }
-        public EventHotel EventHotel { get; set; }
         public string opener_name { get; set; }
         public string closer_name { get; set; }
         public int? shift { get; set; }

@@ -11,8 +11,7 @@ namespace CRM.Models
         [Key]
         public int id { get; set; }
         public string name { get; set; }
-        public string email { get; set; }
-        public string phone { get; set; }
+        public string description { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -20,7 +19,7 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public virtual ICollection<Client> Clients { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Lead> Leads  { get; set; }
     }
 }

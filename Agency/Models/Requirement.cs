@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Agency.Models
+namespace CRM.Models
 {
-    public class LeadType
+    public class Requirement
     {
         [Key]
         public int id { get; set; }
@@ -19,5 +19,7 @@ namespace Agency.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
+        public virtual ICollection<Lead> Leads { get; set; }
+
     }
 }

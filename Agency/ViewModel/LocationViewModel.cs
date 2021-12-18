@@ -21,8 +21,6 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? city_id { get; set; }
-        public City City { get; set; }
-        public virtual ICollection<Event> Events { get; set; }
         public virtual List<HotelLocationViewModel> HotelLocations { get; set; }
         public string location_city_name { get; set; }
 

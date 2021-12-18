@@ -6,34 +6,69 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Agency.Models
+namespace CRM.Models
 {
     public class Lead
     {
         [Key]
         public int id { get; set; }
-        public string code { get; set; }
-        public string user_name { get; set; }
         public string first_name { get; set; }
-        public string middle_name { get; set; }
         public string last_name { get; set; }
         public string email { get; set; }
-        public string password { get; set; }
         public string phone1 { get; set; }
         public string phone2 { get; set; }
-        public string address1 { get; set; }
-        public string address2 { get; set; }
-        public int? gender { get; set; }
-        public string nationality { get; set; }
-        public string job { get; set; }
-        public string company { get; set; }
-        public double? salary { get; set; }
-        public string currency { get; set; }
-        public DateTime? birthDate { get; set; }
-        public string image { get; set; }
-        public DateTime? follow_up { get; set; }
-        public string notes { get; set; }
-        public int? lead_owner { get; set; }
+        public string alternative_numbers { get; set; }
+        [ForeignKey("TypeOfVisitor")]
+        public int? type_of_visitor_id { get; set; }
+        public TypeOfVisitor TypeOfVisitor { get; set; }
+        [ForeignKey("LeadStage")]
+        public int? lead_stage_id { get; set; }
+        public LeadStage LeadStage { get; set; }
+        [ForeignKey("LeadCategory")]
+        public int? lead_category_id { get; set; }
+        public LeadCategory LeadCategory { get; set; }
+        [ForeignKey("Source")]
+        public int? source_id { get; set; }
+        public Source Source { get; set; }
+        public DateTime? date_of_birth { get; set; }
+        public DateTime? date_of_anniversary { get; set; }
+        public string sales_agent { get; set; }
+        public string address { get; set; }
+        public string country { get; set; }
+        [ForeignKey("PropertyType")]
+        public int? property_type_id { get; set; }
+        public PropertyType PropertyType { get; set; }
+        [ForeignKey("Requirement")]
+        public int? requirement_id { get; set; }
+        public Requirement Requirement { get; set; }
+        public string budget_min { get; set; }
+        public string budget_max { get; set; }
+        public string minimum_area { get; set; }
+        public string maximum_area { get; set; }
+        public string area_metric { get; set; }
+        public string remark { get; set; }
+
+        public string street_address { get; set; }
+        public string location { get; set; }
+        public string sub_location { get; set; }
+        public string state { get; set; }
+        public string pincode { get; set; }
+        public string location_country { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+
+        [ForeignKey("Timeline")]
+        public int? timeline_id { get; set; }
+        public Timeline Timeline { get; set; }
+        [ForeignKey("EmploymentType")]
+        public int? employment_type_id { get; set; }
+        public EmploymentType EmploymentType { get; set; }
+        public string income { get; set; }
+        public string designation { get; set; }
+        public string company_name { get; set; }
+        [ForeignKey("Company")]
+        public int? company_id { get; set; }
+        public Company Company { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -41,20 +76,13 @@ namespace Agency.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        [ForeignKey("User")]
-        public int? assigned_to { get; set; }
-        public User User { get; set; }
-        [ForeignKey("Activity")]
-        public int? activity_id { get; set; }
-        public Activity Activity { get; set; }
-        [ForeignKey("Source")]
-        public int? source_id { get; set; }
-        public Source Source { get; set; }
-        [ForeignKey("Status")]
-        public int? status_id { get; set; }
-        public Status Status { get; set; }
-        [ForeignKey("LeadType")]
-        public int? type_id { get; set; }
-        public LeadType LeadType { get; set; }
+        public virtual ICollection<LeadActivity> leadActivities { get; set; }
+        public virtual ICollection<LeadSubType> LeadSubTypes { get; set; }
+        public virtual ICollection<LeadProject> LeadProjects { get; set; }
+        public virtual ICollection<LeadUnitType> LeadUnitTypes { get; set; }
+        public virtual ICollection<LeadProperty> LeadProperties { get; set; }
+        public virtual ICollection<LeadDeveloper> LeadDevelopers { get; set; }
+
+
     }
 }

@@ -39,14 +39,8 @@ namespace CRM.Controllers
                                           gender = user.gender,
                                           active = user.active,
                                       }).Where(u => u.id == currentUser.id).FirstOrDefault();
-
-            string cs = ConfigurationManager.ConnectionStrings["DBContextADO"].ConnectionString;
-
-            SqlConnection sql = new SqlConnection(cs);
-            sql.Open();
-
             
-            return View(currentUser);
+            return View(userData);
         }
 
       

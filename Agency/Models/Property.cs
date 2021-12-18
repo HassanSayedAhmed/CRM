@@ -7,17 +7,20 @@ using System.Web;
 
 namespace CRM.Models
 {
-    public class ReservationTask
+    public class Property
     {
         [Key]
         public int id { get; set; }
-        public string task_title { get; set; }
-        public string task_detail { get; set; }
-        public int status { get; set; }
-        public int task_to_user { get; set; }
-        public DateTime? notification_date { get; set; }
-        public DateTime? due_date { get; set; }
-        public int? parent_id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public double? price { get; set; }
+        public int? baths { get; set; }
+        public int? rooms { get; set; }
+        public int? beds { get; set; }
+        public string area { get; set; }
+        public string type { get; set; }
+        public string status { get; set; }
+        public string image { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -25,8 +28,9 @@ namespace CRM.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        [ForeignKey("Reservation")]
-        public int? reservation_id { get; set; }
-        public Reservation Reservation { get; set; }
+        [ForeignKey("Project")]
+        public int? project_id { get; set; }
+        public Project Project { get; set; }
+
     }
 }
