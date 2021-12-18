@@ -11,8 +11,8 @@ using CRM.Helpers;
 
 namespace CRM.Controllers
 {
-    [CustomAuthenticationFilter]
-    public class LeadTypeController : Controller
+    //[CustomAuthenticationFilter]
+    public class CompanyController : Controller
     {
         CRMDbContext db = new CRMDbContext();
         // GET: LeadType
@@ -30,28 +30,28 @@ namespace CRM.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
                 // Getting all data    
-                var typeData = (from type in db.TypeOfVisitors
-                                select new LeadTypeViewModel
+                var companyData = (from company in db.Companies
+                                select new CompanyViewModel
                                 {
-                                    id = type.id,
-                                    name = type.name,
-                                    description = type.description,
-                                    active = type.active,
-                                    created_at = type.created_at,
-                                    created_at_string = type.created_at.ToString()
+                                    id = company.id,
+                                    name = company.name,
+                                    description = company.description,
+                                    active = company.active,
+                                    created_at = company.created_at,
+                                    created_at_string = company.created_at.ToString()
                                 });
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    typeData = typeData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
+                    companyData = companyData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
                      m.description.ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     
-                var displayResult = typeData.OrderByDescending(u => u.id).Skip(skip)
+                var displayResult = companyData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();
-                var totalRecords = typeData.Count();
+                var totalRecords = companyData.Count();
 
                 return Json(new
                 {
@@ -67,29 +67,29 @@ namespace CRM.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult saveType(LeadTypeViewModel typeVM)
+        public JsonResult saveCompany(CompanyViewModel companyVM)
         {
 
-            if (typeVM.id == 0)
+            if (companyVM.id == 0)
             {
-                TypeOfVisitor type = AutoMapper.Mapper.Map<LeadTypeViewModel, TypeOfVisitor>(typeVM);
+                Company company = AutoMapper.Mapper.Map<CompanyViewModel, Company>(companyVM);
 
-                type.created_at = DateTime.Now;
-                type.created_by = Session["id"].ToString().ToInt();
+                company.created_at = DateTime.Now;
+                //company.created_by = Session["id"].ToString().ToInt();
 
-                db.TypeOfVisitors.Add(type);
+                db.Companies.Add(company);
                 db.SaveChanges();
             }
             else
             {
 
-                TypeOfVisitor oldType = db.TypeOfVisitors.Find(typeVM.id);
+                Company oldCompany = db.Companies.Find(companyVM.id);
 
-                oldType.name = typeVM.name;
-                oldType.updated_by = Session["id"].ToString().ToInt();
-                oldType.updated_at = DateTime.Now;
+                oldCompany.name = companyVM.name;
+                //oldCompany.updated_by = Session["id"].ToString().ToInt();
+                oldCompany.updated_at = DateTime.Now;
 
-                db.Entry(oldType).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(oldCompany).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
@@ -98,10 +98,10 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public JsonResult deleteType(int id)
+        public JsonResult deleteCompany(int id)
         {
-            TypeOfVisitor deleteTypes = db.TypeOfVisitors.Find(id);
-            db.TypeOfVisitors.Remove(deleteTypes);
+            Company company = db.Companies.Find(id);
+            db.Companies.Remove(company);
             db.SaveChanges();
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);

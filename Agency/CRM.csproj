@@ -171,9 +171,11 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\LeadTypeController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\DeveloperController.cs" />
+    <Compile Include="Controllers\LeadStageController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
-    <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enums\StaticLists.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,6 +195,14 @@
     <Compile Include="Migrations\202112181759576_initial.cs" />
     <Compile Include="Migrations\202112181759576_initial.Designer.cs">
       <DependentUpon>202112181759576_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112181941520_mig2.cs" />
+    <Compile Include="Migrations\202112181941520_mig2.Designer.cs">
+      <DependentUpon>202112181941520_mig2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112182139583_mig3.cs" />
+    <Compile Include="Migrations\202112182139583_mig3.Designer.cs">
+      <DependentUpon>202112182139583_mig3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -225,29 +235,28 @@
     <Compile Include="Services\ReservationService.cs" />
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
-    <Compile Include="ViewModel\CityViewModel.cs" />
-    <Compile Include="ViewModel\LeadViewModel.cs" />
-    <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\CompanyViewModel.cs" />
-    <Compile Include="ViewModel\DashboardViewModel.cs" />
-    <Compile Include="ViewModel\EventHotelViewModel.cs" />
-    <Compile Include="ViewModel\HotelLocationViewModel.cs" />
-    <Compile Include="ViewModel\HotelImageViewModel.cs" />
-    <Compile Include="ViewModel\LeadTypeViewModel.cs" />
-    <Compile Include="ViewModel\LocationViewModel.cs" />
-    <Compile Include="ViewModel\EventViewModel.cs" />
-    <Compile Include="ViewModel\EventHotelBenefitViewModel.cs" />
-    <Compile Include="ViewModel\HotelFacilitieViewModel.cs" />
-    <Compile Include="ViewModel\HotelViewModel.cs" />
-    <Compile Include="ViewModel\ReservationCommentViewModel.cs" />
-    <Compile Include="ViewModel\ReservationDetailViewModel.cs" />
-    <Compile Include="ViewModel\ReservationLogViewModel.cs" />
-    <Compile Include="ViewModel\ReservationTaskViewModel.cs" />
-    <Compile Include="ViewModel\ReservationViewModel.cs" />
+    <Compile Include="ViewModel\DeveloperViewModel.cs" />
+    <Compile Include="ViewModel\EmploymentTypeViewModel.cs" />
+    <Compile Include="ViewModel\LeadViewModel.cs" />
+    <Compile Include="ViewModel\LeadActivityViewModel.cs" />
+    <Compile Include="ViewModel\LeadCategoryViewModel.cs" />
+    <Compile Include="ViewModel\LeadDeveloperViewModel.cs" />
+    <Compile Include="ViewModel\LeadProjectViewModel.cs" />
+    <Compile Include="ViewModel\LeadPropertyViewModel.cs" />
+    <Compile Include="ViewModel\LeadStageViewModel.cs" />
+    <Compile Include="ViewModel\LeadSubTypeViewModel.cs" />
+    <Compile Include="ViewModel\LeadUnitTypeViewModel.cs" />
+    <Compile Include="ViewModel\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\PropertyViewModel.cs" />
+    <Compile Include="ViewModel\PropertyTypeViewModel.cs" />
+    <Compile Include="ViewModel\RequirementViewModel.cs" />
     <Compile Include="ViewModel\SourceViewModel.cs" />
-    <Compile Include="ViewModel\StatusViewModel.cs" />
+    <Compile Include="ViewModel\SubTypeViewModel.cs" />
+    <Compile Include="ViewModel\TimelineViewModel.cs" />
+    <Compile Include="ViewModel\TypeOfVisitorViewModel.cs" />
+    <Compile Include="ViewModel\UnitType.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
-    <Compile Include="ViewModel\VendorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\CRM.dll" />
@@ -3749,19 +3758,21 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\City\Index.cshtml" />
-    <Content Include="Views\Vendor\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Source\Index.cshtml" />
     <Content Include="Views\Status\Index.cshtml" />
     <Content Include="Views\LeadType\Index.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\LeadStage\Index.cshtml" />
+    <Content Include="Views\Timeline\Index.cshtml" />
+    <Content Include="Views\Developer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\hotels\" />
     <Folder Include="images\profile\" />
-    <Folder Include="Views\Company\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -3789,6 +3800,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112181759576_initial.resx">
       <DependentUpon>202112181759576_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112181941520_mig2.resx">
+      <DependentUpon>202112181941520_mig2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112182139583_mig3.resx">
+      <DependentUpon>202112182139583_mig3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

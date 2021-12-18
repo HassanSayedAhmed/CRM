@@ -11,12 +11,11 @@ using CRM.Helpers;
 
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
-    public class SourceController : Controller
+    public class DeveloperController : Controller
     {
         CRMDbContext db = new CRMDbContext();
 
-        // GET: Source
+        // GET: Developer
         public ActionResult Index()
         {
 
@@ -32,29 +31,28 @@ namespace CRM.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
                 // Getting all data    
-                var sourceData = (from source in db.Sources
-                                select new SourceViewModel
-                                {
-                                    id = source.id,
-                                    name = source.name,
-                                    description = source.description,
-                                    link = source.link,
-                                    active = source.active,
-                                    created_at_string = source.created_at.ToString()
+                var DeveloperData = (from Developer in db.Developers
+                                  select new DeveloperViewModel
+                                  {
+                                      id = Developer.id,
+                                      name = Developer.name,
+                                      description = Developer.description,
+                                      active = Developer.active,
+                                      created_at_string = Developer.created_at.ToString()
 
-                                });
+                                  });
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    sourceData = sourceData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
+                    DeveloperData = DeveloperData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
                      m.description.ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     
-                var displayResult = sourceData.OrderByDescending(u => u.id).Skip(skip)
+                var displayResult = DeveloperData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();
-                var totalRecords = sourceData.Count();
+                var totalRecords = DeveloperData.Count();
 
                 return Json(new
                 {
@@ -69,31 +67,31 @@ namespace CRM.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
-        public JsonResult saveSource(SourceViewModel SourceVM)
+        public JsonResult saveDeveloper(DeveloperViewModel DeveloperVM)
         {
 
-            if (SourceVM.id == 0)
+            if (DeveloperVM.id == 0)
             {
-                Source Source = AutoMapper.Mapper.Map<SourceViewModel, Source>(SourceVM);
+                Developer DeveloperData = AutoMapper.Mapper.Map<DeveloperViewModel, Developer>(DeveloperVM);
 
-                Source.created_at = DateTime.Now;
+                DeveloperData.created_at = DateTime.Now;
                 //Source.created_by = Session["id"].ToString().ToInt();
 
-                db.Sources.Add(Source);
+                db.Developers.Add(DeveloperData);
                 db.SaveChanges();
             }
             else
             {
 
-                Source oldSource = db.Sources.Find(SourceVM.id);
+                Developer oldDeveloper = db.Developers.Find(DeveloperVM.id);
 
-                oldSource.name = SourceVM.name;
+                oldDeveloper.name = DeveloperVM.name;
                 //oldSource.updated_by = Session["id"].ToString().ToInt();
-                oldSource.updated_at = DateTime.Now;
+                oldDeveloper.updated_at = DateTime.Now;
 
-                db.Entry(oldSource).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(oldDeveloper).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
@@ -102,10 +100,10 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public JsonResult deleteSource(int id)
+        public JsonResult deleteDeveloper(int id)
         {
-            Source Source = db.Sources.Find(id);
-            db.Sources.Remove(Source);
+            Developer Developer = db.Developers.Find(id);
+            db.Developers.Remove(Developer);
             db.SaveChanges();
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);

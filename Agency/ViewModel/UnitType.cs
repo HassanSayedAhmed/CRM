@@ -6,7 +6,7 @@ using System.Web;
 
 namespace CRM.ViewModel
 {
-    public class CompanyViewModel
+    public class UnitTypeViewModel
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -18,6 +18,5 @@ namespace CRM.ViewModel
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public string created_at_string { get; set; }
     }
 }

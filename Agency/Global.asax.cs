@@ -22,10 +22,11 @@ namespace CRM
             Mapper.CreateMap<UserViewModel, User>();
             Mapper.CreateMap<ActivityViewModel, Activity>();
             Mapper.CreateMap<SourceViewModel, Source>();
-            Mapper.CreateMap<LeadTypeViewModel, TypeOfVisitor>();
-            Mapper.CreateMap<StatusViewModel, LeadStage>();
-            Mapper.CreateMap<LeadTypeViewModel, Lead>();
+            Mapper.CreateMap<CompanyViewModel, Company>();
+            Mapper.CreateMap<LeadStageViewModel, LeadStage>();
+            Mapper.CreateMap<TimelineViewModel, Timeline>();
             Mapper.CreateMap<ChatViewModel, Chat>();
+            Mapper.CreateMap<DeveloperViewModel, Developer>();
             
 
         }

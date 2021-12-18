@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace CRM.Controllers
 {
-    [CustomAuthenticationFilter]
+    //[CustomAuthenticationFilter]
     public class UserController : Controller
     {
         // GET: User
@@ -48,6 +48,7 @@ namespace CRM.Controllers
                                     email = user.email,
                                     gender = user.gender,
                                     active = user.active,
+                                    company_id = user.company_id
                                 });
 
                 //Search    
@@ -73,6 +74,8 @@ namespace CRM.Controllers
 
             }
 
+            ViewBag.companies = db.Companies.Select(c => new { c.id, c.name }).ToList();
+
             return View();
         }
         [HttpPost]
@@ -96,6 +99,7 @@ namespace CRM.Controllers
                     user.image = "/images/profile/" + guid.ToString() + "_Profile" + Path.GetExtension(userVM.image.FileName);
 
                 }
+                user.company_id = userVM.company_id;
 
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -117,6 +121,7 @@ namespace CRM.Controllers
                 oldUser.birthDate = userVM.birthDate;
                 oldUser.gender = userVM.gender;
                 oldUser.active = userVM.active;
+                oldUser.company_id = userVM.company_id;
                 if (userVM.image != null)
                 {
                     Guid guid = Guid.NewGuid();

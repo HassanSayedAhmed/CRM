@@ -39,13 +39,14 @@ namespace CRM.Controllers
                                     //activity_date_time = activity.activity_date_time,
                                     //activity_duration = activity.activity_duration,
                                     //note = activity.note,
+                                    name = activity.name,
                                     active = activity.active,
                                 });
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    activityData = activityData.Where(m => m.note.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()));
+                    activityData = activityData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     

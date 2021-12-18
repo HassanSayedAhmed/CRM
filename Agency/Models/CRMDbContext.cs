@@ -41,7 +41,7 @@ namespace CRM.Models
         public virtual DbSet<SubType> SubTypes { get; set; }
         public virtual DbSet<Timeline> Timelines { get; set; }
         public virtual DbSet<TypeOfVisitor> TypeOfVisitors { get; set; }
-        public virtual DbSet<UnitType>  UnitTypes { get; set; }
+        public virtual DbSet<UnitType> UnitTypes { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
 

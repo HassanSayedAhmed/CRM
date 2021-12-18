@@ -38,6 +38,7 @@ namespace CRM.Controllers
                                           email = user.email,
                                           gender = user.gender,
                                           active = user.active,
+                                          company_id = user.company_id
                                       }).Where(u => u.id == currentUser.id).FirstOrDefault();
             
             return View(userData);

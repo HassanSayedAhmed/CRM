@@ -1,7 +1,6 @@
 ﻿using CRM.ViewModel;
 using CRM.Auth;
 using CRM.Models;
-using CRM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,12 +11,12 @@ using CRM.Helpers;
 
 namespace CRM.Controllers
 {
-    [CustomAuthenticationFilter]
-    public class StatusController : Controller
+    //[CustomAuthenticationFilter]
+    public class TimelineController : Controller
     {
         CRMDbContext db = new CRMDbContext();
 
-        // GET: Status
+        // GET: Timeline
         public ActionResult Index()
         {
 
@@ -33,28 +32,28 @@ namespace CRM.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
                 // Getting all data    
-                var statusData = (from status in db.LeadStages
-                                  select new StatusViewModel
+                var TimelineData = (from Timeline in db.Timelines
+                                    select new TimelineViewModel
                                   {
-                                      id = status.id,
-                                      name = status.name,
-                                      description = status.description,
-                                      active = status.active,
-                                      created_at = status.created_at,
-                                      created_at_string = status.created_at.ToString()
+                                      id = Timeline.id,
+                                      name = Timeline.name,
+                                      description = Timeline.description,
+                                      active = Timeline.active,
+                                      created_at = Timeline.created_at,
+                                      created_at_string = Timeline.created_at.ToString()
                                   });
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    statusData = statusData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
+                    TimelineData = TimelineData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
                      m.description.ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     
-                var displayResult = statusData.OrderByDescending(u => u.id).Skip(skip)
+                var displayResult = TimelineData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();
-                var totalRecords = statusData.Count();
+                var totalRecords = TimelineData.Count();
 
                 return Json(new
                 {
@@ -70,29 +69,29 @@ namespace CRM.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult saveStatus(StatusViewModel statusVM)
+        public JsonResult saveTimeline(TimelineViewModel TimelineVM)
         {
 
-            if (statusVM.id == 0)
+            if (TimelineVM.id == 0)
             {
-                LeadStage status = AutoMapper.Mapper.Map<StatusViewModel, LeadStage>(statusVM);
+                Timeline Timeline = AutoMapper.Mapper.Map<TimelineViewModel, Timeline>(TimelineVM);
 
-                status.created_at = DateTime.Now;
-                status.created_by = Session["id"].ToString().ToInt();
+                Timeline.created_at = DateTime.Now;
+                //Timeline.created_by = Session["id"].ToString().ToInt();
 
-                db.LeadStages.Add(status);
+                db.Timelines.Add(Timeline);
                 db.SaveChanges();
             }
             else
             {
 
-                LeadStage oldStatus = db.LeadStages.Find(statusVM.id);
+                Timeline oldTimeline = db.Timelines.Find(TimelineVM.id);
 
-                oldStatus.name = statusVM.name;
-                oldStatus.updated_by = Session["id"].ToString().ToInt();
-                oldStatus.updated_at = DateTime.Now;
+                oldTimeline.name = TimelineVM.name;
+                //oldTimeline.updated_by = Session["id"].ToString().ToInt();
+                oldTimeline.updated_at = DateTime.Now;
 
-                db.Entry(oldStatus).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(oldTimeline).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
@@ -101,10 +100,10 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public JsonResult deleteStatus(int id)
+        public JsonResult deleteTimeline(int id)
         {
-            LeadStage deleteStatus = db.LeadStages.Find(id);
-            db.LeadStages.Remove(deleteStatus);
+            Timeline deleteTimeline = db.Timelines.Find(id);
+            db.Timelines.Remove(deleteTimeline);
             db.SaveChanges();
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);

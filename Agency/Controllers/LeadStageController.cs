@@ -1,6 +1,4 @@
-﻿using CRM.ViewModel;
-using CRM.Auth;
-using CRM.Models;
+﻿using CRM.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,15 +6,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRM.Helpers;
+using CRM.Auth;
+using CRM.ViewModel;
 
 namespace CRM.Controllers
 {
     //[CustomAuthenticationFilter]
-    public class SourceController : Controller
+    public class LeadStageController : Controller
     {
         CRMDbContext db = new CRMDbContext();
 
-        // GET: Source
+        // GET: LeadStage
         public ActionResult Index()
         {
 
@@ -32,29 +32,27 @@ namespace CRM.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
                 // Getting all data    
-                var sourceData = (from source in db.Sources
-                                select new SourceViewModel
-                                {
-                                    id = source.id,
-                                    name = source.name,
-                                    description = source.description,
-                                    link = source.link,
-                                    active = source.active,
-                                    created_at_string = source.created_at.ToString()
-
-                                });
+                var LeadStageData = (from LeadStage in db.LeadStages
+                                  select new LeadStageViewModel
+                                  {
+                                      id = LeadStage.id,
+                                      name = LeadStage.name,
+                                      description = LeadStage.description,
+                                      active = LeadStage.active,
+                                      created_at_string = LeadStage.created_at.ToString()
+                                  });
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    sourceData = sourceData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
+                    LeadStageData = LeadStageData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()) ||
                      m.description.ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     
-                var displayResult = sourceData.OrderByDescending(u => u.id).Skip(skip)
+                var displayResult = LeadStageData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();
-                var totalRecords = sourceData.Count();
+                var totalRecords = LeadStageData.Count();
 
                 return Json(new
                 {
@@ -69,31 +67,30 @@ namespace CRM.Controllers
 
             return View();
         }
-        
         [HttpPost]
-        public JsonResult saveSource(SourceViewModel SourceVM)
+        public JsonResult saveLeadStage(LeadStageViewModel LeadStageVM)
         {
 
-            if (SourceVM.id == 0)
+            if (LeadStageVM.id == 0)
             {
-                Source Source = AutoMapper.Mapper.Map<SourceViewModel, Source>(SourceVM);
+                LeadStage LeadStage = AutoMapper.Mapper.Map<LeadStageViewModel, LeadStage>(LeadStageVM);
 
-                Source.created_at = DateTime.Now;
-                //Source.created_by = Session["id"].ToString().ToInt();
+                LeadStage.created_at = DateTime.Now;
+                //LeadStage.created_by = Session["id"].ToString().ToInt();
 
-                db.Sources.Add(Source);
+                db.LeadStages.Add(LeadStage);
                 db.SaveChanges();
             }
             else
             {
 
-                Source oldSource = db.Sources.Find(SourceVM.id);
+                LeadStage oldLeadStage = db.LeadStages.Find(LeadStageVM.id);
 
-                oldSource.name = SourceVM.name;
-                //oldSource.updated_by = Session["id"].ToString().ToInt();
-                oldSource.updated_at = DateTime.Now;
+                oldLeadStage.name = LeadStageVM.name;
+                //oldLeadStage.updated_by = Session["id"].ToString().ToInt();
+                oldLeadStage.updated_at = DateTime.Now;
 
-                db.Entry(oldSource).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(oldLeadStage).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
 
@@ -102,10 +99,10 @@ namespace CRM.Controllers
         }
 
         [HttpGet]
-        public JsonResult deleteSource(int id)
+        public JsonResult deleteLeadStage(int id)
         {
-            Source Source = db.Sources.Find(id);
-            db.Sources.Remove(Source);
+            LeadStage LeadStage = db.LeadStages.Find(id);
+            db.LeadStages.Remove(LeadStage);
             db.SaveChanges();
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);

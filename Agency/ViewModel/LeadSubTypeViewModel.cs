@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace CRM.ViewModel
 {
-    public class CityViewModel
+    public class LeadSubTypeViewModel
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -17,6 +19,6 @@ namespace CRM.ViewModel
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public List<HotelViewModel> hotels { get; set; }
+        public int? lead_id { get; set; }
     }
 }

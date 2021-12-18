@@ -26,7 +26,6 @@ namespace CRM.Models
         public int? gender { get; set; }
         public string nationality { get; set; }
         public string job { get; set; }
-        public string company { get; set; }
         public double? salary { get; set; }
         public string currency { get; set; }
         public DateTime? birthDate { get; set; }
