@@ -29,6 +29,7 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? project_id { get; set; }
-
+        public string created_at_string { get; set; }
+        public string project_name { get; set; }
     }
 }
