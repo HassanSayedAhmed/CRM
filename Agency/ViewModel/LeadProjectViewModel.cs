@@ -19,5 +19,8 @@ namespace CRM.ViewModel
         public DateTime? deleted_at { get; set; }
         public int? lead_id { get; set; }
         public int? project_id { get; set; }
+        public string project_name { get; set; }
+        public string project_description { get; set; }
+        public string project_image { get; set; }
     }
 }

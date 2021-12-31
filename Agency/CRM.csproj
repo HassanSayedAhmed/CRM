@@ -175,14 +175,17 @@
     <Compile Include="Controllers\DeveloperController.cs" />
     <Compile Include="Controllers\EmploymentTypeController.cs" />
     <Compile Include="Controllers\LeadCategoryController.cs" />
+    <Compile Include="Controllers\LeadController.cs" />
     <Compile Include="Controllers\LeadStageController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\PropertyTypeController.cs" />
     <Compile Include="Controllers\RequirementController.cs" />
     <Compile Include="Controllers\SourceController.cs" />
+    <Compile Include="Controllers\SubTypeController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\TypeOfVisitorController.cs" />
+    <Compile Include="Controllers\UnitTypeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enums\StaticLists.cs" />
     <Compile Include="Global.asax.cs">
@@ -210,6 +213,14 @@
     <Compile Include="Migrations\202112182139583_mig3.cs" />
     <Compile Include="Migrations\202112182139583_mig3.Designer.cs">
       <DependentUpon>202112182139583_mig3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112300127159_relations_update.cs" />
+    <Compile Include="Migrations\202112300127159_relations_update.Designer.cs">
+      <DependentUpon>202112300127159_relations_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112300139277_add_lead_developer.cs" />
+    <Compile Include="Migrations\202112300139277_add_lead_developer.Designer.cs">
+      <DependentUpon>202112300139277_add_lead_developer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -3749,6 +3760,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\JSON-js-master\cycle.js" />
+    <Content Include="Scripts\JSON-js-master\json2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -3782,6 +3795,11 @@
     <Content Include="Views\EmploymentType\Index.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Property\Index.cshtml" />
+    <Content Include="Views\Lead\Index.cshtml" />
+    <Content Include="Views\Lead\manageLead.cshtml" />
+    <Content Include="Views\SubType\Index.cshtml" />
+    <Content Include="Views\UnitType\Index.cshtml" />
+    <Content Include="Scripts\JSON-js-master\README" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3820,6 +3838,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112182139583_mig3.resx">
       <DependentUpon>202112182139583_mig3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112300127159_relations_update.resx">
+      <DependentUpon>202112300127159_relations_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112300139277_add_lead_developer.resx">
+      <DependentUpon>202112300139277_add_lead_developer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

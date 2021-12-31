@@ -20,5 +20,6 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? lead_id { get; set; }
+        public string developer_name { get; set; }
     }
 }

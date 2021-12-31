@@ -23,5 +23,8 @@ namespace CRM.Models
         [ForeignKey("Lead")]
         public int? lead_id { get; set; }
         public Lead Lead { get; set; }
+        [ForeignKey("SubType")]
+        public int? sub_type_id { get; set; }
+        public SubType SubType { get; set; }
     }
 }

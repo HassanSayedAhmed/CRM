@@ -61,7 +61,31 @@ namespace CRM.ViewModel
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-
+        public string created_at_string { get; set; }
+        public string lead_stage_name { get; set; }
+        public string lead_category_name { get; set; }
+        public string source_name { get; set; }
+        public string time_line_name     { get; set; }
+        public string employment_type_name { get; set; }
+        public string company_name { get; set; }
+        public string created_by_name { get; set; }
+        public string updated_by_name { get; set; }
+        public string deleted_by_name { get; set; }
+        public List<int> lead_sub_types { get; set; }
+        public List<int> lead_unit_types { get; set; }
+        public List<int> project_ids { get; set; }
+        public List<LeadActivityViewModel> leadActivities { get; set; }
+        public List<LeadDeveloperViewModel> leadDevelopers { get; set; }
+        public List<LeadProjectViewModel> leadProjects { get; set; }
+        public List<LeadPropertyViewModel> leadProperties { get; set; }
+        public List<LeadSubTypeViewModel> leadSubTypes { get; set; }
+        public List<LeadUnitTypeViewModel> leadUnitTypes { get; set; }
+        public string leadSubTypesJson { get; set; }
+        public string leadActivitiesJson { get; set; }
+        public string leadDevelopersJson { get; set; }
+        public string leadProjectsJson { get; set; }
+        public string leadPropertiesJson { get; set; }
+        public string leadUnitTypesJson { get; set; }
 
     }
 }

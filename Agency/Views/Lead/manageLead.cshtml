@@ -1,0 +1,351 @@
+﻿@model CRM.ViewModel.LeadViewModel
+@{
+    ViewBag.Title = "manageLead";
+}
+@section css{
+    <style>
+        .feedback {
+            background-color: #31B0D5;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            border-color: #46b8da;
+            float: right;
+        }
+
+        #save {
+            position: fixed;
+            bottom: -4px;
+            right: 10px;
+        }
+    </style>
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="~/Content/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/file-upload/file-upload-with-preview.min.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/css/forms/switches.css">
+}
+<div class="page-header">
+    <nav class="breadcrumb-one" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0);">Manage Lead</a></li>
+        </ol>
+    </nav> <!-- we commented old button and add new button with the id of add resrvation in old dropdown menu-->
+
+
+</div>
+
+<form method="post" action="@Url.Action("saveLead", "Lead")" enctype="multipart/form-data">
+    <input type="hidden" id="id" name="id" value="@Model.id" />
+    <div class="card">
+        <div class="card card-header">Lead Details</div>
+        <div class="card card-body">
+            <div class="pl-4 pr-4">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">First Name</label>
+                            <input type="text" id="first_name" name="first_name" class="form-control" value="@Model.first_name" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control" value="@Model.last_name" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" value="@Model.email" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Primary Phone</label>
+                            <input type="number" id="phone1" name="phone1" class="form-control" value="@Model.phone1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Secondary Phone</label>
+                            <input type="number" id="phone2" name="phone2" class="form-control" value="@Model.phone2" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Alternate Numbers</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control" value="@Model.alternative_numbers" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Type of Visitor</label>
+                            @Html.DropDownListFor(t => t.type_of_visitor_id, new SelectList(ViewBag.types_of_visitor, "id", "name"), "Select Type Of Vistor", new { @class = "form-control", @name = "type_of_visitor_id", @id = "type_of_visitor_id" })
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Lead Stage</label>
+                            @Html.DropDownListFor(l => l.lead_stage_id, new SelectList(ViewBag.lead_stages, "id", "name"), "Select Stage", new { @class = "form-control", @name = "lead_stage_id", @id = "lead_stage_id" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Lead Category</label>
+                            @Html.DropDownListFor(l => l.lead_category_id, new SelectList(ViewBag.lead_categories, "id", "name"), "Select Lead Category", new { @class = "form-control", @name = "lead_category_id", @id = "lead_category_id" })
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Source</label>
+                            @Html.DropDownListFor(s => s.source_id, new SelectList(ViewBag.sources, "id", "name"), "Select Source", new { @class = "form-control", @name = "source_id", @id = "source_id" })
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Date Of Birth</label>
+                            <input type="date" id="date_of_birth" name="date_of_birth" class="form-control" value="@Model.date_of_birth" />
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Date Of Anniversary</label>
+                            <input type="date" id="date_of_anniversary" name="date_of_anniversary" class="form-control" value="@Model.date_of_anniversary" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="col-form-label">Sales Agent</label>
+                            <input type="text" id="sales_agent" name="sales_agent" class="form-control" value="@Model.sales_agent" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="col-form-label">Address</label>
+                            <input type="text" id="address" name="address" class="form-control" value="@Model.address" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="col-form-label">Country</label>
+                            <input type="text" id="country" name="country" class="form-control" value="@Model.country" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*section*@
+
+    <div class="card">
+        <div class="card card-header">Requirements</div>
+        <div class="card card-body">
+            <div class="pl-4 pr-4">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Property Type</label>
+                            @Html.DropDownListFor(p => p.property_type_id, new SelectList(ViewBag.property_types, "id", "name"), "Select Property Type", new { @class = "form-control", @name = "property_type_id", @id = "property_type_id" })
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Sub Type</label>
+                            @Html.DropDownListFor(l => l.lead_sub_types, new SelectList(ViewBag.lead_sub_types, "id", "name"), "Select Lead Sub Types", new { @class = "selectize", @name = "lead_sub_types", @id = "lead_sub_types", @multiple = "multiple" })
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Unit Type</label>
+                            @Html.DropDownListFor(l => l.lead_unit_types, new SelectList(ViewBag.lead_unit_types, "id", "name"), "Select Lead Unit Types", new { @class = "selectize", @name = "lead_unit_types", @id = "lead_unit_types", @multiple = "multiple" })
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Requirement</label>
+                            @Html.DropDownListFor(r => r.requirement_id, new SelectList(ViewBag.requirements, "id", "name"), "Select Requirement", new { @class = "form-control", @name = "requirement_id", @id = "requirement_id" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Budget Min</label>
+                            <input type="number" id="budget_min" name="budget_min" class="form-control" value="@Model.budget_min" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Budget Max</label>
+                            <input type="text" id="budget_max" name="budget_max" class="form-control" value="@Model.budget_max" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Minimum Area In</label>
+                            <input type="text" id="minimum_area" name="minimum_area" class="form-control" value="@Model.minimum_area" />
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="col-form-label">Maximum Area In</label>
+                            <input type="text" id="maximum_area" name="maximum_area" class="form-control" value="@Model.maximum_area" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Area Metric</label>
+                            <input type="text" id="area_metric" name="area_metric" class="form-control" value="@Model.area_metric" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Remark</label>
+                            <textarea id="remark" name="remark" class="form-control"> @Model.remark </textarea>
+                            @*<input type="text" id="remark" name="remark" class="form-control" />*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card card-header">Interested Projects</div>
+        <div class="card card-body">
+            <div class="pl-4 pr-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Project</label>
+                            @Html.DropDownListFor(p => p.project_ids, new SelectList(ViewBag.projects, "id", "name"), "Select Project", new { @class = "selectize", @name = "project_ids", @id = "project_ids", @multiple = "multiple" })
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Timeline</label>
+                            @Html.DropDownListFor(t => t.timeline_id, new SelectList(ViewBag.timelines, "id", "name"), "Select Timeline", new { @class = "form-control", @name = "timeline_id", @id = "timeline_id" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card card-header">Employement Details</div>
+        <div class="card card-body">
+            <div class="pl-4 pr-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Employement Type</label>
+                            @Html.DropDownListFor(e => e.employment_type_id, new SelectList(ViewBag.employment_types, "id", "name"), "Select Employment Type", new { @class = "form-control", @name = "employment_type_id", @id = "employment_type_id" })
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Income</label>
+                            <input type="text" id="income" name="income" class="form-control" value="@Model.income" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Designation</label>
+                            <input type="text" id="designation" name="designation" class="form-control" value="@Model.designation" />
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Company Name</label>
+                            <input type="text" id="company_name" name="company_name" class="form-control" value="@Model.company_name" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10" id="save">
+            <button type="submit" class="btn btn-primary btn-lg mt-3 feedback">Save</button>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    @*<script src="~/Scripts/JSON-js-master/cycle.js"></script>
+    <script src="~/Scripts/JSON-js-master/json2.js"></script>*@
+    <script src="~/Content/assets/js/scrollspyNav.js"></script>
+    <script src="~/Content/plugins/file-upload/file-upload-with-preview.min.js"></script>
+    <script>
+        var lead_sub_types = $('#lead_sub_types').selectize({
+            plugins: ['remove_button'],
+        });
+        var lead_unit_types = $('#lead_unit_types').selectize({
+            plugins: ['remove_button'],
+        });
+        var project_ids = $('#project_ids').selectize({
+            plugins: ['remove_button'],
+        });
+        $(document).ready(function () {
+            //lead_sub_types
+            var lead_sub_types_data = '@Model.leadSubTypesJson';
+            lead_sub_types_data = JSON.parse(lead_sub_types_data.replace(/&quot;/g, '"'));
+            var ids = [];
+            lead_sub_types[0].selectize.clear();
+            var selectize_lead_sub_type = lead_sub_types[0].selectize;
+            lead_sub_types_data.forEach(function (value) {
+                ids.push(value.id);
+            });
+            selectize_lead_sub_type.setValue(ids);
+            //lead_unit_types
+            var lead_unit_types_data = '@Model.leadUnitTypesJson';
+            lead_unit_types_data = JSON.parse(lead_unit_types_data.replace(/&quot;/g, '"'));
+            var ids = [];
+            lead_unit_types[0].selectize.clear();
+            var selectize_lead_unit_types = lead_unit_types[0].selectize;
+            lead_unit_types_data.forEach(function (value) {
+                ids.push(value.id);
+            });
+            selectize_lead_unit_types.setValue(ids);
+            //project_ids
+            var project_ids_data = '@Model.leadProjectsJson';
+            project_ids_data = JSON.parse(project_ids_data.replace(/&quot;/g, '"'));
+            console.log(project_ids_data)
+            var ids = [];
+            project_ids[0].selectize.clear();
+            var selectize_project_ids = project_ids[0].selectize;
+            project_ids_data.forEach(function (value) {
+                console.log(ids)
+                ids.push(value.id);
+            });
+            selectize_project_ids.setValue(ids);
+        });
+
+
+    </script>
+}

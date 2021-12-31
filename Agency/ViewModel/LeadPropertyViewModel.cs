@@ -20,5 +20,15 @@ namespace CRM.ViewModel
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
         public int? lead_id { get; set; }
+        public string property_name { get; set; }
+        public double? property_price { get; set; }
+        public int? property_baths { get; set; }
+        public int? property_rooms { get; set; }
+        public int? property_beds { get; set; }
+        public string property_area { get; set; }
+        public string property_type { get; set; }
+        public string property_status { get; set; }
+        public string property_image { get; set; }
+        public int? property_project_id { get; set; }
     }
 }

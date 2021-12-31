@@ -19,5 +19,7 @@ namespace CRM.ViewModel
         public DateTime? deleted_at { get; set; }
         public int? lead_id { get; set; }
         public int? unit_type_id { get; set; }
+        public string unit_type_name { get; set; }
+        public string unit_type_description { get; set; }
     }
 }

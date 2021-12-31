@@ -29,7 +29,9 @@ namespace CRM.Models
         public virtual DbSet<Lead> Leads { get; set; }
         public virtual DbSet<LeadActivity> LeadActivities { get; set; }
         public virtual DbSet<LeadCategory> LeadCategories { get; set; }
+        public virtual DbSet<LeadDeveloper> LeadDevelopers { get; set; }
         public virtual DbSet<LeadProject> LeadProjects { get; set; }
+        public virtual DbSet<LeadProperty> LeadProperties { get; set; }
         public virtual DbSet<LeadStage> LeadStages { get; set; }
         public virtual DbSet<LeadSubType> LeadSubTypes { get; set; }
         public virtual DbSet<LeadUnitType> LeadUnitTypes { get; set; }
