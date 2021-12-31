@@ -157,7 +157,7 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
 
-                                html += "<a class='edit' id='" + oData.id + "' href='/Lead/manageLead/" +oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='edit1' id='" + oData.id + "' href='/Lead/manageLead/" +oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
                                 html += "<a class='delete' id='" + oData.id + "' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
