@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 PropertyType PropertyType = AutoMapper.Mapper.Map<PropertyTypeViewModel, PropertyType>(PropertyTypeVM);
 
                 PropertyType.created_at = DateTime.Now;
-                //PropertyType.created_by = Session["id"].ToString().ToInt();
+                PropertyType.created_by = Session["id"].ToString().ToInt();
 
                 db.PropertyTypes.Add(PropertyType);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 PropertyType oldPropertyType = db.PropertyTypes.Find(PropertyTypeVM.id);
 
                 oldPropertyType.name = PropertyTypeVM.name;
-                //oldPropertyType.updated_by = Session["id"].ToString().ToInt();
+                oldPropertyType.updated_by = Session["id"].ToString().ToInt();
                 oldPropertyType.updated_at = DateTime.Now;
 
                 db.Entry(oldPropertyType).State = System.Data.Entity.EntityState.Modified;

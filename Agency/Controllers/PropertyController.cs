@@ -91,7 +91,7 @@ namespace CRM.Controllers
                 Property Property = AutoMapper.Mapper.Map<PropertyViewModel, Property>(PropertyVM);
 
                 Property.created_at = DateTime.Now;
-                //Property.created_by = Session["id"].ToString().ToInt();
+                Property.created_by = Session["id"].ToString().ToInt();
 
                 db.Properties.Add(Property);
                 db.SaveChanges();
@@ -112,7 +112,7 @@ namespace CRM.Controllers
                 oldProperty.type = PropertyVM.type;
                 oldProperty.status = PropertyVM.status;
 
-                //oldProperty.updated_by = Session["id"].ToString().ToInt();
+                oldProperty.updated_by = Session["id"].ToString().ToInt();
                 oldProperty.updated_at = DateTime.Now;
 
                 db.Entry(oldProperty).State = System.Data.Entity.EntityState.Modified;

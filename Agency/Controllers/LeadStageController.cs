@@ -76,7 +76,7 @@ namespace CRM.Controllers
                 LeadStage LeadStage = AutoMapper.Mapper.Map<LeadStageViewModel, LeadStage>(LeadStageVM);
 
                 LeadStage.created_at = DateTime.Now;
-                //LeadStage.created_by = Session["id"].ToString().ToInt();
+                LeadStage.created_by = Session["id"].ToString().ToInt();
 
                 db.LeadStages.Add(LeadStage);
                 db.SaveChanges();
@@ -87,7 +87,7 @@ namespace CRM.Controllers
                 LeadStage oldLeadStage = db.LeadStages.Find(LeadStageVM.id);
 
                 oldLeadStage.name = LeadStageVM.name;
-                //oldLeadStage.updated_by = Session["id"].ToString().ToInt();
+                oldLeadStage.updated_by = Session["id"].ToString().ToInt();
                 oldLeadStage.updated_at = DateTime.Now;
 
                 db.Entry(oldLeadStage).State = System.Data.Entity.EntityState.Modified;

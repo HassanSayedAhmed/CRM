@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 EmploymentType EmploymentType = AutoMapper.Mapper.Map<EmploymentTypeViewModel, EmploymentType>(EmploymentTypeVM);
 
                 EmploymentType.created_at = DateTime.Now;
-                //EmploymentType.created_by = Session["id"].ToString().ToInt();
+                EmploymentType.created_by = Session["id"].ToString().ToInt();
 
                 db.EmploymentTypes.Add(EmploymentType);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 EmploymentType oldEmploymentType = db.EmploymentTypes.Find(EmploymentTypeVM.id);
 
                 oldEmploymentType.name = EmploymentTypeVM.name;
-                //oldEmploymentType.updated_by = Session["id"].ToString().ToInt();
+                oldEmploymentType.updated_by = Session["id"].ToString().ToInt();
                 oldEmploymentType.updated_at = DateTime.Now;
 
                 db.Entry(oldEmploymentType).State = System.Data.Entity.EntityState.Modified;

@@ -77,7 +77,7 @@ namespace CRM.Controllers
                 Timeline Timeline = AutoMapper.Mapper.Map<TimelineViewModel, Timeline>(TimelineVM);
 
                 Timeline.created_at = DateTime.Now;
-                //Timeline.created_by = Session["id"].ToString().ToInt();
+                Timeline.created_by = Session["id"].ToString().ToInt();
 
                 db.Timelines.Add(Timeline);
                 db.SaveChanges();
@@ -88,7 +88,7 @@ namespace CRM.Controllers
                 Timeline oldTimeline = db.Timelines.Find(TimelineVM.id);
 
                 oldTimeline.name = TimelineVM.name;
-                //oldTimeline.updated_by = Session["id"].ToString().ToInt();
+                oldTimeline.updated_by = Session["id"].ToString().ToInt();
                 oldTimeline.updated_at = DateTime.Now;
 
                 db.Entry(oldTimeline).State = System.Data.Entity.EntityState.Modified;

@@ -1,4 +1,5 @@
 ﻿using CRM.Auth;
+using CRM.Helpers;
 using CRM.Models;
 using CRM.ViewModel;
 using System;
@@ -88,7 +89,7 @@ namespace CRM.Controllers
 
                 user.created_at = DateTime.Now;
                 user.updated_at = DateTime.Now;
-                //user.created_by = Session["id"].ToString().ToInt();
+                user.created_by = Session["id"].ToString().ToInt();
                 //user.type = (int)UserTypes.Staff;
                 if (userVM.image != null)
                 {
@@ -131,6 +132,7 @@ namespace CRM.Controllers
                     userVM.image.SaveAs(ServerSavePath);
                     oldUser.image = "/images/profile/" + guid.ToString() + "_Profile" + Path.GetExtension(userVM.image.FileName);
                 }
+                oldUser.updated_by = Session["id"].ToString().ToInt();
                 oldUser.updated_at = DateTime.Now;
                 db.Entry(oldUser).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();

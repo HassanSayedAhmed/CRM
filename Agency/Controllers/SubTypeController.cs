@@ -79,7 +79,7 @@ namespace CRM.Controllers
                 SubType SubType = AutoMapper.Mapper.Map<SubTypeViewModel, SubType>(SubTypeVM);
 
                 SubType.created_at = DateTime.Now;
-                //SubType.created_by = Session["id"].ToString().ToInt();
+                SubType.created_by = Session["id"].ToString().ToInt();
 
                 db.SubTypes.Add(SubType);
                 db.SaveChanges();
@@ -90,7 +90,7 @@ namespace CRM.Controllers
                 SubType oldSubType = db.SubTypes.Find(SubTypeVM.id);
 
                 oldSubType.name = SubTypeVM.name;
-                //oldSubType.updated_by = Session["id"].ToString().ToInt();
+                oldSubType.updated_by = Session["id"].ToString().ToInt();
                 oldSubType.updated_at = DateTime.Now;
 
                 db.Entry(oldSubType).State = System.Data.Entity.EntityState.Modified;

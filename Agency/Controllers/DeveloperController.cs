@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 Developer DeveloperData = AutoMapper.Mapper.Map<DeveloperViewModel, Developer>(DeveloperVM);
 
                 DeveloperData.created_at = DateTime.Now;
-                //Source.created_by = Session["id"].ToString().ToInt();
+                DeveloperData.created_by = Session["id"].ToString().ToInt();
 
                 db.Developers.Add(DeveloperData);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 Developer oldDeveloper = db.Developers.Find(DeveloperVM.id);
 
                 oldDeveloper.name = DeveloperVM.name;
-                //oldSource.updated_by = Session["id"].ToString().ToInt();
+                oldDeveloper.updated_by = Session["id"].ToString().ToInt();
                 oldDeveloper.updated_at = DateTime.Now;
 
                 db.Entry(oldDeveloper).State = System.Data.Entity.EntityState.Modified;

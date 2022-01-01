@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 Requirement Requirement = AutoMapper.Mapper.Map<RequirementViewModel, Requirement>(RequirementVM);
 
                 Requirement.created_at = DateTime.Now;
-                //Requirement.created_by = Session["id"].ToString().ToInt();
+                Requirement.created_by = Session["id"].ToString().ToInt();
 
                 db.Requirements.Add(Requirement);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 Requirement oldRequirement = db.Requirements.Find(RequirementVM.id);
 
                 oldRequirement.name = RequirementVM.name;
-                //oldRequirement.updated_by = Session["id"].ToString().ToInt();
+                oldRequirement.updated_by = Session["id"].ToString().ToInt();
                 oldRequirement.updated_at = DateTime.Now;
 
                 db.Entry(oldRequirement).State = System.Data.Entity.EntityState.Modified;

@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 UnitType UnitType = AutoMapper.Mapper.Map<UnitTypeViewModel, UnitType>(UnitTypeVM);
 
                 UnitType.created_at = DateTime.Now;
-                //UnitType.created_by = Session["id"].ToString().ToInt();
+                UnitType.created_by = Session["id"].ToString().ToInt();
 
                 db.UnitTypes.Add(UnitType);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 UnitType oldUnitType = db.UnitTypes.Find(UnitTypeVM.id);
 
                 oldUnitType.name = UnitTypeVM.name;
-                //oldUnitType.updated_by = Session["id"].ToString().ToInt();
+                oldUnitType.updated_by = Session["id"].ToString().ToInt();
                 oldUnitType.updated_at = DateTime.Now;
 
                 db.Entry(oldUnitType).State = System.Data.Entity.EntityState.Modified;

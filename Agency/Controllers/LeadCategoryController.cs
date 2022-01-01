@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 LeadCategory LeadCategory = AutoMapper.Mapper.Map<LeadCategoryViewModel, LeadCategory>(LeadCategoryVM);
 
                 LeadCategory.created_at = DateTime.Now;
-                //LeadCategory.created_by = Session["id"].ToString().ToInt();
+                LeadCategory.created_by = Session["id"].ToString().ToInt();
 
                 db.LeadCategories.Add(LeadCategory);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 LeadCategory oldLeadCategory = db.LeadCategories.Find(LeadCategoryVM.id);
 
                 oldLeadCategory.name = LeadCategoryVM.name;
-                //oldLeadCategory.updated_by = Session["id"].ToString().ToInt();
+                oldLeadCategory.updated_by = Session["id"].ToString().ToInt();
                 oldLeadCategory.updated_at = DateTime.Now;
 
                 db.Entry(oldLeadCategory).State = System.Data.Entity.EntityState.Modified;

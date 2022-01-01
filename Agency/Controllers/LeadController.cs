@@ -594,6 +594,7 @@ namespace CRM.Controllers
                 oldLead.company_name = LeadVM.company_name;
                 oldLead.company_id = LeadVM.company_id;
                 oldLead.company_name = LeadVM.company_name;
+                oldLead.updated_by = Session["id"].ToString().ToInt();
                 oldLead.updated_at = DateTime.Now;
 
                 db.Entry(oldLead).State = System.Data.Entity.EntityState.Modified;

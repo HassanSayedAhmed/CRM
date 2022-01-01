@@ -82,7 +82,7 @@ namespace CRM.Controllers
                 Project Project = AutoMapper.Mapper.Map<ProjectViewModel, Project>(ProjectVM);
 
                 Project.created_at = DateTime.Now;
-                //Project.created_by = Session["id"].ToString().ToInt();
+                Project.created_by = Session["id"].ToString().ToInt();
 
                 db.Projects.Add(Project);
                 db.SaveChanges();
@@ -94,7 +94,7 @@ namespace CRM.Controllers
 
                 oldProject.name = ProjectVM.name;
                 oldProject.developer_id = ProjectVM.developer_id;
-                //oldProject.updated_by = Session["id"].ToString().ToInt();
+                oldProject.updated_by = Session["id"].ToString().ToInt();
                 oldProject.updated_at = DateTime.Now;
 
                 db.Entry(oldProject).State = System.Data.Entity.EntityState.Modified;

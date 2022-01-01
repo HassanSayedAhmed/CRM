@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 TypeOfVisitor TypeOfVisitor = AutoMapper.Mapper.Map<TypeOfVisitorViewModel, TypeOfVisitor>(TypeOfVisitorVM);
 
                 TypeOfVisitor.created_at = DateTime.Now;
-                //TypeOfVisitor.created_by = Session["id"].ToString().ToInt();
+                TypeOfVisitor.created_by = Session["id"].ToString().ToInt();
 
                 db.TypeOfVisitors.Add(TypeOfVisitor);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 TypeOfVisitor oldTypeOfVisitor = db.TypeOfVisitors.Find(TypeOfVisitorVM.id);
 
                 oldTypeOfVisitor.name = TypeOfVisitorVM.name;
-                //oldTypeOfVisitor.updated_by = Session["id"].ToString().ToInt();
+                oldTypeOfVisitor.updated_by = Session["id"].ToString().ToInt();
                 oldTypeOfVisitor.updated_at = DateTime.Now;
 
                 db.Entry(oldTypeOfVisitor).State = System.Data.Entity.EntityState.Modified;

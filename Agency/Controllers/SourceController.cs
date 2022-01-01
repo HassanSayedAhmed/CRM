@@ -79,7 +79,7 @@ namespace CRM.Controllers
                 Source Source = AutoMapper.Mapper.Map<SourceViewModel, Source>(SourceVM);
 
                 Source.created_at = DateTime.Now;
-                //Source.created_by = Session["id"].ToString().ToInt();
+                Source.created_by = Session["id"].ToString().ToInt();
 
                 db.Sources.Add(Source);
                 db.SaveChanges();
@@ -90,7 +90,7 @@ namespace CRM.Controllers
                 Source oldSource = db.Sources.Find(SourceVM.id);
 
                 oldSource.name = SourceVM.name;
-                //oldSource.updated_by = Session["id"].ToString().ToInt();
+                oldSource.updated_by = Session["id"].ToString().ToInt();
                 oldSource.updated_at = DateTime.Now;
 
                 db.Entry(oldSource).State = System.Data.Entity.EntityState.Modified;
