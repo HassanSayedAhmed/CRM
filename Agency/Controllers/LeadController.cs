@@ -4,13 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRM.Auth;
 using CRM.Helpers;
 using CRM.Models;
 using CRM.ViewModel;
 using Newtonsoft.Json;
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
+    [CustomAuthenticationFilter]
     public class LeadController : Controller
     {
         CRMDbContext db = new CRMDbContext();
@@ -634,6 +635,7 @@ namespace CRM.Controllers
             return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult makeActivity(LeadActivityViewModel leadActivityViewModel)
         {
             LeadActivity leadActivity = AutoMapper.Mapper.Map<LeadActivityViewModel, LeadActivity>(leadActivityViewModel);
