@@ -41,6 +41,7 @@ namespace CRM.Controllers
                                     //note = activity.note,
                                     name = activity.name,
                                     active = activity.active,
+                                    created_at_string = activity.created_at.ToString()
                                 });
 
                 //Search    
@@ -67,5 +68,48 @@ namespace CRM.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public JsonResult saveActivity(ActivityViewModel ActivityVM)
+        {
+
+            if (ActivityVM.id == 0)
+            {
+                Activity Activity = AutoMapper.Mapper.Map<ActivityViewModel, Activity>(ActivityVM);
+
+                Activity.created_at = DateTime.Now;
+                //Activity.created_by = Session["id"].ToString().ToInt();
+
+                db.Activities.Add(Activity);
+                db.SaveChanges();
+            }
+            else
+            {
+
+                Activity oldActivity = db.Activities.Find(ActivityVM.id);
+
+                oldActivity.name = ActivityVM.name;
+                //oldActivity.updated_by = Session["id"].ToString().ToInt();
+                oldActivity.updated_at = DateTime.Now;
+
+                db.Entry(oldActivity).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public JsonResult deleteActivity(int id)
+        {
+            Activity Activity = db.Activities.Find(id);
+            db.Activities.Remove(Activity);
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
