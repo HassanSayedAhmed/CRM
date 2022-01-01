@@ -43,5 +43,6 @@ namespace CRM.Models
         [ForeignKey("Company")]
         public int? company_id { get; set; }
         public Company Company { get; set; }
+        public virtual ICollection<Lead> Leads { get; set; }
     }
 }

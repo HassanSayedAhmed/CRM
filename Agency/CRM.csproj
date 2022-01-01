@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202112300139277_add_lead_developer.Designer.cs">
       <DependentUpon>202112300139277_add_lead_developer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201011527375_updateLeads.cs" />
+    <Compile Include="Migrations\202201011527375_updateLeads.Designer.cs">
+      <DependentUpon>202201011527375_updateLeads.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Company.cs" />
@@ -3831,6 +3835,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112300139277_add_lead_developer.resx">
       <DependentUpon>202112300139277_add_lead_developer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201011527375_updateLeads.resx">
+      <DependentUpon>202201011527375_updateLeads.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

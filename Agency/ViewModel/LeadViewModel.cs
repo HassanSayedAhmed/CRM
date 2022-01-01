@@ -21,9 +21,7 @@ namespace CRM.ViewModel
         public int? lead_stage_id { get; set; }
         public LeadStage LeadStage { get; set; }
         public int? lead_category_id { get; set; }
-        public LeadCategory LeadCategory { get; set; }
         public int? source_id { get; set; }
-        public Source Source { get; set; }
         public DateTime? date_of_birth { get; set; }
         public DateTime? date_of_anniversary { get; set; }
         public string sales_agent { get; set; }
@@ -49,9 +47,11 @@ namespace CRM.ViewModel
 
         public int? timeline_id { get; set; }
         public int? employment_type_id { get; set; }
-        public EmploymentType EmploymentType { get; set; }
         public string income { get; set; }
+        public string lead_ids { get; set; }
         public string designation { get; set; }
+        public string search_location { get; set; }
+        public int? assigned_user_id { get; set; }
         public int? company_id { get; set; }
         public Company Company { get; set; }
         public int? active { get; set; }

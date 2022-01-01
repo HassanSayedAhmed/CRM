@@ -65,10 +65,14 @@ namespace CRM.Models
         public EmploymentType EmploymentType { get; set; }
         public string income { get; set; }
         public string designation { get; set; }
+        public string search_location { get; set; }
         public string company_name { get; set; }
         [ForeignKey("Company")]
         public int? company_id { get; set; }
         public Company Company { get; set; }
+        [ForeignKey("User")]
+        public int? assigned_user_id { get; set; }
+        public User User { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
