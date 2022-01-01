@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CRM.ViewModel;
+using CRM.Auth;
+using CRM.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CRM.Auth;
 using CRM.Helpers;
-using CRM.Models;
-using CRM.ViewModel;
 using Newtonsoft.Json;
 namespace CRM.Controllers
 {
@@ -44,13 +44,15 @@ namespace CRM.Controllers
                                 from employeeType in empTy.DefaultIfEmpty()
                                 join com in db.Companies on lead.company_id equals com.id into c
                                 from company in c.DefaultIfEmpty()
-
+                                join asn in db.Users on lead.assigned_user_id equals asn.id into asur
+                                from assignedUser in asur.DefaultIfEmpty()
                                 join crBy in db.Users on lead.created_by equals crBy.id into cr
                                 from createdBy in cr.DefaultIfEmpty()
                                 join upBy in db.Users on lead.updated_by equals upBy.id into up
                                 from updatedBy in up.DefaultIfEmpty()
                                 join de in db.Users on lead.deleted_by equals de.id into d
                                 from deletedBy in d.DefaultIfEmpty()
+
                                 select new LeadViewModel
                                 {
                                     id = lead.id,
@@ -95,17 +97,21 @@ namespace CRM.Controllers
                                     updated_by = lead.updated_by,
                                     deleted_by = lead.deleted_by,
                                     created_at_string = lead.created_at.ToString(),
-
+                                    decision_id = lead.decision_id,
+                                    assigned_user_id = lead.assigned_user_id,
+                                    deal_property_id =lead.deal_property_id,
+                                    deal_property_price = lead.deal_property_price,
+                                    deal_make_user_id = lead.deal_make_user_id,
                                     lead_stage_name = leadStage.name,
                                     lead_category_name = Lead.name,
                                     source_name = source.name,
                                     time_line_name = timeline.name,
                                     employment_type_name = employeeType.name,
+                                    assigned_user_name = assignedUser.full_name,
                                     company_name = company.name,
                                     created_by_name = createdBy.first_name,
                                     updated_by_name = updatedBy.first_name,
                                     deleted_by_name = deletedBy.first_name,
-
                                     leadActivities = (from leadActivity in db.LeadActivities
                                                       join activity in db.Activities on leadActivity.activity_id equals activity.id
                                                       select new LeadActivityViewModel
@@ -183,7 +189,11 @@ namespace CRM.Controllers
 
 
                                 });
-
+                if(isA.salesAgent())
+                {
+                    int userId = Session["id"].ToString().ToInt();
+                    LeadData = LeadData.Where(l => l.created_by == userId || l.assigned_user_id == userId);
+                }
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
@@ -209,6 +219,8 @@ namespace CRM.Controllers
 
             ViewBag.Users = db.Users.Select(u => new { u.id, u.full_name }).ToList();
             ViewBag.Acitivities = db.Activities.Select(u => new { u.id, u.name }).ToList();
+            ViewBag.Properties = db.Properties.Select(u => new { u.id, u.name }).ToList();
+            ViewBag.Sources = db.Sources.Select(u => new { u.id, u.name }).ToList();
             return View();
         }
 
@@ -227,6 +239,8 @@ namespace CRM.Controllers
             ViewBag.projects = db.Projects.Select(c => new { c.id, c.name }).ToList();
             ViewBag.timelines = db.Timelines.Select(c => new { c.id, c.name }).ToList();
             ViewBag.employment_types = db.EmploymentTypes.Select(c => new { c.id, c.name }).ToList();
+            ViewBag.properties = db.Properties.Select(u => new { u.id, u.name }).ToList();
+            ViewBag.developers = db.Developers.Select(u => new { u.id, u.name }).ToList();
 
             LeadViewModel leadData = new LeadViewModel();
             if (id != null)
@@ -509,6 +523,33 @@ namespace CRM.Controllers
                         db.LeadProjects.Add(leadProject);
                     }
                 }
+
+                if (LeadVM.property_ids != null)
+                {
+                    foreach (var propertyId in LeadVM.property_ids)
+                    {
+                        LeadProperty leadProperty = new LeadProperty();
+                        leadProperty.property_id = propertyId;
+                        leadProperty.lead_id = Lead.id;
+                        leadProperty.created_at = DateTime.Now;
+                        leadProperty.created_by = Session["id"].ToString().ToInt();
+                        db.LeadProperties.Add(leadProperty);
+                    }
+                }
+
+                if (LeadVM.developer_ids != null)
+                {
+                    foreach (var developerId in LeadVM.developer_ids)
+                    {
+                        LeadDeveloper leadDeveloper = new LeadDeveloper();
+                        leadDeveloper.developer_id = developerId;
+                        leadDeveloper.lead_id = Lead.id;
+                        leadDeveloper.created_at = DateTime.Now;
+                        leadDeveloper.created_by = Session["id"].ToString().ToInt();
+                        db.LeadDevelopers.Add(leadDeveloper);
+                    }
+                }
+
                 db.SaveChanges();
             }
             else
@@ -606,13 +647,107 @@ namespace CRM.Controllers
                     }
                 }
 
+                db.LeadProperties.Where(lp => lp.lead_id == oldLead.id).ToList().ForEach(lp => db.LeadProperties.Remove(lp));
+                if (LeadVM.property_ids != null)
+                {
+                    foreach (var propertyId in LeadVM.property_ids)
+                    {
+                        LeadProperty leadProperty = new LeadProperty();
+                        leadProperty.property_id = propertyId;
+                        leadProperty.lead_id = oldLead.id;
+                        leadProperty.created_at = DateTime.Now;
+                        leadProperty.created_by = Session["id"].ToString().ToInt();
+                        db.LeadProperties.Add(leadProperty);
+                    }
+                }
+
+                db.LeadProjects.Where(lp => lp.lead_id == oldLead.id).ToList().ForEach(lp => db.LeadProjects.Remove(lp));
+                if (LeadVM.developer_ids != null)
+                {
+                    foreach (var developerId in LeadVM.developer_ids)
+                    {
+                        LeadDeveloper leadDeveloper = new LeadDeveloper();
+                        leadDeveloper.developer_id = developerId;
+                        leadDeveloper.lead_id = oldLead.id;
+                        leadDeveloper.created_at = DateTime.Now;
+                        leadDeveloper.created_by = Session["id"].ToString().ToInt();
+                        db.LeadDevelopers.Add(leadDeveloper);
+                    }
+                }
             }
             db.SaveChanges();
             return Redirect(Url.Action("Index", "Lead"));
 
         }
 
-        [HttpGet]
+        public JsonResult saveQuickLead(LeadViewModel LeadVM)
+        {
+
+            if (LeadVM.id == 0)
+            {
+                Lead Lead = AutoMapper.Mapper.Map<LeadViewModel, Lead>(LeadVM);
+
+                Lead.created_at = DateTime.Now;
+                Lead.created_by = Session["id"].ToString().ToInt();
+
+                db.Leads.Add(Lead);
+                db.SaveChanges();
+                if (LeadVM.lead_sub_types != null)
+                {
+                    foreach (var subType in LeadVM.lead_sub_types)
+                    {
+                        LeadSubType leadSubType = new LeadSubType();
+                        leadSubType.sub_type_id = subType;
+                        leadSubType.lead_id = Lead.id;
+                        leadSubType.created_at = DateTime.Now;
+                        leadSubType.created_by = Session["id"].ToString().ToInt();
+                        db.LeadSubTypes.Add(leadSubType);
+                    }
+                }
+                if (LeadVM.lead_unit_types != null)
+                {
+                    foreach (var unitType in LeadVM.lead_unit_types)
+                    {
+                        LeadUnitType leadUnitType = new LeadUnitType();
+                        leadUnitType.unit_type_id = unitType;
+                        leadUnitType.lead_id = Lead.id;
+                        leadUnitType.created_at = DateTime.Now;
+                        leadUnitType.created_by = Session["id"].ToString().ToInt();
+                        db.LeadUnitTypes.Add(leadUnitType);
+                    }
+                }
+                if (LeadVM.project_ids != null)
+                {
+                    foreach (var project in LeadVM.project_ids)
+                    {
+                        LeadProject leadProject = new LeadProject();
+                        leadProject.project_id = project;
+                        leadProject.lead_id = Lead.id;
+                        leadProject.created_at = DateTime.Now;
+                        leadProject.created_by = Session["id"].ToString().ToInt();
+                        db.LeadProjects.Add(leadProject);
+                    }
+                }
+
+                if (LeadVM.property_ids != null)
+                {
+                    foreach (var propertyId in LeadVM.property_ids)
+                    {
+                        LeadProperty leadProperty = new LeadProperty();
+                        leadProperty.property_id = propertyId;
+                        leadProperty.lead_id = Lead.id;
+                        leadProperty.created_at = DateTime.Now;
+                        leadProperty.created_by = Session["id"].ToString().ToInt();
+                        db.LeadProperties.Add(leadProperty);
+                    }
+                }
+
+                db.SaveChanges();
+            }
+            return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+            [HttpGet]
         public JsonResult deleteLead(int id)
         {
             Lead Lead = db.Leads.Find(id);
@@ -644,6 +779,26 @@ namespace CRM.Controllers
             leadActivity.created_by = Session["id"].ToString().ToInt();
 
             db.LeadActivities.Add(leadActivity);
+            db.SaveChanges();
+            return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult makeDecision(LeadViewModel leadViewModel)
+        {
+            Lead lead = db.Leads.Find(leadViewModel.id);
+            lead.decision_id = leadViewModel.decision_id;
+            db.SaveChanges();
+            return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult makeDeal(LeadViewModel leadViewModel)
+        {
+            Lead lead = db.Leads.Find(leadViewModel.id);
+            lead.deal_property_id = leadViewModel.deal_property_id;
+            lead.deal_property_price = leadViewModel.deal_property_price;
+            lead.deal_make_user_id = leadViewModel.deal_make_user_id;
             db.SaveChanges();
             return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
         }

@@ -11,6 +11,7 @@ using CRM.Helpers;
 
 namespace CRM.Controllers
 {
+    [CustomAuthenticationFilter]
     public class PropertyController : Controller
     {
         CRMDbContext db = new CRMDbContext();

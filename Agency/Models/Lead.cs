@@ -56,6 +56,10 @@ namespace CRM.Models
         public string location_country { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
+        public int? decision_id { get; set; }
+        public int? deal_property_id { get; set; }
+        public double? deal_property_price { get; set; }
+        public int? deal_make_user_id { get; set; }
 
         [ForeignKey("Timeline")]
         public int? timeline_id { get; set; }

@@ -50,4 +50,10 @@ namespace CRM.Enums
         Active = 1,
         Done = 2
     }
+    public enum UserRole
+    {
+        SuperAdmin = 1,
+        Admin = 2,
+        SalesAgent = 3
+    }
 }

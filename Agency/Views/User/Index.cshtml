@@ -22,7 +22,7 @@
                         <div class="form-row">
                             <input type="hidden" name="id" id="id" value="0" />
                             <div class="form-group col-md-12">
-                                <center><img src="~/Images/userProfile.png" width="150" height="150" id="imageProfile" class="rounded-circle shadow" alt="" /></center>
+                                <center><img src="~/Images/userProfile.jpeg" width="150" height="150" id="imageProfile" class="rounded-circle shadow" alt="" /></center>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Username <small id="user_name_error" style="display:none;" class="badge badge-danger"> <i class="lni lni-close"></i> username already taken</small><small id="user_name_valid" class="badge badge-success" style="display:none;"><i class="lni lni-checkmark"></i> valid username</small></label>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Gender</label>
-                                <select name="gender" id="gender" class="form-control radius-30">
+                                <select name="gender" id="gender" class="form-control radius-30" required>
                                     <option value="@male_id">@Gender.Male</option>
                                     <option value="@female_id">@Gender.Female</option>
                                 </select>
@@ -68,13 +68,22 @@
                                     <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file"  class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                                    <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6" resource="">
                                 <label>Company</label>
                                 @Html.DropDownList("company_id", new SelectList(ViewBag.companies, "id", "name"), "Select Company", new { @class = "form-control", @name = "company_id", @id = "company_id" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Role</label>
+                                <select class="form-control" name="type" id="type" required>
+                                    <option value="">Select Role</option>
+                                    <option value="1">Super Admin</option>
+                                    <option value="2">Admin</option>
+                                    <option value="3">Sales Agent</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Status</label>
@@ -143,7 +152,7 @@
                         <th>Code</th>
                         <th>Contact</th>
                         <th>Gender</th>
-                        <th>Type</th>
+                        <th>Role</th>
                         <th>Active</th>
                         <th></th>
                     </tr>
@@ -229,7 +238,7 @@
                                         html += ", " + oData.phone2;
                                 }
                                 else
-                                    html += "No Phone";
+                                    html += "Phone: -";
                                 html += "</span><br>";
 
                                 html += "<span>";
@@ -241,9 +250,14 @@
                                         html += ", " + oData.address2;
                                 }
                                 else
-                                    html += "No Addresses<br>";
+                                    html += "Address: -";
                                 html += "</span><br>";
-                                html += "<span> <b>Email:</b> " +oData.email+"</span>";
+                                if (oData.email) {
+                                    html += "<span> <b>Email:</b> " + oData.email + "</span>";
+                                }
+                                else {
+                                    html += "Email: -";
+                                }
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -258,14 +272,28 @@
                                         html += "Female";
                                 }
                                 else
-                                    html += "No Gender Selected";
+                                    html += "-";
                                 html += "</span>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
                         {
-                            "data": "type",
-                            "searchable": true
+                            "data": "type", "type": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "<span> ";
+                                if (oData.type) {
+                                    if (oData.type == 1)
+                                        html += "Super Admin";
+                                    else if (oData.type == 2)
+                                        html += "Admin";
+                                    else if (oData.type == 3)
+                                        html += "Sales Agent";
+                                }
+                                else
+                                    html += "-";
+                                html += "</span>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
                         },
                         {
                             "data": "active", "searchable": true,
@@ -283,8 +311,8 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
 
-                                html += "<a class='edit' id='" + oData.id + "' href='javascript:void(0)' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
-                                html += "<a class='delete' id='" + oData.id + "' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>";
+                                html += "<a class='edit' href='javascript:void(0)' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -419,7 +447,7 @@
                         dialog.find('#code').val(data.code);
                         dialog.find('#email').val(data.email);
                         dialog.find('#phone1').val(data.phone1);
-                        //dialog.find('#phone2').val(data.phone2);
+                        dialog.find('#type').val(data.type);
                         dialog.find('#address1').val(data.address1);
                         //dialog.find('#address2').val(data.address2);
                         dialog.find('#gender').val(data.gender);

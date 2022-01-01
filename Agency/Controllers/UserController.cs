@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
+    [CustomAuthenticationFilter]
     public class UserController : Controller
     {
         // GET: User
@@ -113,6 +113,7 @@ namespace CRM.Controllers
                 oldUser.user_name = userVM.user_name;
                 oldUser.password = userVM.password;
                 oldUser.code = userVM.code;
+                oldUser.type = userVM.type;
                 oldUser.email = userVM.email;
                 oldUser.phone1 = userVM.phone1;
                 oldUser.phone2 = userVM.phone2;

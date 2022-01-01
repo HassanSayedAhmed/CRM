@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using CRM.Helpers;
 using CRM.ViewModel;
+using CRM.Auth;
 
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
+    [CustomAuthenticationFilter]
     public class TypeOfVisitorController : Controller
     {
         CRMDbContext db = new CRMDbContext();

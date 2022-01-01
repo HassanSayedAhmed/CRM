@@ -35,7 +35,6 @@ namespace CRM.ViewModel
         public string maximum_area { get; set; }
         public string area_metric { get; set; }
         public string remark { get; set; }
-
         public string street_address { get; set; }
         public string location { get; set; }
         public string sub_location { get; set; }
@@ -44,7 +43,10 @@ namespace CRM.ViewModel
         public string location_country { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
-
+        public int? decision_id { get; set; }
+        public int? deal_property_id { get; set; }
+        public double? deal_property_price { get; set; }
+        public int? deal_make_user_id { get; set; }
         public int? timeline_id { get; set; }
         public int? employment_type_id { get; set; }
         public string income { get; set; }
@@ -52,6 +54,7 @@ namespace CRM.ViewModel
         public string designation { get; set; }
         public string search_location { get; set; }
         public int? assigned_user_id { get; set; }
+        public string assigned_user_name { get; set; }
         public int? company_id { get; set; }
         public Company Company { get; set; }
         public int? active { get; set; }
@@ -74,6 +77,8 @@ namespace CRM.ViewModel
         public List<int> lead_sub_types { get; set; }
         public List<int> lead_unit_types { get; set; }
         public List<int> project_ids { get; set; }
+        public List<int> property_ids { get; set; }
+        public List<int> developer_ids { get; set; }
         public List<LeadActivityViewModel> leadActivities { get; set; }
         public List<LeadDeveloperViewModel> leadDevelopers { get; set; }
         public List<LeadProjectViewModel> leadProjects { get; set; }

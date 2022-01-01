@@ -11,7 +11,7 @@ using CRM.ViewModel;
 
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
+    [CustomAuthenticationFilter]
     public class LeadStageController : Controller
     {
         CRMDbContext db = new CRMDbContext();

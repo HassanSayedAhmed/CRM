@@ -5,6 +5,129 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="modal fade" id="manage_quick_lead_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-6">
+                                <label>First Name</label>
+                                <input type="text" id="first_name" name="first_name" class="form-control" required />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Last Name</label>
+                                <input type="text" id="last_name" name="last_name" class="form-control" required />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Phone</label>
+                                <input type="number" id="phone1" name="phone1" class="form-control" required />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Property</label>
+                                @Html.DropDownList("property_ids", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new {  @name = "property_ids", @id = "property_ids",@multiple= "multiple" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Source</label>
+                                @Html.DropDownList("source_id", new SelectList(ViewBag.Sources, "id", "name"), "Select Source", new { @class = "form-control", @name = "source_id", @id = "source_id" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="manage_lead_deal_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+
+                            <div class="form-group col-md-6">
+                                <label>Property</label>
+                                @Html.DropDownList("deal_property_id", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new { @class = "form-control", @name = "deal_property_id", @id = "deal_property_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Price</label>
+                                <input type="number" id="deal_property_price" name="deal_property_price" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>User</label>
+                                @Html.DropDownList("deal_make_user_id", new SelectList(ViewBag.Users, "id", "full_name"), "Select User", new { @class = "form-control", @name = "deal_make_user_id", @id = "deal_make_user_id", @required = "required" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="manage_lead_decision_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+
+                            <div class="form-group col-md-6">
+                                <label>Decision</label>
+                                <select name="decision_id" id="decision_id" class="form-control">
+                                    <option value="">Select Decision</option>
+                                    <option value="1">Qualified</option>
+                                    <option value="2">Not Qualified</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="modal fade" id="manage_make_activity_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
         <div class="modal-dialog">
@@ -90,7 +213,16 @@
             <li class="breadcrumb-item"><a href="javascript:void(0);">Lead</a></li>
         </ol>
     </nav> <!-- we commented old button and add new button with the id of add resrvation in old dropdown menu-->
-    <button class="special-btn" id="add_Lead_"><a href="@Url.Action("manageLead","Lead")">Add Lead</a></button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">More</button>
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+            <span class="caret"><i class="fa fa-arrow-alt-circle-down"></i></span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" id="add_Lead_" href="@Url.Action("manageLead","Lead")">Add Full Lead</a>
+            <a class="dropdown-item" id="add_quick_lead" href="javascript:void(0)">Add Quick Lead</a>
+        </div>
+    </div>
     <!--
         <div class="dropdown filter custom-dropdown-icon">
         <a class="dropdown-toggle btn" href="#" role="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="text">More</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
@@ -130,6 +262,9 @@
                         <th></th>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Phone</th>
+                        <th>Source</th>
+                        <th>Assigned User</th>
                         <th>Created At</th>
                         <th></th>
                     </tr>
@@ -186,27 +321,62 @@
                         "dataSrc": "data"
                     },
                    "columns": [
-                       {
-                           "data": "id", "id": true,
-                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                               var html = "";
-                               html += "<input type='checkbox' class='selectLead' />";
-                               $(nTd).html("<span class='action-column'>" + html + "</span>");
-                           }
-                       },
-                        {
-                            "data": "id",
+                           {
+                               "data": "id", "id": true,
+                               fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                   var html = "";
+                                   html += "<input type='checkbox' class='selectLead' />";
+                                   $(nTd).html("<span class='action-column'>" + html + "</span>");
+                                                          }
+                           },
+                                                   {
+
+                             "data": "id",
                             "searchable": true
                         },
-                        {
-                            "data": "first_name", "searchable": true,
+                   {
+                       "data": "first_name", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
                                 html += oData.first_name + " " + oData.last_name;
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
-                        },
-                        {
+                      },                      {
+                           "data": "phone1", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.phone1)
+                                   html += "Primary Phone: " + oData.phone1 + "<br>";
+                               if (oData.phone2)
+                                   html += "Seconday Phone: " + oData.phone2 + "<br>";
+                               if (oData.alternative_numbers)
+                                   html += "Alternate Numbers: " + oData.alternative_numbers + "<br>";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "source_name", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.source_name)
+                                   html += oData.source_name;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "assigned_user_name", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.assigned_user_name)
+                                   html += oData.assigned_user_name;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
                             "data": "created_at_string",
                             "searchable": true
                         },
@@ -214,10 +384,19 @@
                             "data": "id", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
+                                var userId = '@Session["id"].ToString()';
+                                var isSuperAdmin = '@CRM.Auth.isA.superAdmin()';
+                                var isAdmin = '@CRM.Auth.isA.admin()';
+                                console.log(isSuperAdmin);
+                                console.log(isAdmin);
 
-                                html += "<a class='edit1' href='/Lead/manageLead/" +oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
-                                html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>&nbsp;|&nbsp;";
-                                html += "<a class='make_activity' href='javascript:void(0)' title='Activity'><i class='fas fa-phone-volume'></i></a>";
+                                if ((parseInt(userId) == parseInt(oData.created_by)) || isSuperAdmin == "True" || isAdmin == "True") {
+                                    html += "<a class='edit1' href='/Lead/manageLead/" + oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;|&nbsp;";
+                                    html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>&nbsp;|&nbsp;";
+                                }
+                                html += "<a class='make_activity' href='javascript:void(0)' title='Activity'><i class='fas fa-phone-volume'></i></a>&nbsp;|&nbsp;";
+                                html += "<a class='make_decision' href='javascript:void(0)' title='Decision'><i class='fas fa-tasks'></i></a>&nbsp;|&nbsp;";
+                                html += "<a class='make_deal' href='javascript:void(0)' title='Convert To Deal'><i class='fas fa-check-double'></i></a>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -283,6 +462,26 @@
                }
             });
 
+           $(document).on("click", "#add_quick_lead", function () {
+               var modal = $('#manage_quick_lead_modal').clone();
+                   var action = '@Url.Action("saveQuickLead", "Lead")';
+                   modal.find('form').attr('action', action);
+                   modal.find('#modal_title').text('Add Quick Lead');
+                   modal.execModal({
+                       progressBar: 'progress_bar',
+                       progressText: 'progress_text',
+                   }, function (response) {
+                           datatable.draw();
+                   }, function (response) {
+
+
+                   }, function (dialog) {
+                           var property_ids = dialog.find('#property_ids').selectize({
+                               plugins: ['remove_button'],
+                           });
+                   });
+           });
+
            $(document).on("click", ".make_activity", function () {
                var data = datatable.row($(this).closest('tr')).data();
                var modal = $('#manage_make_activity_modal').clone();
@@ -301,6 +500,49 @@
                            dialog.find("#lead_id").val(data.id);
                    });
            });
+
+           $(document).on("click", ".make_decision", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_lead_decision_modal').clone();
+                   var action = '@Url.Action("makeDecision", "Lead")';
+                   modal.find('form').attr('action', action);
+                   modal.find('#modal_title').text('Make Decision');
+                   modal.execModal({
+                       progressBar: 'progress_bar',
+                       progressText: 'progress_text',
+                   }, function (response) {
+                           datatable.draw();
+                   }, function (response) {
+
+
+                   }, function (dialog) {
+                           dialog.find("#id").val(data.id);
+                           dialog.find('#decision_id option[value=' + data.decision_id + ']').attr('selected', 'selected');
+                   });
+           });
+
+           $(document).on("click", ".make_deal", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_lead_deal_modal').clone();
+                   var action = '@Url.Action("makeDeal", "Lead")';
+                   modal.find('form').attr('action', action);
+                   modal.find('#modal_title').text('Convert To Deal');
+                   modal.execModal({
+                       progressBar: 'progress_bar',
+                       progressText: 'progress_text',
+                   }, function (response) {
+                           datatable.draw();
+                   }, function (response) {
+
+
+                   }, function (dialog) {
+                           dialog.find("#id").val(data.id);
+                           dialog.find('#deal_property_id option[value=' + data.deal_property_id + ']').attr('selected', 'selected');
+                           dialog.find("#deal_property_price").val(data.deal_property_price);
+                           dialog.find('#deal_make_user_id option[value=' + data.deal_make_user_id + ']').attr('selected', 'selected');
+                   });
+           });
+
            $(document).on("click", ".selectLead", function () {
                var data = datatable.row($(this).closest('tr')).data();
                if ($(this).is(':checked')) {

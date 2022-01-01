@@ -12,7 +12,7 @@ using CRM.Helpers;
 
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
+    [CustomAuthenticationFilter]
     public class SubTypeController : Controller
     {
         CRMDbContext db = new CRMDbContext();

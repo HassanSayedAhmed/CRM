@@ -4,13 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRM.Auth;
 using CRM.Helpers;
 using CRM.Models;
 using CRM.ViewModel;
 
 namespace CRM.Controllers
 {
-    //[CustomAuthenticationFilter]
+    [CustomAuthenticationFilter]
     public class LeadCategoryController : Controller
     {
         CRMDbContext db = new CRMDbContext();

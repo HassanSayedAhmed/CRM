@@ -1,13 +1,13 @@
 ﻿using CRM.ViewModel;
 using CRM.Auth;
 using CRM.Models;
-using CRM.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRM.Helpers;
 
 namespace CRM.Controllers
 {
@@ -78,7 +78,7 @@ namespace CRM.Controllers
                 Activity Activity = AutoMapper.Mapper.Map<ActivityViewModel, Activity>(ActivityVM);
 
                 Activity.created_at = DateTime.Now;
-                //Activity.created_by = Session["id"].ToString().ToInt();
+                Activity.created_by = Session["id"].ToString().ToInt();
 
                 db.Activities.Add(Activity);
                 db.SaveChanges();
@@ -89,7 +89,7 @@ namespace CRM.Controllers
                 Activity oldActivity = db.Activities.Find(ActivityVM.id);
 
                 oldActivity.name = ActivityVM.name;
-                //oldActivity.updated_by = Session["id"].ToString().ToInt();
+                oldActivity.updated_by = Session["id"].ToString().ToInt();
                 oldActivity.updated_at = DateTime.Now;
 
                 db.Entry(oldActivity).State = System.Data.Entity.EntityState.Modified;

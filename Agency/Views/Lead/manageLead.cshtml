@@ -242,7 +242,21 @@
                             @Html.DropDownListFor(t => t.timeline_id, new SelectList(ViewBag.timelines, "id", "name"), "Select Timeline", new { @class = "form-control", @name = "timeline_id", @id = "timeline_id" })
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Property</label>
+                            @Html.DropDownListFor(p => p.property_ids, new SelectList(ViewBag.properties, "id", "name"), "Select Project", new { @class = "selectize", @name = "property_ids", @id = "property_ids", @multiple = "multiple" })
 
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Developer</label>
+                            @Html.DropDownListFor(p => p.developer_ids, new SelectList(ViewBag.developers, "id", "name"), "Select Project", new { @class = "selectize", @name = "developer_ids", @id = "developer_ids", @multiple = "multiple" })
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -392,10 +406,16 @@
         var project_ids = $('#project_ids').selectize({
             plugins: ['remove_button'],
         });
+        var property_ids = $('#property_ids').selectize({
+            plugins: ['remove_button'],
+        });
+        var developer_ids = $('#developer_ids').selectize({
+            plugins: ['remove_button'],
+        });
         $(document).ready(function () {
 
             var date_of_anniversary = '@Model.date_of_anniversary';
-            
+
                 var splitted_date_of_anniversary = date_of_anniversary.split(' ')[0];
                 var final_splitted_date_of_anniversary = splitted_date_of_anniversary.split('/')[2] + '-' + splitted_date_of_anniversary.split('/')[1] + '-' + splitted_date_of_anniversary.split('/')[0];
                 $('#date_of_anniversary').val(final_splitted_date_of_anniversary);
@@ -440,6 +460,30 @@
                     ids.push(value.id);
                 });
                 selectize_project_ids.setValue(ids);
+            }
+
+            var property_ids_data = '@Model.leadPropertiesJson';
+            if (property_ids_data) {
+                property_ids_data = JSON.parse(property_ids_data.replace(/&quot;/g, '"'));
+                var ids = [];
+                property_ids[0].selectize.clear();
+                var selectize_property_ids = property_ids[0].selectize;
+                property_ids_data.forEach(function (value) {
+                    ids.push(value.id);
+                });
+                selectize_property_ids.setValue(ids);
+            }
+
+            var developer_ids_data = '@Model.leadDevelopersJson';
+            if (developer_ids_data) {
+                developer_ids_data = JSON.parse(developer_ids_data.replace(/&quot;/g, '"'));
+                var ids = [];
+                developer_ids[0].selectize.clear();
+                var selectize_developer_ids = developer_ids[0].selectize;
+                developer_ids_data.forEach(function (value) {
+                    ids.push(value.id);
+                });
+                selectize_developer_ids.setValue(ids);
             }
 
             var location = '@Model.location';
