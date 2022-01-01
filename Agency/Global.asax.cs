@@ -37,6 +37,7 @@ namespace CRM
             Mapper.CreateMap<LeadViewModel, Lead> ();
             Mapper.CreateMap<SubTypeViewModel, SubType> ();
             Mapper.CreateMap<UnitTypeViewModel, UnitType> ();
+            Mapper.CreateMap<LeadActivityViewModel, LeadActivity> ();
             
 
         }

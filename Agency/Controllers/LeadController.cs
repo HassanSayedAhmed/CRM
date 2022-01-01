@@ -207,6 +207,7 @@ namespace CRM.Controllers
             }
 
             ViewBag.Users = db.Users.Select(u => new { u.id, u.full_name }).ToList();
+            ViewBag.Acitivities = db.Activities.Select(u => new { u.id, u.name }).ToList();
             return View();
         }
 
@@ -630,6 +631,18 @@ namespace CRM.Controllers
                 currentLead.assigned_user_id = leadViewModel.assigned_user_id;
                 db.SaveChanges();
             }
+            return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult makeActivity(LeadActivityViewModel leadActivityViewModel)
+        {
+            LeadActivity leadActivity = AutoMapper.Mapper.Map<LeadActivityViewModel, LeadActivity>(leadActivityViewModel);
+
+            leadActivity.created_at = DateTime.Now;
+            leadActivity.created_by = Session["id"].ToString().ToInt();
+
+            db.LeadActivities.Add(leadActivity);
+            db.SaveChanges();
             return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
         }
     }

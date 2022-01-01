@@ -5,6 +5,52 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="modal fade" id="manage_make_activity_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <input type="hidden" name="lead_id" id="lead_id" value="0" />
+
+                            <div class="form-group col-md-6">
+                                <label>Activity</label>
+                                @Html.DropDownList("activity_id", new SelectList(ViewBag.Acitivities, "id", "name"), "Select Activity", new { @class = "form-control", @name = "activity_id", @id = "activity_id", @required = "required" })
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Activity Datetime</label>
+                                <input type="date" name="activity_date_time" id="activity_date_time" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Activity Duration</label>
+                                <input type="number" name="activity_duration" id="activity_duration" class="form-control" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Note</label>
+                                <input type="number" name="note" id="note" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="modal fade" id="manage_assign_Lead_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
         <div class="modal-dialog">
@@ -18,11 +64,11 @@
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="form-row">
-                            <input type="hidden" name="lead_ids" id="lead_ids"/>
+                            <input type="hidden" name="lead_ids" id="lead_ids" />
 
                             <div class="form-group col-md-12">
                                 <label>User</label>
-                                @Html.DropDownList("assigned_user_id", new SelectList(ViewBag.Users, "id", "full_name"), "Select User", new { @class = "form-control", @name = "assigned_user_id", @id = "assigned_user_id",@required="required" })
+                                @Html.DropDownList("assigned_user_id", new SelectList(ViewBag.Users, "id", "full_name"), "Select User", new { @class = "form-control", @name = "assigned_user_id", @id = "assigned_user_id", @required = "required" })
                             </div>
 
                         </div>
@@ -169,8 +215,9 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
 
-                                html += "<a class='edit1' id='" + oData.id + "' href='/Lead/manageLead/" +oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
-                                html += "<a class='delete' id='" + oData.id + "' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>";
+                                html += "<a class='edit1' href='/Lead/manageLead/" +oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>&nbsp;|&nbsp;";
+                                html += "<a class='make_activity' href='javascript:void(0)' title='Activity'><i class='fas fa-phone-volume'></i></a>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -219,9 +266,8 @@
                        progressBar: 'progress_bar',
                        progressText: 'progress_text',
                    }, function (response) {
-
-                       datatable.draw();
-
+                           datatable.draw();
+                           leads_ids = [];
                    }, function (response) {
 
                    }, function (dialog) {
@@ -237,11 +283,29 @@
                }
             });
 
+           $(document).on("click", ".make_activity", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_make_activity_modal').clone();
+                   var action = '@Url.Action("makeActivity", "Lead")';
+                   modal.find('form').attr('action', action);
+                   modal.find('#modal_title').text('Make Activity');
+                   modal.execModal({
+                       progressBar: 'progress_bar',
+                       progressText: 'progress_text',
+                   }, function (response) {
+                           datatable.draw();
+                   }, function (response) {
+
+
+                   }, function (dialog) {
+                           dialog.find("#lead_id").val(data.id);
+                   });
+           });
            $(document).on("click", ".selectLead", function () {
                var data = datatable.row($(this).closest('tr')).data();
                if ($(this).is(':checked')) {
                    leads_ids.push(data.id);
-                  
+
                }
                else {
                    const index = leads_ids.indexOf(data.id);
