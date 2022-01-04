@@ -29,6 +29,7 @@ namespace CRM.Controllers
                 //var to_date = Request.Form.GetValues("columns[1][search][value]")[0];
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
+                int companyID = ((int)Session["companyID"]);
 
                 // Getting all data    
                 var LeadData = (from lead in db.Leads
@@ -46,8 +47,8 @@ namespace CRM.Controllers
                                 from company in c.DefaultIfEmpty()
                                 join asn in db.Users on lead.assigned_user_id equals asn.id into asur
                                 from assignedUser in asur.DefaultIfEmpty()
-                                join crBy in db.Users on lead.created_by equals crBy.id into cr
-                                from createdBy in cr.DefaultIfEmpty()
+                                join crBy in db.Users on lead.created_by equals crBy.id //into cr
+                                //from createdBy in cr.DefaultIfEmpty()
                                 join upBy in db.Users on lead.updated_by equals upBy.id into up
                                 from updatedBy in up.DefaultIfEmpty()
                                 join de in db.Users on lead.deleted_by equals de.id into d
@@ -109,7 +110,8 @@ namespace CRM.Controllers
                                     employment_type_name = employeeType.name,
                                     assigned_user_name = assignedUser.full_name,
                                     company_name = company.name,
-                                    created_by_name = createdBy.first_name,
+                                    created_by_name = crBy.first_name,
+                                    created_by_company_id = (int)crBy.company_id,
                                     updated_by_name = updatedBy.first_name,
                                     deleted_by_name = deletedBy.first_name,
                                     leadActivities = (from leadActivity in db.LeadActivities
@@ -188,7 +190,8 @@ namespace CRM.Controllers
                                                      }).ToList(),
 
 
-                                });
+                                }).Where(u => u.created_by_company_id == companyID);
+
                 if(isA.salesAgent())
                 {
                     int userId = Session["id"].ToString().ToInt();

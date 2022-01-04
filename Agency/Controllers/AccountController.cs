@@ -23,6 +23,7 @@ namespace CRM.Controllers
                 Session["user_name"] = currentUser.user_name;
                 Session["type"] = currentUser.type;
                 Session["id"] = currentUser.id;
+                Session["companyID"] = currentUser.company_id;
                 Session["user"] = currentUser;
 
                 return RedirectToAction("Index", "Dashboard");

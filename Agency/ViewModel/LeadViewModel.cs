@@ -91,6 +91,7 @@ namespace CRM.ViewModel
         public string leadProjectsJson { get; set; }
         public string leadPropertiesJson { get; set; }
         public string leadUnitTypesJson { get; set; }
+        public int created_by_company_id { get; set; }
 
     }
 }

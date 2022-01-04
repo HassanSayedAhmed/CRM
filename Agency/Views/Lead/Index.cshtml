@@ -393,6 +393,8 @@
                                 if ((parseInt(userId) == parseInt(oData.created_by)) || isSuperAdmin == "True" || isAdmin == "True") {
                                     html += "<a class='edit1' href='/Lead/manageLead/" + oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;|&nbsp;";
                                     html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>&nbsp;|&nbsp;";
+                                    html += "<a class='assign_agent' href='javascript:void(0)' title='Assign To Sales Agent'><i class='fas fa-user'></i></a>&nbsp;|&nbsp;";
+
                                 }
                                 html += "<a class='make_activity' href='javascript:void(0)' title='Activity'><i class='fas fa-phone-volume'></i></a>&nbsp;|&nbsp;";
                                 html += "<a class='make_decision' href='javascript:void(0)' title='Decision'><i class='fas fa-tasks'></i></a>&nbsp;|&nbsp;";
@@ -460,6 +462,27 @@
                        'error'
                    )
                }
+           });
+
+           $(document).on("click", ".assign_agent", function () {
+
+               var data = datatable.row($(this).closest('tr')).data();
+                var modal = $('#manage_assign_Lead_modal').clone();
+                var action = '@Url.Action("assignLeads", "Lead")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('Assign Leads');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+                }, function (response) {
+
+                }, function (dialog) {
+                    dialog.find("#assigned_user_id").val(data.assigned_user_id);
+
+                });
+               
             });
 
            $(document).on("click", "#add_quick_lead", function () {
