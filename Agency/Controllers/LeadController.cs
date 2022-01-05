@@ -567,7 +567,7 @@ namespace CRM.Controllers
                 oldLead.alternative_numbers = LeadVM.alternative_numbers;
                 oldLead.type_of_visitor_id = LeadVM.type_of_visitor_id;
                 oldLead.lead_stage_id = LeadVM.lead_stage_id;
-                oldLead.lead_category_id = LeadVM.lead_stage_id;
+                oldLead.lead_category_id = LeadVM.lead_category_id;
                 oldLead.source_id = LeadVM.source_id;
                 oldLead.date_of_birth = LeadVM.date_of_birth;
                 oldLead.date_of_anniversary = LeadVM.date_of_anniversary;
@@ -603,7 +603,7 @@ namespace CRM.Controllers
                 db.Entry(oldLead).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
 
-                db.LeadSubTypes.Where(lsub => lsub.lead_id == oldLead.id).ToList().ForEach(lsub => db.LeadSubTypes.Remove(lsub));
+                db.LeadSubTypes.Where(lsub => lsub.lead_id == LeadVM.id).ToList().ForEach(lsub => db.LeadSubTypes.Remove(lsub));
                 db.SaveChanges();
 
                 if (LeadVM.lead_sub_types != null)
@@ -619,7 +619,7 @@ namespace CRM.Controllers
                     }
                 }
 
-                db.LeadUnitTypes.Where(lub => lub.lead_id == oldLead.id).ToList().ForEach(lub => db.LeadUnitTypes.Remove(lub));
+                db.LeadUnitTypes.Where(lub => lub.lead_id == LeadVM.id).ToList().ForEach(lub => db.LeadUnitTypes.Remove(lub));
                 db.SaveChanges();
 
                 if (LeadVM.lead_unit_types != null)
@@ -635,7 +635,7 @@ namespace CRM.Controllers
                     }
                 }
 
-                db.LeadProjects.Where(lp => lp.lead_id == oldLead.id).ToList().ForEach(lp => db.LeadProjects.Remove(lp));
+                db.LeadProjects.Where(lp => lp.lead_id == LeadVM.id).ToList().ForEach(lp => db.LeadProjects.Remove(lp));
                 db.SaveChanges();
 
                 if (LeadVM.project_ids != null)
@@ -651,7 +651,7 @@ namespace CRM.Controllers
                     }
                 }
 
-                db.LeadProperties.Where(lp => lp.lead_id == oldLead.id).ToList().ForEach(lp => db.LeadProperties.Remove(lp));
+                db.LeadProperties.Where(lp => lp.lead_id == LeadVM.id).ToList().ForEach(lp => db.LeadProperties.Remove(lp));
                 if (LeadVM.property_ids != null)
                 {
                     foreach (var propertyId in LeadVM.property_ids)
@@ -665,7 +665,7 @@ namespace CRM.Controllers
                     }
                 }
 
-                db.LeadProjects.Where(lp => lp.lead_id == oldLead.id).ToList().ForEach(lp => db.LeadProjects.Remove(lp));
+                db.LeadDevelopers.Where(lp => lp.lead_id == LeadVM.id).ToList().ForEach(lp => db.LeadDevelopers.Remove(lp));
                 if (LeadVM.developer_ids != null)
                 {
                     foreach (var developerId in LeadVM.developer_ids)

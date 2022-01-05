@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Property</label>
-                                @Html.DropDownList("property_ids", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new {  @name = "property_ids", @id = "property_ids",@multiple= "multiple" })
+                                @Html.DropDownList("property_ids", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new { @name = "property_ids", @id = "property_ids", @multiple = "multiple" })
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Source</label>
@@ -261,11 +261,14 @@
                     <tr>
                         <th></th>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Source</th>
-                        <th>Assigned User</th>
-                        <th>Created At</th>
+                        <th>DETAILS</th>
+                        <th>DATE</th>
+                        <th>SALES AGENT</th>
+                        <th>PROJECT</th>
+                        <th>LEAD STAGE</th>
+                        <th>LEAD CATEGORY</th>
+                        <th>SOURCE</th>
+                        <th>REMARK</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -321,52 +324,45 @@
                         "dataSrc": "data"
                     },
                    "columns": [
-                           {
-                               "data": "id", "id": true,
-                               fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                                   var html = "";
-                                   html += "<input type='checkbox' class='selectLead' />";
-                                   $(nTd).html("<span class='action-column'>" + html + "</span>");
-                                                          }
-                           },
-                                                   {
-
-                             "data": "id",
-                            "searchable": true
-                        },
-                   {
-                       "data": "first_name", "searchable": true,
-                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                                var html = "";
-                                html += oData.first_name + " " + oData.last_name;
-                                $(nTd).html("<span class='action-column'>" + html + "</span>");
-                            }
-                      },                      {
-                           "data": "phone1", "searchable": true,
+                       {
+                           "data": "id", "id": true,
                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                var html = "";
+                               html += "<input type='checkbox' class='selectLead' />";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+
+                           "data": "id",
+                           "searchable": true
+                       },
+                       {
+                           "data": "first_name", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               html += oData.first_name + " " + oData.last_name + "<br>";
                                if (oData.phone1)
                                    html += "Primary Phone: " + oData.phone1 + "<br>";
                                if (oData.phone2)
                                    html += "Seconday Phone: " + oData.phone2 + "<br>";
                                if (oData.alternative_numbers)
-                                   html += "Alternate Numbers: " + oData.alternative_numbers + "<br>";
+                                   html += "Alternate Numbers: " + oData.alternative_numbers;
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
                            }
-                       },
-                       {
-                           "data": "source_name", "searchable": true,
+                       }, {
+                           "data": "created_at_string", "searchable": true,
                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                var html = "";
-                               if (oData.source_name)
-                                   html += oData.source_name;
+                               if (oData.created_at_string)
+                                   html += oData.created_at_string;
                                else
                                    html += "-";
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
                            }
                        },
                        {
-                           "data": "assigned_user_name", "searchable": true,
+                           "data": "assigned_user_id", "searchable": true,
                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                var html = "";
                                if (oData.assigned_user_name)
@@ -377,9 +373,64 @@
                            }
                        },
                        {
-                            "data": "created_at_string",
-                            "searchable": true
-                        },
+                           "data": "leadProjects", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.leadProjects) {
+                                   console.log(oData.leadProjects)
+                                   oData.leadProjects.forEach(function (project) {
+                                       html += project.project_name + "<br>";
+                                    });
+                               }
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "lead_stage_id", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.lead_stage_name)
+                                   html += oData.lead_stage_name;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "lead_category_id", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.lead_category_name)
+                                   html += oData.lead_category_name;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "source_id", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.source_name)
+                                   html += oData.source_name;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "remark", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.remark)
+                                   html += oData.remark;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
                         {
                             "data": "id", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
@@ -482,7 +533,7 @@
                     dialog.find("#assigned_user_id").val(data.assigned_user_id);
 
                 });
-               
+
             });
 
            $(document).on("click", "#add_quick_lead", function () {
