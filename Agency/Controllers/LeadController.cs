@@ -800,8 +800,8 @@ namespace CRM.Controllers
         public JsonResult makeDeal(LeadViewModel leadViewModel)
         {
             Lead lead = db.Leads.Find(leadViewModel.id);
-            lead.deal_property_id = leadViewModel.deal_property_id;
-            lead.deal_property_price = leadViewModel.deal_property_price;
+            //lead.deal_property_id = leadViewModel.deal_property_id;
+            //lead.deal_property_price = leadViewModel.deal_property_price;
             lead.deal_make_user_id = leadViewModel.deal_make_user_id;
             db.SaveChanges();
             return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);

@@ -67,15 +67,15 @@
                         <div class="form-row">
                             <input type="hidden" name="id" id="id" value="0" />
 
-                            <div class="form-group col-md-6">
+                            @*<div class="form-group col-md-6">
                                 <label>Property</label>
                                 @Html.DropDownList("deal_property_id", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new { @class = "form-control", @name = "deal_property_id", @id = "deal_property_id", @required = "required" })
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Price</label>
                                 <input type="number" id="deal_property_price" name="deal_property_price" class="form-control" />
-                            </div>
-                            <div class="form-group col-md-6">
+                            </div>*@
+                            <div class="form-group col-md-12">
                                 <label>User</label>
                                 @Html.DropDownList("deal_make_user_id", new SelectList(ViewBag.Users, "id", "full_name"), "Select User", new { @class = "form-control", @name = "deal_make_user_id", @id = "deal_make_user_id", @required = "required" })
                             </div>
@@ -107,7 +107,7 @@
                         <div class="form-row">
                             <input type="hidden" name="id" id="id" value="0" />
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <label>Decision</label>
                                 <select name="decision_id" id="decision_id" class="form-control">
                                     <option value="">Select Decision</option>
@@ -269,6 +269,7 @@
                         <th>LEAD CATEGORY</th>
                         <th>SOURCE</th>
                         <th>REMARK</th>
+                        <th>DECISION</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -343,9 +344,9 @@
                                var html = "";
                                html += oData.first_name + " " + oData.last_name + "<br>";
                                if (oData.phone1)
-                                   html += "Primary Phone: " + oData.phone1 + "<br>";
+                                   html += "Primary Phone: <a href='https://api.whatsapp.com/send/?phone=+20" + oData.phone1+"&text=Hello'>" + oData.phone1 + "</a><br>";
                                if (oData.phone2)
-                                   html += "Seconday Phone: " + oData.phone2 + "<br>";
+                                   html += "Seconday Phone: <a href='https://api.whatsapp.com/send/?phone=+20" + oData.phone2 +"&text=Hello'>" +oData.phone2 + "</a><br>";
                                if (oData.alternative_numbers)
                                    html += "Alternate Numbers: " + oData.alternative_numbers;
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
@@ -426,6 +427,22 @@
                                var html = "";
                                if (oData.remark)
                                    html += oData.remark;
+                               else
+                                   html += "-";
+                               $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                       },
+                       {
+                           "data": "decision_id", "searchable": true,
+                           fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                               var html = "";
+                               if (oData.decision_id) {
+                                   if (oData.decision_id == 1)
+                                       html = "Qualified";
+                                   else
+                                       html = "Not Qualified";
+                               }
+                               
                                else
                                    html += "-";
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
@@ -611,8 +628,8 @@
 
                    }, function (dialog) {
                            dialog.find("#id").val(data.id);
-                           dialog.find('#deal_property_id option[value=' + data.deal_property_id + ']').attr('selected', 'selected');
-                           dialog.find("#deal_property_price").val(data.deal_property_price);
+                           //dialog.find('#deal_property_id option[value=' + data.deal_property_id + ']').attr('selected', 'selected');
+                           //dialog.find("#deal_property_price").val(data.deal_property_price);
                            dialog.find('#deal_make_user_id option[value=' + data.deal_make_user_id + ']').attr('selected', 'selected');
                    });
            });
