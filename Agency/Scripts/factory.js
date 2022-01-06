@@ -14,6 +14,25 @@ function addCommas(nStr) {
     return x1 + x2;
 }
 
+function formatDate(inputDate) {
+    var final_date = '-';
+    if (inputDate != null) {
+        var dateValue = new Date
+            (
+                parseInt(inputDate.replace(/(^.*\()|([+-].*$)/g, ''))
+            );
+        var formatted_date = dateValue.getFullYear() +
+            "-" +
+            ("0" + (dateValue.getMonth() + 1)).slice(-2) +
+            "-" +
+            ("0" + dateValue.getDate()).slice(-2)
+            ;
+        final_date = formatted_date;
+        return final_date;
+    }
+    return "-";
+}
+
 function initSelectize(element, url) {
     var users = element.selectize({
         valueField: 'id',

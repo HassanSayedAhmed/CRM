@@ -38,6 +38,10 @@ namespace CRM.Controllers
                 var LeadData = (from lead in db.Leads
                                 join leadS in db.LeadStages on lead.lead_stage_id equals leadS.id into ls
                                 from leadStage in ls.DefaultIfEmpty()
+                                join propt in db.PropertyTypes on lead.property_type_id equals propt.id into prt
+                                from proptype in prt.DefaultIfEmpty()
+                                join req in db.Requirements on lead.requirement_id equals req.id into rq
+                                from requiremtent in prt.DefaultIfEmpty()
                                 join leadC in db.LeadCategories on lead.lead_category_id equals leadC.id into lc
                                 from Lead in lc.DefaultIfEmpty()
                                 join sou in db.Sources on lead.source_id equals sou.id into s
@@ -76,7 +80,9 @@ namespace CRM.Controllers
                                     address = lead.address,
                                     country = lead.country,
                                     property_type_id = lead.property_type_id,
+                                    property_type_name = proptype.name,
                                     requirement_id = lead.requirement_id,
+                                    requirement_name = requiremtent.name,
                                     budget_min = lead.budget_min,
                                     budget_max = lead.budget_max,
                                     minimum_area = lead.minimum_area,

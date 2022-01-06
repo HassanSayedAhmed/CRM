@@ -5,6 +5,149 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="modal modal animated slideInUp custo-slideInUp" id="manage_lead_details_modal" tabindex="-1" role="dialog" aria-labelledby="tabsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tabsModalLabel">Lead Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="leaddetails-tab" data-toggle="tab" href="#leaddetails" role="tab" aria-controls="LeadDetails" aria-selected="true">Lead Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="requirements-tab" data-toggle="tab" href="#requirements" role="tab" aria-controls="Requirements" aria-selected="false">Requirements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="interestedprojects-tab" data-toggle="tab" href="#interestedprojects" role="tab" aria-controls="InterestedProjects" aria-selected="false">Interested Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="employementdetails-tab" data-toggle="tab" href="#employementdetails" role="tab" aria-controls="EmployementDetails" aria-selected="false">Employement Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="location-tab" data-toggle="tab" href="#location" role="tab" aria-controls="Location" aria-selected="false">Location</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="leaddetails" role="tabpanel" aria-labelledby="leaddetails-tab">
+                        <table class="table table-striped">
+                            <tr>
+                                <td style="font-weight:bold;">First Name</td>
+                                <td><span id="lead_details_first_name"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Last Name</td>
+                                <td><span id="lead_details_last_name"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Email</td>
+                                <td><span id="lead_details_email"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Primary Phone</td>
+                                <td><span id="lead_details_primary_phone"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Secondary Phone</td>
+                                <td><span id="lead_details_secondary_phone"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Alternative Number</td>
+                                <td><span id="lead_details_alternative_number"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Date of Birth</td>
+                                <td><span id="lead_details_date_of_birth"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Date of Anniversary</td>
+                                <td><span id="lead_details_date_of_anniversary"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Source</td>
+                                <td><span id="lead_details_source"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Sales Agent</td>
+                                <td><span id="lead_details_sales_agent"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Address</td>
+                                <td><span id="lead_details_address"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Country</td>
+                                <td><span id="lead_details_country"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="requirements" role="tabpanel" aria-labelledby="requirements-tab">
+                        <table class="table table-striped">
+                            <tr>
+                                <td style="font-weight:bold;">Property Type</td>
+                                <td><span id="lead_details_property_type"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Sub Type</td>
+                                <td><span id="lead_details_sub_type"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Unit Type</td>
+                                <td><span id="lead_details_unit_type"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Requirement</td>
+                                <td><span id="lead_details_requirement"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Budget Min</td>
+                                <td><span id="lead_details_budget_min"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Budget Max</td>
+                                <td><span id="lead_details_budget_max"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Minimum Area In</td>
+                                <td><span id="lead_details_min_area_in"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Minimum Area In</td>
+                                <td><span id="lead_details_max_area_in"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Area Metric</td>
+                                <td><span id="lead_details_area_metric"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:bold;">Remark</td>
+                                <td><span id="lead_details_remark"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="interestedprojects" role="tabpanel" aria-labelledby="interestedprojects-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="employementdetails" role="tabpanel" aria-labelledby="employementdetails-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="manage_show_lead_activites_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
         <div class="modal-dialog">
@@ -481,17 +624,17 @@
                                html += "<a style='text-decoration:underline' href='javascript:void(0)' class='lead_details'>" + oData.first_name.toUpperCase() + " " + oData.last_name.toUpperCase() + "</a><br>";
                                if (oData.phone1) {
                                    html += "Phone1 : " + oData.phone1;
-                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.phone1}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a> 
+                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.phone1}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a>
                                              <a href = 'tel://${oData.phone1}' ><i class="fas fa-phone"></i></a > <br>`;
                                }
                                if (oData.phone2) {
                                    html += "Phone2 : " + oData.phone2;
-                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.phone2}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a> 
+                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.phone2}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a>
                                              <a href = 'tel://${oData.phone2}' ><i class="fas fa-phone"></i></a > <br>`;
                                }
                                if (oData.alternative_numbers) {
                                    html += "Alt Number : " + oData.alternative_numbers;
-                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.alternative_numbers}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a> 
+                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.alternative_numbers}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a>
                                              <a href = 'tel://${oData.alternative_numbers}' ><i class="fas fa-phone"></i></a > <br>`;
                                }
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
@@ -620,7 +763,7 @@
                                 html += '<div class="dropdown-menu">';
                                 if ((parseInt(userId) == parseInt(oData.created_by)) || isSuperAdmin == "True" || isAdmin == "True") {
                                     html += `
-                                        <a class='dropdown-item' href='/Lead/manageLead/ ${oData.id}' title='Edit'><i class='far fa-edit'></i> Edit</a>
+                                        <a class='dropdown-item' target='_blank' href='/Lead/manageLead/ ${oData.id}' title='Edit'><i class='far fa-edit'></i> Edit</a>
                                         <a class='dropdown-item delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i>Delete</a>
                                         <a class='dropdown-item assign_agent' href='javascript:void(0)' title='Assign To Sales Agent'><i class='fas fa-user'></i>Assign Agent</a>
                                 `;
@@ -633,7 +776,7 @@
                                 if (oData.lead_stage_id == 5)
                                     html += "<a class='dropdown-item make_deal' href='javascript: void (0)' title='Convert To Deal'><i class='fas fa-check-double'></i>Make Deal</a>";
                                 html +=`
-                                        <a class='dropdown-item show_interests' data-toggle="modal" href='javascript:void(0)' title='Show Interests'><i class="fas fa-snowflake"></i>Show Interests</a>
+                                        <a class='dropdown-item show_interests' href='javascript:void(0)' title='Show Interests'><i class="fas fa-snowflake"></i>Show Interests</a>
                                         <a class='dropdown-item show_activites' href='javascript:void(0)' title='Show Activities'><i class="fas fa-list-ol"></i>Show Activities</a>
                                     </div>
                                 </div>`;
@@ -823,6 +966,66 @@
                            dialog.find("#deal_property_price").val(data.deal_property_price);
                            dialog.find('#deal_make_user_id option[value=' + data.deal_make_user_id + ']').attr('selected', 'selected');
                    });
+           });
+
+           $(document).on("click", ".lead_details", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+     
+               $("#lead_details_first_name").text(data.first_name);
+               $("#lead_details_last_name").text(data.last_name);
+               $("#lead_details_email").text(data.email);
+               $("#lead_details_primary_phone").text(data.phone1);
+               $("#lead_details_secondary_phone").text(data.phone2);
+               $("#lead_details_alternative_number").text(data.alternative_numbers);
+
+               var date_of_birth = '-';
+               if (data.date_of_birth != null) {
+                   var dateValue = new Date
+                       (
+                           parseInt(data.date_of_birth.replace(/(^.*\()|([+-].*$)/g, ''))
+                       );
+                   var date_date_of_birth = dateValue.getFullYear() +
+                       "-" +
+                       ("0" + (dateValue.getMonth() + 1)).slice(-2) +
+                       "-" +
+                       ("0" + dateValue.getDate()).slice(-2)
+                       ;
+                   date_of_birth = date_date_of_birth;
+               }
+               $("#lead_details_date_of_birth").text(date_of_birth);
+
+               var date_of_anniversary = '-';
+               if (data.date_of_anniversary != null) {
+                   var dateValue = new Date
+                       (
+                           parseInt(data.date_of_anniversary.replace(/(^.*\()|([+-].*$)/g, ''))
+                       );
+                   var date_date_of_anniversary = dateValue.getFullYear() +
+                       "-" +
+                       ("0" + (dateValue.getMonth() + 1)).slice(-2) +
+                       "-" +
+                       ("0" + dateValue.getDate()).slice(-2)
+                       ;
+                   date_of_anniversary = date_date_of_anniversary;
+               }
+               $("#lead_details_date_of_anniversary").text(date_of_anniversary);
+               $("#lead_details_source").text(data.source_name);
+               $("#lead_details_sales_agent").text(data.sales_agent);
+               $("#lead_details_address").text(data.address);
+               $("#lead_details_country").text(data.country);
+
+               $("#lead_details_property_type").text(data.property_type_name);
+               $("#lead_details_sub_type").text(data.property_type_name);
+               $("#lead_details_unit_type").text(data.property_type_name);
+               $("#lead_details_requirement").text(data.requirement_name);
+               $("#lead_details_budget_min").text(data.budget_min);
+               $("#lead_details_budget_max").text(data.budget_max);
+               $("#lead_details_min_area_in").text(data.minimum_area);
+               $("#lead_details_max_area_in").text(data.maximum_area);
+               $("#lead_details_area_metric").text(data.area_metric);
+               $("#lead_details_remark").text(data.remark);
+
+               $("#manage_lead_details_modal").modal('show');
            });
 
            $(document).on("click", ".show_activites", function () {

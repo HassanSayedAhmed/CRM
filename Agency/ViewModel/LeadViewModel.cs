@@ -28,7 +28,9 @@ namespace CRM.ViewModel
         public string address { get; set; }
         public string country { get; set; }
         public int? property_type_id { get; set; }
+        public string property_type_name { get; set; }
         public int? requirement_id { get; set; }
+        public string requirement_name { get; set; }
         public string budget_min { get; set; }
         public string budget_max { get; set; }
         public string minimum_area { get; set; }
