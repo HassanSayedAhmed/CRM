@@ -13,6 +13,7 @@ namespace CRM.ViewModel
         public int? activity_id { get; set; }
         public int? lead_id { get; set; }
         public DateTime? activity_date_time { get; set; }
+        public string string_activity_date_time { get; set; }
         public float? activity_duration { get; set; }
         public string note { get; set; }
         public int? active { get; set; }
