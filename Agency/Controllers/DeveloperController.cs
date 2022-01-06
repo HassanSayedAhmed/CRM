@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: Developer
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,17 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var DeveloperData = (from Developer in db.Developers
-                                  select new DeveloperViewModel
+                                     join user in db.Users on Developer.created_by equals user.id
+                                     select new DeveloperViewModel
                                   {
                                       id = Developer.id,
                                       name = Developer.name,
                                       description = Developer.description,
                                       active = Developer.active,
-                                      created_at_string = Developer.created_at.ToString()
+                                      created_at_string = Developer.created_at.ToString(),
+                                      company_id = user.company_id
 
-                                  });
+                                     }).Where(d=>d.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

@@ -90,7 +90,13 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label class="col-form-label">Lead Stage</label>
-                            @Html.DropDownListFor(l => l.lead_stage_id, new SelectList(ViewBag.lead_stages, "id", "name"), "Select Stage", new { @class = "form-control", @name = "lead_stage_id", @id = "lead_stage_id" })
+                            <select class="form-control" id="lead_stage_id" name="lead_stage_id">
+                                <option value="1" @(Model.lead_stage_id==1?"selected":"")>New</option>
+                                <option value="2" @(Model.lead_stage_id==2?"selected":"")>FollowUp</option>
+                                <option value="3" @(Model.lead_stage_id==3?"selected":"")>Negotiation</option>
+                                <option value="4" @(Model.lead_stage_id==4?"selected":"")>Meeting</option>
+                                <option value="5" @(Model.lead_stage_id==5?"selected":"")>Deal</option>
+                            </select>
                         </div>
                     </div>
                 </div>

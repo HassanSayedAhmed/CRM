@@ -11,6 +11,7 @@ namespace CRM.ViewModel
     {
         public int id { get; set; }
         public int? activity_id { get; set; }
+        public int? lead_id { get; set; }
         public DateTime? activity_date_time { get; set; }
         public float? activity_duration { get; set; }
         public string note { get; set; }
@@ -21,7 +22,6 @@ namespace CRM.ViewModel
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public int? lead_id { get; set; }
         public string activity_name { get; set; }
     }
 }

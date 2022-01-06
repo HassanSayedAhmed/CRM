@@ -10,6 +10,7 @@ namespace CRM.ViewModel
     public class LeadUnitTypeViewModel
     {
         public int id { get; set; }
+        public int? lead_id { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -17,7 +18,6 @@ namespace CRM.ViewModel
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-        public int? lead_id { get; set; }
         public int? unit_type_id { get; set; }
         public string unit_type_name { get; set; }
         public string unit_type_description { get; set; }

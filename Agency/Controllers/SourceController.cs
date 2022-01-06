@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: Source
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,16 +33,17 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var sourceData = (from source in db.Sources
-                                select new SourceViewModel
-                                {
-                                    id = source.id,
-                                    name = source.name,
-                                    description = source.description,
-                                    link = source.link,
-                                    active = source.active,
-                                    created_at_string = source.created_at.ToString()
-
-                                });
+                                  join user in db.Users on source.created_by equals user.id
+                                  select new SourceViewModel
+                                  {
+                                      id = source.id,
+                                      name = source.name,
+                                      description = source.description,
+                                      link = source.link,
+                                      active = source.active,
+                                      created_at_string = source.created_at.ToString(),
+                                      company_id = user.company_id
+                                  }).Where(c=>c.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
@@ -69,7 +70,7 @@ namespace CRM.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public JsonResult saveSource(SourceViewModel SourceVM)
         {

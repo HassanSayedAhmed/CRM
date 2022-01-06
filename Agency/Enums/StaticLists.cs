@@ -56,4 +56,13 @@ namespace CRM.Enums
         Admin = 2,
         SalesAgent = 3
     }
+    public enum LeadStages
+    {
+        New = 1,
+        FollowUp = 2,
+        Negotiation = 3,
+        Meeting = 4,
+        Deal = 5,
+
+    }
 }

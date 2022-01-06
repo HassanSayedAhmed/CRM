@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: Requirement
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,17 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var RequirementData = (from Requirement in db.Requirements
-                                  select new RequirementViewModel
-                                  {
-                                      id = Requirement.id,
-                                      name = Requirement.name,
-                                      description = Requirement.description,
-                                      active = Requirement.active,
-                                      created_at_string = Requirement.created_at.ToString()
+                                       join user in db.Users on Requirement.created_by equals user.id
+                                       select new RequirementViewModel
+                                       {
+                                           id = Requirement.id,
+                                           name = Requirement.name,
+                                           description = Requirement.description,
+                                           active = Requirement.active,
+                                           created_at_string = Requirement.created_at.ToString(),
+                                           company_id = user.company_id
 
-                                  });
+                                       }).Where(r=>r.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

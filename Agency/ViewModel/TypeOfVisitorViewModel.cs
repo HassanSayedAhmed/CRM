@@ -9,6 +9,7 @@ namespace CRM.ViewModel
     public class TypeOfVisitorViewModel
     {
         public int id { get; set; }
+        public int? company_id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public int? active { get; set; }

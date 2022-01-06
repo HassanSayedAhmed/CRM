@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: Property
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -35,25 +35,27 @@ namespace CRM.Controllers
                 var PropertyData = (from Property in db.Properties
                                     join pro in db.Developers on Property.project_id equals pro.id into po
                                     from project in po.DefaultIfEmpty()
+                                    join user in db.Users on Property.created_by equals user.id
                                     select new PropertyViewModel
                                     {
-                                      id = Property.id,
-                                      name = Property.name,
-                                      description = Property.description,
-                                      price = Property.price,
-                                      area = Property.area,
-                                      beds = Property.beds,
-                                      rooms = Property.rooms,
-                                      type = Property.type,
-                                      status = Property.status,
-                                      image = Property.image,
-                                      active = Property.active,
-                                      created_at_string = Property.created_at.ToString(),
-                                      project_id = Property.project_id,
-                                      project_name = project.name,
-                                      baths = Property.baths
+                                        id = Property.id,
+                                        name = Property.name,
+                                        description = Property.description,
+                                        price = Property.price,
+                                        area = Property.area,
+                                        beds = Property.beds,
+                                        rooms = Property.rooms,
+                                        type = Property.type,
+                                        status = Property.status,
+                                        image = Property.image,
+                                        active = Property.active,
+                                        created_at_string = Property.created_at.ToString(),
+                                        project_id = Property.project_id,
+                                        project_name = project.name,
+                                        baths = Property.baths,
+                                        company_id = user.company_id
 
-                                    });
+                                    }).Where(p => p.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

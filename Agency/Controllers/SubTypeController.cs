@@ -20,7 +20,7 @@ namespace CRM.Controllers
         // GET: SubType
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -34,15 +34,16 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var SubTypeData = (from SubType in db.SubTypes
-                                  select new SubTypeViewModel
+                                   join user in db.Users on SubType.created_by equals user.id
+                                   select new SubTypeViewModel
                                   {
                                       id = SubType.id,
                                       name = SubType.name,
                                       description = SubType.description,
                                       active = SubType.active,
-                                      created_at_string = SubType.created_at.ToString()
-
-                                  });
+                                      created_at_string = SubType.created_at.ToString(),
+                                      company_id = user.company_id
+                                   }).Where(st=>st.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

@@ -9,6 +9,7 @@ namespace CRM.ViewModel
     public class ActivityViewModel
     {
         public int id { get; set; }
+        public int? company_id { get; set; }
         public string name { get; set; } //call,metting,zoom metting
         public string description { get; set; }
         public int? active { get; set; }

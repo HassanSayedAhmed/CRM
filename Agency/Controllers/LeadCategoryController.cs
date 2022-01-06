@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: LeadCategory
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,17 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var LeadCategoryData = (from LeadCategory in db.LeadCategories
+                                        join user in db.Users on LeadCategory.created_by equals user.id
                                         select new LeadCategoryViewModel
-                                  {
-                                      id = LeadCategory.id,
-                                      name = LeadCategory.name,
-                                      description = LeadCategory.description,
-                                      active = LeadCategory.active,
-                                      created_at_string = LeadCategory.created_at.ToString()
+                                        {
+                                            id = LeadCategory.id,
+                                            name = LeadCategory.name,
+                                            description = LeadCategory.description,
+                                            active = LeadCategory.active,
+                                            created_at_string = LeadCategory.created_at.ToString(),
+                                            company_id = user.company_id
 
-                                  });
+                                        }).Where(lc => lc.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

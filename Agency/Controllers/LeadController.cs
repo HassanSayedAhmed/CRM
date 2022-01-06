@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using CRM.Helpers;
 using Newtonsoft.Json;
+using CRM.Enums;
+
 namespace CRM.Controllers
 {
     [CustomAuthenticationFilter]
@@ -19,6 +21,7 @@ namespace CRM.Controllers
         // GET: Lead
         public ActionResult Index()
         {
+            int companyID = ((int)Session["companyID"]);
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -29,7 +32,7 @@ namespace CRM.Controllers
                 //var to_date = Request.Form.GetValues("columns[1][search][value]")[0];
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
-                int companyID = ((int)Session["companyID"]);
+                
 
                 // Getting all data    
                 var LeadData = (from lead in db.Leads
@@ -122,10 +125,11 @@ namespace CRM.Controllers
                                                           lead_id = leadActivity.lead_id,
                                                           activity_id = leadActivity.activity_id,
                                                           activity_date_time = leadActivity.activity_date_time,
+                                                          string_activity_date_time = leadActivity.activity_date_time.ToString(),
                                                           activity_duration = leadActivity.activity_duration,
                                                           note = leadActivity.note,
                                                           activity_name = activity.name,
-                                                      }).ToList(),
+                                                      }).Where(l=>l.lead_id == lead.id).ToList(),
 
                                     leadDevelopers = (from leadDeveloper in db.LeadDevelopers
                                                       join developer in db.Developers on leadDeveloper.developer_id equals developer.id
@@ -136,7 +140,7 @@ namespace CRM.Controllers
                                                           note = leadDeveloper.note,
                                                           lead_id = leadDeveloper.lead_id,
                                                           developer_name = developer.name,
-                                                      }).ToList(),
+                                                      }).Where(l => l.lead_id == lead.id).ToList(),
 
                                     leadSubTypes = (from leadSubType in db.LeadSubTypes
                                                     join subType in db.SubTypes on leadSubType.sub_type_id equals subType.id
@@ -147,7 +151,7 @@ namespace CRM.Controllers
                                                         name = leadSubType.name,
                                                         lead_id = leadSubType.lead_id,
                                                         sub_type_name = subType.name,
-                                                    }).ToList(),
+                                                    }).Where(l => l.lead_id == lead.id).ToList(),
 
                                     leadProjects = (from leadProjects in db.LeadProjects
                                                     join project in db.Projects on leadProjects.project_id equals project.id
@@ -158,7 +162,7 @@ namespace CRM.Controllers
                                                         project_name = project.name,
                                                         project_description = project.description,
                                                         project_image = project.image,
-                                                    }).ToList(),
+                                                    }).Where(l => l.lead_id == lead.id).ToList(),
 
                                     leadProperties = (from leadProperties in db.LeadProperties
                                                       join properties in db.Properties on leadProperties.property_id equals properties.id
@@ -177,7 +181,7 @@ namespace CRM.Controllers
                                                           property_status = properties.status,
                                                           property_image = properties.image,
                                                           property_project_id = properties.project_id,
-                                                      }).ToList(),
+                                                      }).Where(l => l.lead_id == lead.id).ToList(),
 
                                     leadUnitTypes = (from leadUnitTypes in db.LeadUnitTypes
                                                      join unitType in db.UnitTypes on leadUnitTypes.unit_type_id equals unitType.id
@@ -187,7 +191,7 @@ namespace CRM.Controllers
                                                          lead_id = leadUnitTypes.lead_id,
                                                          unit_type_name = unitType.name,
                                                          unit_type_description = unitType.description,
-                                                     }).ToList(),
+                                                     }).Where(l => l.lead_id == lead.id).ToList(),
 
 
                                 }).Where(u => u.created_by_company_id == companyID);
@@ -221,6 +225,7 @@ namespace CRM.Controllers
             }
 
             ViewBag.Users = db.Users.Select(u => new { u.id, u.full_name }).ToList();
+            ViewBag.DealUsers = db.Users.Where(u=>u.company_id == companyID).Select(u => new { u.id, u.full_name }).ToList();
             ViewBag.Acitivities = db.Activities.Select(u => new { u.id, u.name }).ToList();
             ViewBag.Properties = db.Properties.Select(u => new { u.id, u.name }).ToList();
             ViewBag.Sources = db.Sources.Select(u => new { u.id, u.name }).ToList();
@@ -484,7 +489,7 @@ namespace CRM.Controllers
             if (LeadVM.id == 0)
             {
                 Lead Lead = AutoMapper.Mapper.Map<LeadViewModel, Lead>(LeadVM);
-
+                Lead.lead_stage_id = (int)LeadStages.New;
                 Lead.created_at = DateTime.Now;
                 Lead.created_by = Session["id"].ToString().ToInt();
 
@@ -690,7 +695,7 @@ namespace CRM.Controllers
             if (LeadVM.id == 0)
             {
                 Lead Lead = AutoMapper.Mapper.Map<LeadViewModel, Lead>(LeadVM);
-
+                Lead.lead_stage_id = (int)LeadStages.New;
                 Lead.created_at = DateTime.Now;
                 Lead.created_by = Session["id"].ToString().ToInt();
 
@@ -800,9 +805,17 @@ namespace CRM.Controllers
         public JsonResult makeDeal(LeadViewModel leadViewModel)
         {
             Lead lead = db.Leads.Find(leadViewModel.id);
-            //lead.deal_property_id = leadViewModel.deal_property_id;
-            //lead.deal_property_price = leadViewModel.deal_property_price;
+            lead.deal_property_price = leadViewModel.deal_property_price;
             lead.deal_make_user_id = leadViewModel.deal_make_user_id;
+            db.SaveChanges();
+            return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult changeStage(LeadViewModel leadViewModel)
+        {
+            Lead lead = db.Leads.Find(leadViewModel.id);
+            lead.lead_stage_id = leadViewModel.lead_stage_id;
             db.SaveChanges();
             return Json(new { msg = "done" }, JsonRequestBehavior.AllowGet);
         }

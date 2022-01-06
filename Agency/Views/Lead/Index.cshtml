@@ -5,6 +5,104 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="modal fade" id="manage_show_lead_activites_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <table class="table table-striped" id="show_activities_table">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                            </tr>
+                            <tbody id="show_activities_table_body">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal fade" id="manage_show_interests_modal" tabindex="-1" role="dialog" aria-labelledby="tabsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tabsModalLabel">Interests</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="projects-tab" data-toggle="tab" href="#projects" role="tab" aria-controls="Projects" aria-selected="true">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="properties-tab" data-toggle="tab" href="#properties" role="tab" aria-controls="Properties" aria-selected="false">Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="developers-tab" data-toggle="tab" href="#developers" role="tab" aria-controls="Developers" aria-selected="false">Developers</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+                        <table class="table table-striped" id="projects_table">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                            </tr>
+                            <tbody id="projects_table_body">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="properties" role="tabpanel" aria-labelledby="properties-tab">
+                        <table class="table table-striped" id="properties_table">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                            </tr>
+                            <tbody id="properties_table_body">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="developers" role="tabpanel" aria-labelledby="developers-tab">
+                        <table class="table table-striped" id="developers_table">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                            </tr>
+                            <tbody id="developers_table_body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="manage_quick_lead_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
         <div class="modal-dialog">
@@ -52,6 +150,43 @@
     </form>
 </div>
 
+<div class="modal fade" id="manage_lead_stage_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-12">
+                                <label class="col-form-label">Lead Stage</label>
+                                <select class="form-control" id="lead_stage_id" name="lead_stage_id">
+                                    <option value="2">FollowUp</option>
+                                    <option value="3">Negotiation</option>
+                                    <option value="4">Meeting</option>
+                                    <option value="5">Deal</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
 <div class="modal fade" id="manage_lead_deal_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
         <div class="modal-dialog">
@@ -68,16 +203,17 @@
                             <input type="hidden" name="id" id="id" value="0" />
 
                             @*<div class="form-group col-md-6">
-                                <label>Property</label>
-                                @Html.DropDownList("deal_property_id", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new { @class = "form-control", @name = "deal_property_id", @id = "deal_property_id", @required = "required" })
-                            </div>
-                            <div class="form-group col-md-6">
+                                    <label>Property</label>
+                                    @Html.DropDownList("deal_property_id", new SelectList(ViewBag.Properties, "id", "name"), "Select Property", new { @class = "form-control", @name = "deal_property_id", @id = "deal_property_id", @required = "required" })
+                                </div>
+                            *@
+                            <div class="form-group col-md-12">
                                 <label>Price</label>
                                 <input type="number" id="deal_property_price" name="deal_property_price" class="form-control" />
-                            </div>*@
+                            </div>
                             <div class="form-group col-md-12">
                                 <label>User</label>
-                                @Html.DropDownList("deal_make_user_id", new SelectList(ViewBag.Users, "id", "full_name"), "Select User", new { @class = "form-control", @name = "deal_make_user_id", @id = "deal_make_user_id", @required = "required" })
+                                @Html.DropDownList("deal_make_user_id", new SelectList(ViewBag.DealUsers, "id", "full_name"), "Select User", new { @class = "form-control", @name = "deal_make_user_id", @id = "deal_make_user_id", @required = "required" })
                             </div>
                         </div>
 
@@ -263,10 +399,10 @@
                         <th>#</th>
                         <th>DETAILS</th>
                         <th>DATE</th>
-                        <th>SALES AGENT</th>
+                        <th>AGENT</th>
                         <th>PROJECT</th>
-                        <th>LEAD STAGE</th>
-                        <th>LEAD CATEGORY</th>
+                        <th>STAGE</th>
+                        <th>CATEGORY</th>
                         <th>SOURCE</th>
                         <th>REMARK</th>
                         <th>DECISION</th>
@@ -342,13 +478,22 @@
                            "data": "first_name", "searchable": true,
                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                var html = "";
-                               html += oData.first_name + " " + oData.last_name + "<br>";
-                               if (oData.phone1)
-                                   html += "Primary Phone: <a href='https://api.whatsapp.com/send/?phone=+20" + oData.phone1+"&text=Hello'>" + oData.phone1 + "</a><br>";
-                               if (oData.phone2)
-                                   html += "Seconday Phone: <a href='https://api.whatsapp.com/send/?phone=+20" + oData.phone2 +"&text=Hello'>" +oData.phone2 + "</a><br>";
-                               if (oData.alternative_numbers)
-                                   html += "Alternate Numbers: " + oData.alternative_numbers;
+                               html += "<a style='text-decoration:underline' href='javascript:void(0)' class='lead_details'>" + oData.first_name.toUpperCase() + " " + oData.last_name.toUpperCase() + "</a><br>";
+                               if (oData.phone1) {
+                                   html += "Phone1 : " + oData.phone1;
+                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.phone1}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a> 
+                                             <a href = 'tel://${oData.phone1}' ><i class="fas fa-phone"></i></a > <br>`;
+                               }
+                               if (oData.phone2) {
+                                   html += "Phone2 : " + oData.phone2;
+                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.phone2}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a> 
+                                             <a href = 'tel://${oData.phone2}' ><i class="fas fa-phone"></i></a > <br>`;
+                               }
+                               if (oData.alternative_numbers) {
+                                   html += "Alt Number : " + oData.alternative_numbers;
+                                   html += ` <a href='https://api.whatsapp.com/send/?phone=+20 ${oData.alternative_numbers}&text=Hello' target='_blank'><i class='fab fa-whatsapp'></i></a> 
+                                             <a href = 'tel://${oData.alternative_numbers}' ><i class="fas fa-phone"></i></a > <br>`;
+                               }
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
                            }
                        }, {
@@ -392,8 +537,19 @@
                            "data": "lead_stage_id", "searchable": true,
                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                var html = "";
-                               if (oData.lead_stage_name)
-                                   html += oData.lead_stage_name;
+                               if (oData.lead_stage_id)
+                               {
+                                   if (oData.lead_stage_id == 1)
+                                       html += "New";
+                                   else if(oData.lead_stage_id == 2)
+                                       html += "FollowUp";
+                                   else if (oData.lead_stage_id == 3)
+                                       html += "Negotiation";
+                                   else if (oData.lead_stage_id == 4)
+                                       html += "Meeting";
+                                   else if (oData.lead_stage_id == 5)
+                                       html += "Meeting";
+                               }
                                else
                                    html += "-";
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
@@ -442,7 +598,7 @@
                                    else
                                        html = "Not Qualified";
                                }
-                               
+
                                else
                                    html += "-";
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
@@ -455,18 +611,33 @@
                                 var userId = '@Session["id"].ToString()';
                                 var isSuperAdmin = '@CRM.Auth.isA.superAdmin()';
                                 var isAdmin = '@CRM.Auth.isA.admin()';
-                                console.log(isSuperAdmin);
-                                console.log(isAdmin);
 
+                                html += `
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+                                        <i class="fa fa-arrow-alt-circle-down"></i>
+                                    </button>`;
+                                html += '<div class="dropdown-menu">';
                                 if ((parseInt(userId) == parseInt(oData.created_by)) || isSuperAdmin == "True" || isAdmin == "True") {
-                                    html += "<a class='edit1' href='/Lead/manageLead/" + oData.id +"' title='Edit'><i class='far fa-edit'></i></a>&nbsp;|&nbsp;";
-                                    html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>&nbsp;|&nbsp;";
-                                    html += "<a class='assign_agent' href='javascript:void(0)' title='Assign To Sales Agent'><i class='fas fa-user'></i></a>&nbsp;|&nbsp;";
+                                    html += `
+                                        <a class='dropdown-item' href='/Lead/manageLead/ ${oData.id}' title='Edit'><i class='far fa-edit'></i> Edit</a>
+                                        <a class='dropdown-item delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i>Delete</a>
+                                        <a class='dropdown-item assign_agent' href='javascript:void(0)' title='Assign To Sales Agent'><i class='fas fa-user'></i>Assign Agent</a>
+                                `;
 
                                 }
-                                html += "<a class='make_activity' href='javascript:void(0)' title='Activity'><i class='fas fa-phone-volume'></i></a>&nbsp;|&nbsp;";
-                                html += "<a class='make_decision' href='javascript:void(0)' title='Decision'><i class='fas fa-tasks'></i></a>&nbsp;|&nbsp;";
-                                html += "<a class='make_deal' href='javascript:void(0)' title='Convert To Deal'><i class='fas fa-check-double'></i></a>";
+                                html += `
+                                        <a class='dropdown-item make_activity' href='javascript:void(0)' title='Activity'><i class='fas fa-phone-volume'></i>Make Activity</a>
+                                        <a class='dropdown-item make_decision' href='javascript:void(0)' title='Decision'><i class='fas fa-tasks'></i>Take Decision</a>
+                                        <a class='dropdown-item change_stage' href='javascript:void(0)' title='Stage'><i class="fas fa-crosshairs"></i>Change Stage</a>`
+                                if (oData.lead_stage_id == 5)
+                                    html += "<a class='dropdown-item make_deal' href='javascript: void (0)' title='Convert To Deal'><i class='fas fa-check-double'></i>Make Deal</a>";
+                                html +=`
+                                        <a class='dropdown-item show_interests' data-toggle="modal" href='javascript:void(0)' title='Show Interests'><i class="fas fa-snowflake"></i>Show Interests</a>
+                                        <a class='dropdown-item show_activites' href='javascript:void(0)' title='Show Activities'><i class="fas fa-list-ol"></i>Show Activities</a>
+                                    </div>
+                                </div>`;
+
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -592,6 +763,26 @@
                    });
            });
 
+           $(document).on("click", ".change_stage", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_lead_stage_modal').clone();
+                   var action = '@Url.Action("changeStage", "Lead")';
+                   modal.find('form').attr('action', action);
+                   modal.find('#modal_title').text('Change Stage');
+                   modal.execModal({
+                       progressBar: 'progress_bar',
+                       progressText: 'progress_text',
+                   }, function (response) {
+                           datatable.draw();
+                   }, function (response) {
+
+
+                   }, function (dialog) {
+                           dialog.find("#id").val(data.id);
+                           dialog.find('#lead_stage_id option[value=' + data.lead_stage_id + ']').attr('selected', 'selected');
+                   });
+           });
+
            $(document).on("click", ".make_decision", function () {
                var data = datatable.row($(this).closest('tr')).data();
                var modal = $('#manage_lead_decision_modal').clone();
@@ -629,9 +820,114 @@
                    }, function (dialog) {
                            dialog.find("#id").val(data.id);
                            //dialog.find('#deal_property_id option[value=' + data.deal_property_id + ']').attr('selected', 'selected');
-                           //dialog.find("#deal_property_price").val(data.deal_property_price);
+                           dialog.find("#deal_property_price").val(data.deal_property_price);
                            dialog.find('#deal_make_user_id option[value=' + data.deal_make_user_id + ']').attr('selected', 'selected');
                    });
+           });
+
+           $(document).on("click", ".show_activites", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_show_lead_activites_modal').clone();
+                   modal.find('#modal_title').text('Activities');
+                   modal.execModal({
+                       progressBar: 'progress_bar',
+                       progressText: 'progress_text',
+                   }, function (response) {
+                   }, function (response) {
+
+
+                   }, function (dialog) {
+                           if (data.leadActivities) {
+                               var html = '';
+                               data.leadActivities.forEach(function (value) {
+                                   var id = "-";
+                                   var activity_name = "-";
+                                   var activity_duration = "-";
+                                   var note = "-";
+                                   var activity_date_time = "-";
+
+                                   if (value.id)
+                                       id = value.id;
+                                   if (value.activity_name)
+                                       activity_name = value.activity_name;
+                                   if (value.activity_duration)
+                                       activity_duration = value.activity_duration;
+                                   if (value.note)
+                                       note = value.note;
+
+                                   if (value.activity_date_time != null) {
+                                       var dateValue = new Date
+                                           (
+                                               parseInt(value.activity_date_time.replace(/(^.*\()|([+-].*$)/g, ''))
+                                           );
+                                       var date_activity_date_time = dateValue.getFullYear() +
+                                           "-" +
+                                           ("0" + (dateValue.getMonth() + 1)).slice(-2) +
+                                           "-" +
+                                           ("0" + dateValue.getDate()).slice(-2)
+                                           ;
+                                       activity_date_time = date_activity_date_time;
+                                   }
+                                   html += `<tr>
+                                   <td>${id}</td>
+                                   <td>${activity_name}</td>
+                                   <td>${activity_duration}</td>
+                                   <td>${note}</td>
+                                   <td>${activity_date_time}</td>
+                                   </tr>`;
+                               });
+                           }
+                           dialog.find("#show_activities_table").append(html);
+                   });
+           });
+
+           $(document).on("click", ".show_interests", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               $("#projects_table_body").remove();
+               $("#properties_table_body").remove();
+               $("#developers_table_body").remove();
+               if (data.leadProjects) {
+                   var leadProjectssHtml = '';
+                   leadProjectssHtml += "<tbody id='projects_table_body'>";
+                   data.leadProjects.forEach(function(value){
+                       leadProjectssHtml += `<tr>
+                       <td>${value.id}</td>
+                       <td>${value.project_name}</td>
+                       </tr>`;
+                   });
+                   leadProjectssHtml += "</tbody>"
+                   $("#projects_table").append(leadProjectssHtml);
+               }
+
+               if (data.leadProperties) {
+                   var leadPropertiesHtml = '';
+                   leadPropertiesHtml += "<tbody id='properties_table_body'>";
+                   data.leadProperties.forEach(function(value){
+                       leadPropertiesHtml += `<tr>
+                       <td>${value.id}</td>
+                       <td>${value.property_name}</td>
+                       </tr>`;
+                   });
+                   leadProjectssHtml += "</tbody>";
+                   $("#properties_table").append(leadPropertiesHtml);
+               }
+
+               if (data.leadDevelopers) {
+                   var leadDevelopersHtml = '';
+                   leadDevelopersHtml += "<tbody id='developers_table_body'>";
+                   data.leadDevelopers.forEach(function(value){
+                       leadDevelopersHtml += `<tr>
+                       <td>${value.id}</td>
+                       <td>${value.developer_name}</td>
+                       </tr>`;
+                   });
+                   leadDevelopersHtml += "</tbody>";
+                   $("#developers_table").append(leadDevelopersHtml);
+               }
+
+
+
+               $("#manage_show_interests_modal").modal('show');
            });
 
            $(document).on("click", ".selectLead", function () {

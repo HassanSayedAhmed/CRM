@@ -19,6 +19,7 @@ namespace CRM.Controllers
         // GET: Activity
         public ActionResult Index()
         {
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -32,17 +33,15 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var activityData = (from activity in db.Activities
-                                select new ActivityViewModel
-                                {
-                                    id = activity.id,
-                                    //activity_type = activity.activity_type,
-                                    //activity_date_time = activity.activity_date_time,
-                                    //activity_duration = activity.activity_duration,
-                                    //note = activity.note,
-                                    name = activity.name,
-                                    active = activity.active,
-                                    created_at_string = activity.created_at.ToString()
-                                });
+                                    join user in db.Users on activity.created_by equals user.id
+                                    select new ActivityViewModel
+                                    {
+                                        id = activity.id,
+                                        name = activity.name,
+                                        active = activity.active,
+                                        created_at_string = activity.created_at.ToString(),
+                                        company_id = user.company_id
+                                    }).Where(c=>c.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

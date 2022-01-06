@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: Project
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -35,16 +35,18 @@ namespace CRM.Controllers
                 var ProjectData = (from Project in db.Projects
                                    join dev in db.Developers on Project.developer_id equals dev.id into de
                                    from developer in de.DefaultIfEmpty()
-                                  select new ProjectViewModel
-                                  {
-                                      id = Project.id,
-                                      name = Project.name,
-                                      description = Project.description,
-                                      active = Project.active,
-                                      created_at_string = Project.created_at.ToString(),
-                                      developer_id = Project.developer_id,
-                                      developer_name = developer.name
-                                  });
+                                   join user in db.Users on Project.created_by equals user.id
+                                   select new ProjectViewModel
+                                   {
+                                       id = Project.id,
+                                       name = Project.name,
+                                       description = Project.description,
+                                       active = Project.active,
+                                       created_at_string = Project.created_at.ToString(),
+                                       developer_id = Project.developer_id,
+                                       developer_name = developer.name,
+                                       company_id = user.company_id
+                                   }).Where(p => p.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

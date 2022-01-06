@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: LeadStage
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,14 +33,16 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var LeadStageData = (from LeadStage in db.LeadStages
-                                  select new LeadStageViewModel
-                                  {
-                                      id = LeadStage.id,
-                                      name = LeadStage.name,
-                                      description = LeadStage.description,
-                                      active = LeadStage.active,
-                                      created_at_string = LeadStage.created_at.ToString()
-                                  });
+                                     join user in db.Users on LeadStage.created_by equals user.id
+                                     select new LeadStageViewModel
+                                     {
+                                         id = LeadStage.id,
+                                         name = LeadStage.name,
+                                         description = LeadStage.description,
+                                         active = LeadStage.active,
+                                         created_at_string = LeadStage.created_at.ToString(),
+                                         company_id = user.company_id
+                                     }).Where(ls => ls.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

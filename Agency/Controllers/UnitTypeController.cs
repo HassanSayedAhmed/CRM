@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: UnitType
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,16 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var UnitTypeData = (from UnitType in db.UnitTypes
-                                  select new UnitTypeViewModel
-                                  {
-                                      id = UnitType.id,
-                                      name = UnitType.name,
-                                      description = UnitType.description,
-                                      active = UnitType.active,
-                                      created_at_string = UnitType.created_at.ToString()
-
-                                  });
+                                    join user in db.Users on UnitType.created_by equals user.id
+                                    select new UnitTypeViewModel
+                                    {
+                                        id = UnitType.id,
+                                        name = UnitType.name,
+                                        description = UnitType.description,
+                                        active = UnitType.active,
+                                        created_at_string = UnitType.created_at.ToString(),
+                                        company_id = user.company_id
+                                    }).Where(ut => ut.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

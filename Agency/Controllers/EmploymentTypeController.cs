@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: EmploymentType
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,17 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var EmploymentTypeData = (from EmploymentType in db.EmploymentTypes
-                                  select new EmploymentTypeViewModel
-                                  {
-                                      id = EmploymentType.id,
-                                      name = EmploymentType.name,
-                                      description = EmploymentType.description,
-                                      active = EmploymentType.active,
-                                      created_at_string = EmploymentType.created_at.ToString()
+                                          join user in db.Users on EmploymentType.created_by equals user.id
+                                          select new EmploymentTypeViewModel
+                                          {
+                                              id = EmploymentType.id,
+                                              name = EmploymentType.name,
+                                              description = EmploymentType.description,
+                                              active = EmploymentType.active,
+                                              created_at_string = EmploymentType.created_at.ToString(),
+                                              company_id = user.company_id
 
-                                  });
+                                          }).Where(et=>et.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

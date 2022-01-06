@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: TypeOfVisitor
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,16 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var TypeOfVisitorData = (from TypeOfVisitor in db.TypeOfVisitors
-                                  select new TypeOfVisitorViewModel
-                                  {
-                                      id = TypeOfVisitor.id,
-                                      name = TypeOfVisitor.name,
-                                      description = TypeOfVisitor.description,
-                                      active = TypeOfVisitor.active,
-                                      created_at_string = TypeOfVisitor.created_at.ToString()
-
-                                  });
+                                         join user in db.Users on TypeOfVisitor.created_by equals user.id
+                                         select new TypeOfVisitorViewModel
+                                         {
+                                             id = TypeOfVisitor.id,
+                                             name = TypeOfVisitor.name,
+                                             description = TypeOfVisitor.description,
+                                             active = TypeOfVisitor.active,
+                                             created_at_string = TypeOfVisitor.created_at.ToString(),
+                                             company_id = user.company_id
+                                         }).Where(tov=>tov.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

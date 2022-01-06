@@ -19,7 +19,7 @@ namespace CRM.Controllers
         // GET: PropertyType
         public ActionResult Index()
         {
-
+            int companyId = Session["companyID"].ToString().ToInt();
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -33,15 +33,17 @@ namespace CRM.Controllers
 
                 // Getting all data    
                 var PropertyTypeData = (from PropertyType in db.PropertyTypes
-                                  select new PropertyTypeViewModel
-                                  {
-                                      id = PropertyType.id,
-                                      name = PropertyType.name,
-                                      description = PropertyType.description,
-                                      active = PropertyType.active,
-                                      created_at_string = PropertyType.created_at.ToString()
+                                        join user in db.Users on PropertyType.created_by equals user.id
+                                        select new PropertyTypeViewModel
+                                        {
+                                            id = PropertyType.id,
+                                            name = PropertyType.name,
+                                            description = PropertyType.description,
+                                            active = PropertyType.active,
+                                            created_at_string = PropertyType.created_at.ToString(),
+                                            company_id = user.company_id
 
-                                  });
+                                        }).Where(pt => pt.company_id == companyId);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))

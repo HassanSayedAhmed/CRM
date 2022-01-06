@@ -21,9 +21,9 @@ namespace CRM.Models
         [ForeignKey("TypeOfVisitor")]
         public int? type_of_visitor_id { get; set; }
         public TypeOfVisitor TypeOfVisitor { get; set; }
-        [ForeignKey("LeadStage")]
+        //[ForeignKey("LeadStage")]
         public int? lead_stage_id { get; set; }
-        public LeadStage LeadStage { get; set; }
+        //public LeadStage LeadStage { get; set; }
         [ForeignKey("LeadCategory")]
         public int? lead_category_id { get; set; }
         public LeadCategory LeadCategory { get; set; }

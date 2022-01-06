@@ -230,6 +230,10 @@
     <Compile Include="Migrations\202201011726402_convertToDeal2.Designer.cs">
       <DependentUpon>202201011726402_convertToDeal2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201061818582_updateLeadStage.cs" />
+    <Compile Include="Migrations\202201061818582_updateLeadStage.Designer.cs">
+      <DependentUpon>202201061818582_updateLeadStage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Company.cs" />
@@ -3860,6 +3864,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201011726402_convertToDeal2.resx">
       <DependentUpon>202201011726402_convertToDeal2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201061818582_updateLeadStage.resx">
+      <DependentUpon>202201061818582_updateLeadStage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

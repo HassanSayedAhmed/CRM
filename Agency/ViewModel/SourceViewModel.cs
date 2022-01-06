@@ -9,6 +9,7 @@ namespace CRM.ViewModel
     public class SourceViewModel
     {
         public int id { get; set; }
+        public int? company_id { get; set; }
         public string name { get; set; }//facebook, linkedin
         public string description { get; set; }
         public string link { get; set; }
