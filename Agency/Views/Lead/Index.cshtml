@@ -4,8 +4,39 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section css{
+    <style>
+        .counter {
+            background-color: #FFFFFF;
+            padding: 20px 0;
+            border-radius: 5px;
+        }
 
-<div class="modal modal animated slideInUp custo-slideInUp" id="manage_lead_details_modal" tabindex="-1" role="dialog" aria-labelledby="tabsModalLabel" aria-hidden="true">
+        .count-title {
+            font-size: 40px;
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .count-text {
+            font-size: 13px;
+            font-weight: normal;
+            margin-top: 10px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .fa-2x {
+            margin: 0 auto;
+            float: none;
+            display: table;
+            color: #4ad1e5;
+        }
+    </style>
+}
+<div class="modal" id="manage_lead_details_modal" tabindex="-1" role="dialog" aria-labelledby="tabsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,9 +53,9 @@
                     <li class="nav-item">
                         <a class="nav-link" id="requirements-tab" data-toggle="tab" href="#requirements" role="tab" aria-controls="Requirements" aria-selected="false">Requirements</a>
                     </li>
-                    <li class="nav-item">
+                    @*<li class="nav-item">
                         <a class="nav-link" id="interestedprojects-tab" data-toggle="tab" href="#interestedprojects" role="tab" aria-controls="InterestedProjects" aria-selected="false">Interested Projects</a>
-                    </li>
+                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link" id="employementdetails-tab" data-toggle="tab" href="#employementdetails" role="tab" aria-controls="EmployementDetails" aria-selected="false">Employement Details</a>
                     </li>
@@ -129,15 +160,65 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="interestedprojects" role="tabpanel" aria-labelledby="interestedprojects-tab">
+                    @*<div class="tab-pane fade" id="interestedprojects" role="tabpanel" aria-labelledby="interestedprojects-tab">
 
-                    </div>
-                    <div class="tab-pane fade" id="employementdetails" role="tabpanel" aria-labelledby="employementdetails-tab">
-
-                    </div>
-                    <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
-
-                    </div>
+                    </div>*@
+                <div class="tab-pane fade" id="employementdetails" role="tabpanel" aria-labelledby="employementdetails-tab">
+                    <table class="table table-striped">
+                        <tr>
+                            <td style="font-weight:bold;">Employement Type</td>
+                            <td><span id="lead_details_employement_type"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Income</td>
+                            <td><span id="lead_details_income"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Designation</td>
+                            <td><span id="lead_details_designation"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Company Name</td>
+                            <td><span id="lead_details_company_name"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                    <table class="table table-striped">
+                        <tr>
+                            <td style="font-weight:bold;">Location</td>
+                            <td><span id="lead_details_location"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Street Address</td>
+                            <td><span id="lead_details_street_address"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Sub Location</td>
+                            <td><span id="lead_details_sub_location"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">State</td>
+                            <td><span id="lead_details_company_state"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Poscode</td>
+                            <td><span id="lead_details_company_pascode"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Latitude</td>
+                            <td><span id="lead_details_company_latitude"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Longitude</td>
+                            <td><span id="lead_details_company_longitude"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">Country</td>
+                            <td><span id="lead_details_company_location_country"></span></td>
+                        </tr>
+                    </table>
+                </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -515,19 +596,99 @@
 </div>
 
 
-<div class="row">
-    <div class="form-group col-4">
-        <input class="form-control" type="text" id="text_search" name="text_search" placeholder="Search">
-    </div>
-    <div class="form-group col-2">
-        <button id="search" class="btn btn-primary px-3 radius-30">Search</button>
-    </div>
-    <div class="form-group col-2">
-        <button id="reset" class="btn btn-danger px-3 radius-30">Reset</button>
-    </div>
+<form action="" method="post" onkeydown="return event.key != 'Enter';" id="filter_form">
+    <div class="row">
 
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_type_of_visitor_id", new SelectList(ViewBag.TypeOfVisitors, "id", "name"), "Type Of Visitor", new { @class = "form-control", @name = "search_type_of_visitor_id", @id = "search_type_of_visitor_id" })
+        </div>
+        <div class="form-group col-md-3">
+            <select class="form-control" id="search_lead_stage_id" name="search_lead_stage_id">
+                <option value="">Select Stage</option>
+                <option value="1">New</option>
+                <option value="2">FollowUp</option>
+                <option value="3">Negotiation</option>
+                <option value="4">Meeting</option>
+                <option value="5">Deal</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_lead_category_id", new SelectList(ViewBag.LeadCategories, "id", "name"), "Lead Category", new { @class = "form-control", @name = "search_lead_category_id", @id = "search_lead_category_id" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_source_id", new SelectList(ViewBag.Sources, "id", "name"), "Source", new { @class = "form-control", @name = "search_source_id", @id = "search_source_id" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_property_type_id", new SelectList(ViewBag.PropertyTypes, "id", "name"), "Property Type", new { @class = "form-control", @name = "search_property_type_id", @id = "search_property_type_id" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_requirement_id", new SelectList(ViewBag.Requirements, "id", "name"), "Requirement", new { @class = "form-control", @name = "search_requirement_id", @id = "search_requirement_id" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_timeline_id", new SelectList(ViewBag.Timelines, "id", "name"), "Timeline", new { @class = "form-control", @name = "search_timeline_id", @id = "search_timeline_id" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_employment_type_id", new SelectList(ViewBag.EmploymentTypes, "id", "name"), "EmploymentType", new { @class = "form-control", @name = "search_employment_type_id", @id = "search_employment_type_id" })
+        </div>
+        <div class="form-group col-md-3">
+            @Html.DropDownList("search_assigned_user_id", new SelectList(ViewBag.DealUsers, "id", "full_name"), "Assigned User", new { @class = "form-control", @name = "search_assigned_user_id", @id = "search_assigned_user_id" })
+        </div>
+        <div class="form-group col-3">
+            <input class="form-control" type="date" id="search_from_date" name="search_from_date">
+        </div>
+        <div class="form-group col-3">
+            <input class="form-control" type="date" id="search_to_date" name="search_to_date">
+        </div>
+        <div class="form-group col-3">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="Search">
+        </div>
+        <!-- bootstrap class col removed by AA -->
+        <div class="form-group ">
+            <button id="search" type="button" class="btn btn-primary px-3 radius-30">Search</button>
+        </div>
+        <div class="form-group col-3">
+            <button id="reset" class="btn btn-danger px-3 radius-30">Reset</button>
+        </div>
+
+    </div>
+</form>
+<div class="row text-center">
+    <div class="col">
+        <div class="counter">
+            <i class="fa fa-plus fa-2x"></i>
+            <h2 class="timer count-title count-number" id="new_leads_counter" data-to="@ViewBag.newLeadsCounter" data-speed="1500"></h2>
+            <p class="count-text ">New</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="counter">
+            <i class="fas fa-user-clock fa-2x"></i>
+            <h2 class="timer count-title count-number" id="follow_up_leads_counter" data-to="@ViewBag.followUpLeadsCounter" data-speed="1500"></h2>
+            <p class="count-text ">Follow Up</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="counter">
+            <i class="fas fa-arrows-alt-h fa-2x"></i>
+            <h2 class="timer count-title count-number" id="negotiation_leads_counter" data-to="@ViewBag.negotiationLeadsCounter" data-speed="1500"></h2>
+            <p class="count-text ">Negotiation</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="counter">
+            <i class="fa fa-users fa-2x"></i>
+            <h2 class="timer count-title count-number" id="meeting_leads_counter" data-to="@ViewBag.meetingLeadsCounter" data-speed="1500"></h2>
+            <p class="count-text ">Meeting</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="counter">
+            <i class="far fa-handshake fa-2x"></i>
+            <h2 class="timer count-title count-number" id="deal_leads_counter" data-to="@ViewBag.deadLeadsCounter" data-speed="1500"></h2>
+            <p class="count-text ">Deal</p>
+        </div>
+    </div>
 </div>
-
 <div class="card">
     <div class="card-header">
         <a id="assign_leads" href="javascript:void(0)"><i class="fa fa-user"></i> Assign Leads</a>
@@ -682,7 +843,7 @@
                                var html = "";
                                if (oData.lead_stage_id)
                                {
-                                   if (oData.lead_stage_id == 1)
+                                   if (oData.lead_stage_id == 1 || oData.lead_stage_id == null)
                                        html += "New";
                                    else if(oData.lead_stage_id == 2)
                                        html += "FollowUp";
@@ -694,7 +855,7 @@
                                        html += "Meeting";
                                }
                                else
-                                   html += "-";
+                                   html += "New";
                                $(nTd).html("<span class='action-column'>" + html + "</span>");
                            }
                        },
@@ -789,8 +950,17 @@
 
             $('#search').on('click', function () {
                 datatable.search($("#text_search").val());
-                //datatable.columns(0).search($("#date-form").val());
-                //datatable.columns(1).search($("#date-to").val());
+                datatable.columns(0).search($("#search_type_of_visitor_id").val());
+                datatable.columns(1).search($("#search_lead_stage_id").val());
+                datatable.columns(2).search($("#search_lead_category_id").val());
+                datatable.columns(3).search($("#search_source_id").val());
+                datatable.columns(4).search($("#search_property_type_id").val());
+                datatable.columns(5).search($("#search_requirement_id").val());
+                datatable.columns(6).search($("#search_timeline_id").val());
+                datatable.columns(7).search($("#search_employment_type_id").val());
+                datatable.columns(8).search($("#search_assigned_user_id").val());
+                datatable.columns(9).search($("#search_from_date").val());
+                datatable.columns(10).search($("#search_to_date").val());
                 datatable.draw();
             });
 
@@ -801,23 +971,20 @@
 
             $('#reset').on('click', function () {
                 $("#text_search").val("");
-
+                $("#search_type_of_visitor_id").val("");
+                $("#search_lead_stage_id").val("");
+                $("#search_lead_category_id").val("");
+                $("#search_source_id").val("");
+                $("#search_property_type_id").val("");
+                $("#search_requirement_id").val("");
+                $("#search_timeline_id").val("");
+                $("#search_employment_type_id").val("");
+                $("#search_assigned_user_id").val("");
+                $("#search_from_date").val("");
+                $("#search_to_date").val("");
                 $('#search').trigger('click');
 
             });
-
-            //$('#date-form').bootstrapMaterialDatePicker({
-            //    time: false
-            //});
-
-            //$('#date-to').bootstrapMaterialDatePicker({
-            //    time: false
-            //});
-           //$("#image").click(function (event) {
-           //    var output = document.getElementById('image');
-           //    output.src = URL.createObjectURL(event.target.files[0]);
-           //});
-
 
            $("#assign_leads").click(function () {
                if (leads_ids.length != 0) {
@@ -1025,6 +1192,20 @@
                $("#lead_details_area_metric").text(data.area_metric);
                $("#lead_details_remark").text(data.remark);
 
+               $("#lead_details_employement_type").text(data.employment_type_name);
+               $("#lead_details_income").text(data.income);
+               $("#lead_details_designation").text(data.designation);
+               $("#lead_details_company_name").text(data.company_name);
+
+               $("#lead_details_location").text(data.location);
+               $("#lead_details_street_address").text(data.street_address);
+               $("#lead_details_sub_location").text(data.sub_location);
+               $("#lead_details_company_state").text(data.state);
+               $("#lead_details_company_pascode").text(data.pincode);
+               $("#lead_details_company_latitude").text(data.latitude);
+               $("#lead_details_company_longitude").text(data.longitude);
+               $("#lead_details_company_location_country").text(data.location_country);
+
                $("#manage_lead_details_modal").modal('show');
            });
 
@@ -1167,6 +1348,105 @@
                     });
                 });
             });
+
+           (function ($) {
+               $.fn.countTo = function (options) {
+                   options = options || {};
+
+                   return $(this).each(function () {
+                       // set options for current element
+                       var settings = $.extend({}, $.fn.countTo.defaults, {
+                           from: $(this).data('from'),
+                           to: $(this).data('to'),
+                           speed: $(this).data('speed'),
+                           refreshInterval: $(this).data('refresh-interval'),
+                           decimals: $(this).data('decimals')
+                       }, options);
+
+                       // how many times to update the value, and how much to increment the value on each update
+                       var loops = Math.ceil(settings.speed / settings.refreshInterval),
+                           increment = (settings.to - settings.from) / loops;
+
+                       // references & variables that will change with each update
+                       var self = this,
+                           $self = $(this),
+                           loopCount = 0,
+                           value = settings.from,
+                           data = $self.data('countTo') || {};
+
+                       $self.data('countTo', data);
+
+                       // if an existing interval can be found, clear it first
+                       if (data.interval) {
+                           clearInterval(data.interval);
+                       }
+                       data.interval = setInterval(updateTimer, settings.refreshInterval);
+
+                       // initialize the element with the starting value
+                       render(value);
+
+                       function updateTimer() {
+                           value += increment;
+                           loopCount++;
+
+                           render(value);
+
+                           if (typeof (settings.onUpdate) == 'function') {
+                               settings.onUpdate.call(self, value);
+                           }
+
+                           if (loopCount >= loops) {
+                               // remove the interval
+                               $self.removeData('countTo');
+                               clearInterval(data.interval);
+                               value = settings.to;
+
+                               if (typeof (settings.onComplete) == 'function') {
+                                   settings.onComplete.call(self, value);
+                               }
+                           }
+                       }
+
+                       function render(value) {
+                           var formattedValue = settings.formatter.call(self, value, settings);
+                           $self.html(formattedValue);
+                       }
+                   });
+               };
+
+               $.fn.countTo.defaults = {
+                   from: 0,               // the number the element should start at
+                   to: 0,                 // the number the element should end at
+                   speed: 1000,           // how long it should take to count between the target numbers
+                   refreshInterval: 100,  // how often the element should be updated
+                   decimals: 0,           // the number of decimal places to show
+                   formatter: formatter,  // handler for formatting the value before rendering
+                   onUpdate: null,        // callback method for every time the element is updated
+                   onComplete: null       // callback method for when the element finishes updating
+               };
+
+               function formatter(value, settings) {
+                   return value.toFixed(settings.decimals);
+               }
+           }(jQuery));
+
+           jQuery(function ($) {
+               // custom formatting example
+               $('.count-number').data('countToOptions', {
+                   formatter: function (value, options) {
+                       return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+                   }
+               });
+
+               // start all the timers
+               $('.timer').each(count);
+
+               function count(options) {
+                   var $this = $(this);
+                   options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+                   $this.countTo(options);
+               }
+           });
 
         });
 

@@ -28,8 +28,17 @@ namespace CRM.Controllers
                 var start = Request.Form.GetValues("start").FirstOrDefault();
                 var length = Request.Form.GetValues("length").FirstOrDefault();
                 var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
-                //var from_date = Request.Form.GetValues("columns[0][search][value]")[0];
-                //var to_date = Request.Form.GetValues("columns[1][search][value]")[0];
+                var search_type_of_visitor_id = Request.Form.GetValues("columns[0][search][value]")[0];
+                var search_lead_stage_id = Request.Form.GetValues("columns[1][search][value]")[0];
+                var search_lead_category_id = Request.Form.GetValues("columns[2][search][value]")[0];
+                var search_source_id = Request.Form.GetValues("columns[3][search][value]")[0];
+                var search_property_type_id = Request.Form.GetValues("columns[4][search][value]")[0];
+                var search_requirement_id = Request.Form.GetValues("columns[5][search][value]")[0];
+                var search_timeline_id = Request.Form.GetValues("columns[6][search][value]")[0];
+                var search_employment_type_id = Request.Form.GetValues("columns[7][search][value]")[0];
+                var search_assigned_user_id = Request.Form.GetValues("columns[8][search][value]")[0];
+                var search_from_date = Request.Form.GetValues("columns[9][search][value]")[0];
+                var search_to_date = Request.Form.GetValues("columns[10][search][value]")[0];
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 
@@ -106,6 +115,7 @@ namespace CRM.Controllers
                                     created_by = lead.created_by,
                                     updated_by = lead.updated_by,
                                     deleted_by = lead.deleted_by,
+                                    created_at = lead.created_at,
                                     created_at_string = lead.created_at.ToString(),
                                     decision_id = lead.decision_id,
                                     assigned_user_id = lead.assigned_user_id,
@@ -214,6 +224,71 @@ namespace CRM.Controllers
                      m.last_name.ToLower().Contains(searchValue.ToLower()));
                 }
 
+                if (!string.IsNullOrEmpty(search_type_of_visitor_id))
+                {
+                    int search_type_of_visitor_id_int = int.Parse(search_type_of_visitor_id);
+                    LeadData = LeadData.Where(s => s.type_of_visitor_id == search_type_of_visitor_id_int);
+                }
+
+                if (!string.IsNullOrEmpty(search_lead_stage_id))
+                {
+                    int search_lead_stage_id_int = int.Parse(search_lead_stage_id);
+                    LeadData = LeadData.Where(s => s.lead_stage_id == search_lead_stage_id_int);
+                }
+
+                if (!string.IsNullOrEmpty(search_lead_category_id))
+                {
+                    int search_lead_category_id_int = int.Parse(search_lead_category_id);
+                    LeadData = LeadData.Where(s => s.lead_category_id == search_lead_category_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_source_id))
+                {
+                    int search_source_id_int = int.Parse(search_source_id);
+                    LeadData = LeadData.Where(s => s.source_id == search_source_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_property_type_id))
+                {
+                    int search_property_type_id_int = int.Parse(search_property_type_id);
+                    LeadData = LeadData.Where(s => s.property_type_id == search_property_type_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_requirement_id))
+                {
+                    int search_requirement_id_int = int.Parse(search_requirement_id);
+                    LeadData = LeadData.Where(s => s.requirement_id == search_requirement_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_timeline_id))
+                {
+                    int search_timeline_id_int = int.Parse(search_timeline_id);
+                    LeadData = LeadData.Where(s => s.timeline_id == search_timeline_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_employment_type_id))
+                {
+                    int search_employment_type_id_int = int.Parse(search_employment_type_id);
+                    LeadData = LeadData.Where(s => s.employment_type_id == search_employment_type_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_assigned_user_id))
+                {
+                    int search_assigned_user_id_int = int.Parse(search_assigned_user_id);
+                    LeadData = LeadData.Where(s => s.assigned_user_id == search_assigned_user_id_int);
+                }
+
+                if (!string.IsNullOrEmpty(search_from_date))
+                {
+                    if (Convert.ToDateTime(search_from_date) != DateTime.MinValue)
+                    {
+                        DateTime from = Convert.ToDateTime(search_from_date);
+                        LeadData = LeadData.Where(s => s.created_at >= from);
+                    }
+                }
+                if (!string.IsNullOrEmpty(search_to_date))
+                {
+                    if (Convert.ToDateTime(search_to_date) != DateTime.MinValue)
+                    {
+                        DateTime to = Convert.ToDateTime(search_to_date);
+                        LeadData = LeadData.Where(s => s.created_at <= to);
+                    }
+                }
+
                 //total number of rows count     
                 var displayResult = LeadData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();
@@ -232,9 +307,106 @@ namespace CRM.Controllers
 
             ViewBag.Users = db.Users.Select(u => new { u.id, u.full_name }).ToList();
             ViewBag.DealUsers = db.Users.Where(u=>u.company_id == companyID).Select(u => new { u.id, u.full_name }).ToList();
-            ViewBag.Acitivities = db.Activities.Select(u => new { u.id, u.name }).ToList();
-            ViewBag.Properties = db.Properties.Select(u => new { u.id, u.name }).ToList();
-            ViewBag.Sources = db.Sources.Select(u => new { u.id, u.name }).ToList();
+            ViewBag.TypeOfVisitors = (from typeofvisitor in db.TypeOfVisitors
+                                   join user in db.Users on typeofvisitor.created_by equals user.id
+                                   select new TypeOfVisitorViewModel
+                                   {
+                                       id = typeofvisitor.id,
+                                       name = typeofvisitor.name,
+                                       company_id = user.company_id
+
+                                   }).Where(a => a.company_id == companyID).ToList();
+            ViewBag.LeadCategories = (from leadcategory in db.LeadCategories
+                                      join user in db.Users on leadcategory.created_by equals user.id
+                                      select new LeadCategoryViewModel
+                                      {
+                                          id = leadcategory.id,
+                                          name = leadcategory.name,
+                                          company_id = user.company_id
+
+                                      }).Where(a => a.company_id == companyID).ToList();
+            ViewBag.PropertyTypes = (from propertytype in db.PropertyTypes
+                                      join user in db.Users on propertytype.created_by equals user.id
+                                      select new PropertyTypeViewModel
+                                      {
+                                          id = propertytype.id,
+                                          name = propertytype.name,
+                                          company_id = user.company_id
+
+                                      }).Where(a => a.company_id == companyID).ToList();
+            ViewBag.Requirements = (from requirement in db.Requirements
+                                     join user in db.Users on requirement.created_by equals user.id
+                                     select new RequirementViewModel
+                                     {
+                                         id = requirement.id,
+                                         name = requirement.name,
+                                         company_id = user.company_id
+
+                                     }).Where(a => a.company_id == companyID).ToList();
+            ViewBag.Timelines = (from timeline in db.Timelines
+                                    join user in db.Users on timeline.created_by equals user.id
+                                    select new TimelineViewModel
+                                    {
+                                        id = timeline.id,
+                                        name = timeline.name,
+                                        company_id = user.company_id
+
+                                    }).Where(a => a.company_id == companyID).ToList();
+            ViewBag.EmploymentTypes = (from employmenttype in db.EmploymentTypes
+                                 join user in db.Users on employmenttype.created_by equals user.id
+                                 select new EmploymentTypeViewModel
+                                 {
+                                     id = employmenttype.id,
+                                     name = employmenttype.name,
+                                     company_id = user.company_id
+
+                                 }).Where(a => a.company_id == companyID).ToList();
+
+            ViewBag.Acitivities = (from activity in db.Activities
+                                   join user in db.Users on activity.created_by equals user.id
+                                   select new ActivityViewModel
+                                   {
+                                       id = activity.id,
+                                       name = activity.name,
+                                       company_id = user.company_id
+
+                                   }).Where(a => a.company_id == companyID).ToList();
+            ViewBag.Properties = (from property in db.Properties
+                                  join user in db.Users on property.created_by equals user.id
+                                  select new PropertyViewModel
+                                  {
+                                      id = property.id,
+                                      name = property.name,
+                                      company_id = user.company_id
+
+                                  }).Where(a => a.company_id == companyID).ToList();
+
+            ViewBag.Sources = (from source in db.Sources
+                               join user in db.Users on source.created_by equals user.id
+                               select new SourceViewModel
+                               {
+                                   id = source.id,
+                                   name = source.name,
+                                   company_id = user.company_id
+
+                               }).Where(a => a.company_id == companyID).ToList();
+
+            List<LeadViewModel> companyLeads = (from lead in db.Leads
+                                      join user in db.Users on lead.created_by equals user.id
+                                      select new LeadViewModel
+                                      {
+                                          id = lead.id,
+                                          lead_stage_id = lead.lead_stage_id,
+                                          company_id = user.company_id
+
+                                      }).Where(a => a.company_id == companyID).ToList();
+
+            ViewBag.newLeadsCounter = companyLeads.Where(l => l.lead_stage_id == (int)LeadStages.New || l.lead_stage_id == null).Count();
+            ViewBag.followUpLeadsCounter = companyLeads.Where(l => l.lead_stage_id == (int)LeadStages.FollowUp).Count();
+            ViewBag.negotiationLeadsCounter = companyLeads.Where(l => l.lead_stage_id == (int)LeadStages.Negotiation).Count();
+            ViewBag.meetingLeadsCounter = companyLeads.Where(l => l.lead_stage_id == (int)LeadStages.Meeting).Count();
+            ViewBag.deadLeadsCounter = companyLeads.Where(l => l.lead_stage_id == (int)LeadStages.Deal).Count();
+
             return View();
         }
 

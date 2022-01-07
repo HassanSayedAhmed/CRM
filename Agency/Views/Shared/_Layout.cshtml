@@ -21,6 +21,7 @@
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link href="~/Content/AdminPanelAssets/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/AdminPanelAssets/assets/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/AdminPanelAssets/assets/css/components/custom-counter.css" rel="stylesheet" type="text/css">
     <style class="dark-theme">
         #chart-2 path {
             stroke: #0e1726;
@@ -51,7 +52,7 @@
             <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
 
             <div class="nav-logo align-self-center">
-                <a class="navbar-brand" href="@Url.Action("Index","Dashboard")"><img alt="logo" src="~/Content/AdminPanelAssets/assets/img/CHECKINNOWLOGO.jpeg"></a>
+                <a class="navbar-brand" href="@Url.Action("Index","Dashboard")"><img alt="logo" src="~/images/crm.png"></a>
             </div>
 
             <ul class="navbar-item topbar-navigation">
@@ -62,7 +63,7 @@
                         <ul class="navbar-nav theme-brand flex-row  text-center">
                             <li class="nav-item theme-logo">
                                 <a href="@Url.Action("Index","Dashboard")">
-                                    <img src="~/Content/AdminPanelAssets/assets/img/CHECKINNOWLOGO.jpeg" class="navbar-logo" alt="logo">
+                                    <img src="~/images/crm.png" class="navbar-logo" alt="logo">
                                 </a>
                             </li>
                         </ul>
@@ -73,7 +74,6 @@
                                 <a href="@Url.Action("Index","Dashboard")">
                                     <div class="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-
                                         <span>Dashboard</span>
                                     </div>
                                 </a>
@@ -106,14 +106,17 @@
                                 <li class="menu single-menu">
                                     <a href="#app" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
                                         <div class="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fas fa-cog"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
                                             <span>Lookups</span>
                                         </div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                     </a>
                                     <ul class="collapse submenu list-unstyled" id="app" data-parent="#topAccordion">
+                                        @*<li>
+                                                <a href="@Url.Action("Index", "LeadStage")"> Lead Stage </a>
+                                            </li>*@
                                         <li>
-                                            <a href="@Url.Action("Index", "LeadStage")"> Lead Stage </a>
+                                            <a href="@Url.Action("Index", "Requirement")"> Requirement </a>
                                         </li>
                                         <li>
                                             <a href="@Url.Action("Index", "Timeline")"> Timeline </a>
@@ -153,7 +156,7 @@
                                 <li class="menu single-menu">
                                     <a href="@Url.Action("Index", "Project")">
                                         <div class="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fas fa-project-diagram"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
 
                                             <span>Projects</span>
                                         </div>
@@ -165,7 +168,7 @@
                                 <li class="menu single-menu">
                                     <a href="@Url.Action("Index", "Property")">
                                         <div class="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="far fa-building"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
 
                                             <span>Properties</span>
                                         </div>
@@ -177,7 +180,7 @@
                                 <li class="menu single-menu">
                                     <a href="@Url.Action("Index", "Lead")">
                                         <div class="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fab fa-usps"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
 
                                             <span>Leads</span>
                                         </div>
@@ -201,7 +204,7 @@
                 <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media">
-                            <img src="~/Content/AdminPanelAssets/assets/img/90x90.jpg" class="img-fluid" alt="admin-profile">
+                            <img src="~/images/userProfile.jpeg" class="img-fluid" alt="admin-profile">
                         </div>
                     </a>
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
@@ -276,6 +279,8 @@
     <script src="~/Content/AdminPanelAssets/plugins/font-icons/feather/feather.min.js"></script>
     <script src="~/Scripts/clipboard.js"></script>
     <script src="~/Content/AdminPanelAssets/assets/js/scrollspyNav.js"></script>
+    <script src="~/Content/AdminPanelAssets/plugins/counter/jquery.countTo.js"></script>
+    <script src="~/Content/AdminPanelAssets/assets/js/components/custom-counter.js"></script>
     <script type="text/javascript">
         feather.replace();
     </script>
