@@ -595,93 +595,100 @@
 
 </div>
 
-
-<form action="" method="post" onkeydown="return event.key != 'Enter';" id="filter_form">
-    <div class="row">
-
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_type_of_visitor_id", new SelectList(ViewBag.TypeOfVisitors, "id", "name"), "Type Of Visitor", new { @class = "form-control", @name = "search_type_of_visitor_id", @id = "search_type_of_visitor_id" })
-        </div>
-        <div class="form-group col-md-3">
-            <select class="form-control" id="search_lead_stage_id" name="search_lead_stage_id">
-                <option value="">Select Stage</option>
-                <option value="1">New</option>
-                <option value="2">FollowUp</option>
-                <option value="3">Negotiation</option>
-                <option value="4">Meeting</option>
-                <option value="5">Deal</option>
-            </select>
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_lead_category_id", new SelectList(ViewBag.LeadCategories, "id", "name"), "Lead Category", new { @class = "form-control", @name = "search_lead_category_id", @id = "search_lead_category_id" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_source_id", new SelectList(ViewBag.Sources, "id", "name"), "Source", new { @class = "form-control", @name = "search_source_id", @id = "search_source_id" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_property_type_id", new SelectList(ViewBag.PropertyTypes, "id", "name"), "Property Type", new { @class = "form-control", @name = "search_property_type_id", @id = "search_property_type_id" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_requirement_id", new SelectList(ViewBag.Requirements, "id", "name"), "Requirement", new { @class = "form-control", @name = "search_requirement_id", @id = "search_requirement_id" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_timeline_id", new SelectList(ViewBag.Timelines, "id", "name"), "Timeline", new { @class = "form-control", @name = "search_timeline_id", @id = "search_timeline_id" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_employment_type_id", new SelectList(ViewBag.EmploymentTypes, "id", "name"), "EmploymentType", new { @class = "form-control", @name = "search_employment_type_id", @id = "search_employment_type_id" })
-        </div>
-        <div class="form-group col-md-3">
-            @Html.DropDownList("search_assigned_user_id", new SelectList(ViewBag.DealUsers, "id", "full_name"), "Assigned User", new { @class = "form-control", @name = "search_assigned_user_id", @id = "search_assigned_user_id" })
-        </div>
-        <div class="form-group col-3">
-            <input class="form-control" type="date" id="search_from_date" name="search_from_date">
-        </div>
-        <div class="form-group col-3">
-            <input class="form-control" type="date" id="search_to_date" name="search_to_date">
-        </div>
-        <div class="form-group col-3">
-            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="Search">
-        </div>
-        <!-- bootstrap class col removed by AA -->
-        <div class="form-group ">
-            <button id="search" type="button" class="btn btn-primary px-3 radius-30">Search</button>
-        </div>
-        <div class="form-group col-3">
-            <button id="reset" class="btn btn-danger px-3 radius-30">Reset</button>
-        </div>
-
+<div class="card mb-2">
+    <div class="card-header">
+        Advanced Search
     </div>
-</form>
-<div class="row text-center">
-    <div class="col">
+    <div class="card-body" style="padding:10px;">
+        <form action="" method="post" onkeydown="return event.key != 'Enter';" id="filter_form">
+            <div class="row">
+
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_type_of_visitor_id", new SelectList(ViewBag.TypeOfVisitors, "id", "name"), "Type Of Visitor", new { @class = "form-control", @name = "search_type_of_visitor_id", @id = "search_type_of_visitor_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    <select class="form-control" id="search_lead_stage_id" name="search_lead_stage_id">
+                        <option value="">Select Stage</option>
+                        <option value="1">New</option>
+                        <option value="2">FollowUp</option>
+                        <option value="3">Negotiation</option>
+                        <option value="4">Meeting</option>
+                        <option value="5">Deal</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_lead_category_id", new SelectList(ViewBag.LeadCategories, "id", "name"), "Lead Category", new { @class = "form-control", @name = "search_lead_category_id", @id = "search_lead_category_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_source_id", new SelectList(ViewBag.Sources, "id", "name"), "Source", new { @class = "form-control", @name = "search_source_id", @id = "search_source_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_property_type_id", new SelectList(ViewBag.PropertyTypes, "id", "name"), "Property Type", new { @class = "form-control", @name = "search_property_type_id", @id = "search_property_type_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_requirement_id", new SelectList(ViewBag.Requirements, "id", "name"), "Requirement", new { @class = "form-control", @name = "search_requirement_id", @id = "search_requirement_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_timeline_id", new SelectList(ViewBag.Timelines, "id", "name"), "Timeline", new { @class = "form-control", @name = "search_timeline_id", @id = "search_timeline_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_employment_type_id", new SelectList(ViewBag.EmploymentTypes, "id", "name"), "EmploymentType", new { @class = "form-control", @name = "search_employment_type_id", @id = "search_employment_type_id" })
+                </div>
+                <div class="form-group col-md-3">
+                    @Html.DropDownList("search_assigned_user_id", new SelectList(ViewBag.DealUsers, "id", "full_name"), "Assigned User", new { @class = "form-control", @name = "search_assigned_user_id", @id = "search_assigned_user_id" })
+                </div>
+                <div class="form-group col-3">
+                    <input class="form-control" type="date" id="search_from_date" name="search_from_date">
+                </div>
+                <div class="form-group col-3">
+                    <input class="form-control" type="date" id="search_to_date" name="search_to_date">
+                </div>
+                <div class="form-group col-3">
+                    <input class="form-control" type="text" id="text_search" name="text_search" placeholder="Search">
+                </div>
+                <!-- bootstrap class col removed by AA -->
+                <div class="form-group ">
+                    <button id="search" type="button" class="btn btn-primary px-3 radius-30">Search</button>
+                </div>
+                <div class="form-group col-3">
+                    <button id="reset" class="btn btn-danger px-3 radius-30">Reset</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row text-center mb-2">
+    <div class="col" style="border-radius: 25px;">
         <div class="counter">
             <i class="fa fa-plus fa-2x"></i>
             <h2 class="timer count-title count-number" id="new_leads_counter" data-to="@ViewBag.newLeadsCounter" data-speed="1500"></h2>
             <p class="count-text ">New</p>
         </div>
     </div>
-    <div class="col">
+    <div class="col" style="border-radius: 25px;">
         <div class="counter">
             <i class="fas fa-user-clock fa-2x"></i>
             <h2 class="timer count-title count-number" id="follow_up_leads_counter" data-to="@ViewBag.followUpLeadsCounter" data-speed="1500"></h2>
             <p class="count-text ">Follow Up</p>
         </div>
     </div>
-    <div class="col">
+    <div class="col" style="border-radius: 25px;">
         <div class="counter">
             <i class="fas fa-arrows-alt-h fa-2x"></i>
             <h2 class="timer count-title count-number" id="negotiation_leads_counter" data-to="@ViewBag.negotiationLeadsCounter" data-speed="1500"></h2>
             <p class="count-text ">Negotiation</p>
         </div>
     </div>
-    <div class="col">
+    <div class="col" style="border-radius: 25px;">
         <div class="counter">
             <i class="fa fa-users fa-2x"></i>
             <h2 class="timer count-title count-number" id="meeting_leads_counter" data-to="@ViewBag.meetingLeadsCounter" data-speed="1500"></h2>
             <p class="count-text ">Meeting</p>
         </div>
     </div>
-    <div class="col">
+    <div class="col" style="border-radius: 25px;">
         <div class="counter">
             <i class="far fa-handshake fa-2x"></i>
             <h2 class="timer count-title count-number" id="deal_leads_counter" data-to="@ViewBag.deadLeadsCounter" data-speed="1500"></h2>
